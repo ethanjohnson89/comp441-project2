@@ -8,13 +8,14 @@
 #include "image.h"
 #include "entity.h"
 #include "dashboard.h"
+#include "Character.h"
 
 class RaccoonRun : public Game
 {
 private:
 	// game variables
     TextureManager jpoTexture;
-	Entity jpo;
+	Character jpo;
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
 	bool keyDownThisFrame;

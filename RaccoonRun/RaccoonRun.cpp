@@ -30,8 +30,6 @@ void RaccoonRun::initialize(HWND hwnd)
     jpo.setX(GAME_WIDTH/4);
     jpo.setY(GAME_HEIGHT - (GAME_HEIGHT/3));
     jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);   // animation frames
-    jpo.setCurrentFrame(JPO_LOOKING_RIGHT_START);     // starting frame
-    jpo.setFrameDelay(JPO_ANIMATION_DELAY);
 
 	lastDirection = right;
 	keyDownLastFrame = false;

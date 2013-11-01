@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="dashboardDemo.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="dashboardDemo.h" />
