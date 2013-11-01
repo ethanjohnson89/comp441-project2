@@ -1,7 +1,8 @@
 // Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
-// Dashboard constants.h v1.0
+// Game Engine constants.h v2.7
+// Last modification: Apr-3-2013
 
 #ifndef _CONSTANTS_H            // Prevent multiple definitions if this 
 #define _CONSTANTS_H            // file is included in more than one place
@@ -9,20 +10,65 @@
 
 #include <windows.h>
 
-//-----------------------------------------------
-// Useful macros
-//-----------------------------------------------
-// Safely delete pointer referenced item
-#define SAFE_DELETE(ptr)       { if (ptr) { delete (ptr); (ptr)=NULL; } }
+//=============================================================================
+// Function templates for safely dealing with pointer referenced items.
+// The functions defined by these templates may be called using a normal
+// function call syntax. The compiler will create a function that replaces T
+// with the type of the calling parameter.
+//=============================================================================
 // Safely release pointer referenced item
-#define SAFE_RELEASE(ptr)      { if(ptr) { (ptr)->Release(); (ptr)=NULL; } }
+template <typename T>
+inline void safeRelease(T& ptr)
+{
+    if (ptr)
+    { 
+        ptr->Release(); 
+        ptr = NULL;
+    }
+}
+#define SAFE_RELEASE safeRelease            // for backward compatiblility
+
+// Safely delete pointer referenced item
+template <typename T>
+inline void safeDelete(T& ptr)
+{
+    if (ptr)
+    { 
+        delete ptr; 
+        ptr = NULL;
+    }
+}
+#define SAFE_DELETE safeDelete              // for backward compatiblility
+
 // Safely delete pointer referenced array
-#define SAFE_DELETE_ARRAY(ptr) { if(ptr) { delete [](ptr); (ptr)=NULL; } }
+template <typename T>
+inline void safeDeleteArray(T& ptr)
+{
+    if (ptr)
+    { 
+        delete[] ptr; 
+        ptr = NULL;
+    }
+}
+#define SAFE_DELETE_ARRAY safeDeleteArray   // for backward compatiblility
+
 // Safely call onLostDevice
-#define SAFE_ON_LOST_DEVICE(ptr)    { if(ptr) { ptr->onLostDevice(); } }
+template <typename T>
+inline void safeOnLostDevice(T& ptr)
+{
+    if (ptr)
+        ptr->onLostDevice(); 
+}
+#define SAFE_ON_LOST_DEVICE safeOnLostDevice    // for backward compatiblility
+
 // Safely call onResetDevice
-#define SAFE_ON_RESET_DEVICE(ptr)   { if(ptr) { ptr->onResetDevice(); } }
-#define TRANSCOLOR  SETCOLOR_ARGB(0,255,0,255)  // transparent color (magenta)
+template <typename T>
+inline void safeOnResetDevice(T& ptr)
+{
+    if (ptr)
+        ptr->onResetDevice(); 
+}
+#define SAFE_ON_RESET_DEVICE safeOnResetDevice  // for backward compatiblility
 
 //-----------------------------------------------
 //                  Constants
@@ -41,9 +87,28 @@ const float FRAME_RATE = 200.0;         // the target frame rate (frames/sec)
 const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
+const float GRAVITY = 2000.0f;                  // acceleration of gravity pixels/sec
 
 // graphic images
 const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
+const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
+
+const float JPO_ANIMATION_DELAY = 0.2f;    // time between frames of ship animation
+//JPO Cel
+const int  JPO_COLS = 4;
+const int  JPO_WIDTH = 128;
+const int  JPO_HEIGHT = 130;
+//JPO actions
+const int JPO_LOOKING_RIGHT_START = 0;			//1st row
+const int JPO_LOOKING_RIGHT_END = 3;
+const int JPO_LOOKING_LEFT_START = 4;				//2nd row
+const int JPO_LOOKING_LEFT_END = 7;
+const int JPO_WALKING_RIGHT_START = 8;
+const int JPO_WALKING_RIGHT_END = 11;
+const int JPO_WALKING_LEFT_START = 12;
+const int JPO_WALKING_LEFT_END = 15;
+
+const float JPO_SPEED = 90.5f;
 
 // audio files
 const char WAVE_BANK[] = "";
@@ -59,5 +124,10 @@ const UCHAR ESC_KEY      = VK_ESCAPE;   // escape key
 const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 
+const UCHAR JPO_LEFT_KEY    = VK_LEFT;     // left arrow
+const UCHAR JPO_RIGHT_KEY   = VK_RIGHT;    // right arrow
+const UCHAR JPO_UP_KEY      = VK_UP;       // up arrow
+const UCHAR JPO_DOWN_KEY    = VK_DOWN;     // down arrow
+const UCHAR JPO_JUMP_KEY	= VK_SPACE;	   // spacebar
 
 #endif

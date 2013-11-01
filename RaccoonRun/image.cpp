@@ -1,7 +1,8 @@
 // Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
-// Image.cpp v1.0
+// Image.cpp v1.3
+// Last modification: Feb-23-2013
 
 #include "image.h"
 
@@ -88,15 +89,16 @@ bool Image::initialize(Graphics *g, int width, int height, int ncols,
 //=============================================================================
 // Draw the image using color as filter
 // The color parameter is optional, WHITE is assigned as default in image.h
+// The textureN parameter is optional, 0 is default.
 // Pre : spriteBegin() is called
 // Post: spriteEnd() is called
 //=============================================================================
-void Image::draw(COLOR_ARGB color)
+void Image::draw(COLOR_ARGB color, UINT textureN)
 {
     if (!visible || graphics == NULL)
         return;
-    // get fresh texture incase onReset() was called
-    spriteData.texture = textureManager->getTexture();
+    // set texture to draw
+    spriteData.texture = textureManager->getTexture(textureN);
     if(color == graphicsNS::FILTER)                     // if draw with filter
         graphics->drawSprite(spriteData, colorFilter);  // use colorFilter
     else
@@ -109,13 +111,12 @@ void Image::draw(COLOR_ARGB color)
 // Pre : spriteBegin() is called
 // Post: spriteEnd() is called
 //=============================================================================
-void Image::draw(SpriteData sd, COLOR_ARGB color)
+void Image::draw(SpriteData sd, COLOR_ARGB color, UINT textureN)
 {
     if (!visible || graphics == NULL)
         return;
     sd.rect = spriteData.rect;                  // use this Images rect to select texture
-    sd.texture = textureManager->getTexture();  // get fresh texture incase onReset() was called
-
+    sd.texture = textureManager->getTexture(textureN);  // set texture to draw
     if(color == graphicsNS::FILTER)             // if draw with filter
         graphics->drawSprite(sd, colorFilter);  // use colorFilter
     else

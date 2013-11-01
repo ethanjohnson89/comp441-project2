@@ -1,11 +1,14 @@
 // Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
-// image.h v1.2
+// image.h v1.3
+// Last modification: Feb-23-2013
 
 #ifndef _IMAGE_H                // Prevent multiple definitions if this 
 #define _IMAGE_H                // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
+
+class Image;
 
 #include "textureManager.h"
 #include "constants.h"
@@ -40,9 +43,6 @@ class Image
     ////////////////////////////////////////
     //           Get functions            //
     ////////////////////////////////////////
-
-    // Return reference to SpriteData structure.
-    const virtual SpriteData& getSpriteInfo() {return spriteData;}
 
     // Return visible parameter.
     virtual bool  getVisible()  {return visible;}
@@ -85,6 +85,10 @@ class Image
 
     // Return number of current frame.
     virtual int   getCurrentFrame() {return currentFrame;}
+
+    // Return reference to SpriteData structure.
+    const virtual SpriteData& getSpriteInfo() {return spriteData;}  // for backward compatibility
+    const virtual SpriteData& getSpriteData() {return spriteData;}
 
     // Return RECT structure of Image.
     virtual RECT  getSpriteDataRect() {return spriteData.rect;}
@@ -167,11 +171,20 @@ class Image
     virtual void flipVertical(bool flip)    {spriteData.flipVertical = flip;}
 
     // Draw Image using color as filter. Default color is WHITE.
-    virtual void draw(COLOR_ARGB color = graphicsNS::WHITE);
+    // textureN is number of texture in textureManager 
+    virtual void draw(COLOR_ARGB color, UINT textureN);
+
+    // Draw Image using color as filter. Default color is WHITE.
+    virtual void draw(COLOR_ARGB color = graphicsNS::WHITE) { draw(color, 0); }
+
+    // Draw Image using default color filter.
+    // textureN is number of texture in textureManager 
+    virtual void draw(UINT textureN) { draw(graphicsNS::WHITE, textureN); }
 
     // Draw this image using the specified SpriteData.
-    //   The current SpriteData.rect is used to select the texture.
-    virtual void draw(SpriteData sd, COLOR_ARGB color = graphicsNS::WHITE); // draw with SpriteData using color as filter
+    // The current SpriteData.rect is used to select the texture.
+    // textureN is number of texture in textureManager 
+    virtual void draw(SpriteData sd, COLOR_ARGB color = graphicsNS::WHITE, UINT textureN=0);
 
     // Update the animation. frameTime is used to regulate the speed.
     virtual void update(float frameTime);

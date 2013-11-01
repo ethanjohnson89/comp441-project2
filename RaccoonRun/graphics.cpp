@@ -1,7 +1,8 @@
 // Programming 2D Games
-// Copyright (c) 2011,2012 by:
+// Copyright (c) 2011 by:
 // Charles Kelly
-// graphics.cpp v1.1
+// graphics.cpp v1.6
+// Last modification: March-28-2013
 
 
 #include "graphics.h"
@@ -15,9 +16,12 @@ Graphics::Graphics()
     device3d = NULL;
     sprite = NULL;
     fullscreen = false;
+    stencilSupport = false;
     width = GAME_WIDTH;    // width & height are replaced in initialize()
     height = GAME_HEIGHT;
     backColor = graphicsNS::BACK_COLOR;
+    pOcclusionQuery = NULL;
+    numberOfPixelsColliding = 0;
 }
 
 //=============================================================================
@@ -33,9 +37,10 @@ Graphics::~Graphics()
 //=============================================================================
 void Graphics::releaseAll()
 {
-    SAFE_RELEASE(sprite);
-    SAFE_RELEASE(device3d);
-    SAFE_RELEASE(direct3d);
+    safeRelease(pOcclusionQuery);
+    safeRelease(sprite);
+    safeRelease(device3d);
+    safeRelease(direct3d);
 }
 
 //=============================================================================
@@ -97,6 +102,18 @@ void Graphics::initialize(HWND hw, int w, int h, bool full)
     device3d->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
     device3d->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     device3d->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+    // Check if the device supports 8-bit stencil buffering. 
+    if( FAILED( direct3d->CheckDeviceFormat(caps.AdapterOrdinal,
+                                            caps.DeviceType,  
+                                            d3dpp.BackBufferFormat,  
+                                            D3DUSAGE_DEPTHSTENCIL, 
+                                            D3DRTYPE_SURFACE,
+                                            D3DFMT_D24S8 ) ) )
+        stencilSupport = false;
+    else
+        stencilSupport = true;
+    // Create query object, used for pixel perfect collision detection
+    device3d->CreateQuery(D3DQUERYTYPE_OCCLUSION, &pOcclusionQuery);
 }
 
 //=============================================================================
@@ -118,6 +135,8 @@ void Graphics::initD3Dpp()
         d3dpp.hDeviceWindow     = hwnd;
         d3dpp.Windowed          = (!fullscreen);
         d3dpp.PresentationInterval   = D3DPRESENT_INTERVAL_IMMEDIATE;
+        d3dpp.EnableAutoDepthStencil = true;
+        d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;    // Depth 24, Stencil 8
     } catch(...)
     {
         throw(GameError(gameErrorNS::FATAL_ERROR, 
@@ -295,7 +314,6 @@ bool Graphics::drawQuad(LP_VERTEXBUFFER vertexBuffer)
 //=============================================================================
 HRESULT Graphics::showBackbuffer()
 {
-    result = E_FAIL;    // default to fail, replace on success
     // Display backbuffer to screen
     result = device3d->Present(NULL, NULL, NULL, NULL);
     return result;
@@ -384,37 +402,6 @@ void Graphics::drawSprite(const SpriteData &spriteData, COLOR_ARGB color)
 }
 
 //=============================================================================
-// Test for lost device
-//=============================================================================
-HRESULT Graphics::getDeviceState()
-{ 
-    result = E_FAIL;    // default to fail, replace on success
-    if (device3d == NULL)
-        return  result;
-    result = device3d->TestCooperativeLevel(); 
-    return result;
-}
-
-//=============================================================================
-// Reset the graphics device
-//=============================================================================
-HRESULT Graphics::reset()
-{
-    result = E_FAIL;    // default to fail, replace on success
-    initD3Dpp();                        // init D3D presentation parameters
-    sprite->OnLostDevice();
-    result = device3d->Reset(&d3dpp);   // attempt to reset graphics device
-
-    // Configure for alpha blend of primitives
-    device3d->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-    device3d->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-    device3d->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
-    sprite->OnResetDevice();
-    return result;
-}
-
-//=============================================================================
 // Toggle window or fullscreen mode
 // Pre: All user created D3DPOOL_DEFAULT surfaces are freed.
 // Post: All user surfaces are recreated.
@@ -474,4 +461,94 @@ void Graphics::changeDisplayMode(graphicsNS::DISPLAY_MODE mode)
                     GAME_HEIGHT+(GAME_HEIGHT-clientRect.bottom), // Bottom
                     TRUE);                                       // Repaint the window
     }
+}
+
+//=============================================================================
+// Return the number of pixels colliding between the two sprites.
+// Pre: The device supports a stencil buffer and pOcclusionQuery points to
+// a valid occlusionQuery object.
+// Post: Returns the number of pixels of overlap
+//=============================================================================
+DWORD Graphics::pixelCollision(const SpriteData &sprite1, const SpriteData &sprite2)
+{
+    if(!stencilSupport)     // if no stencil buffer support
+        return 0;
+
+    beginScene();
+
+    // Set up stencil buffer using current entity
+    device3d->SetRenderState(D3DRS_STENCILENABLE,   true);
+    device3d->SetRenderState(D3DRS_STENCILFUNC,     D3DCMP_ALWAYS);
+    device3d->SetRenderState(D3DRS_STENCILREF,      0x1);
+    device3d->SetRenderState(D3DRS_STENCILMASK,     0xffffffff);
+    device3d->SetRenderState(D3DRS_STENCILWRITEMASK,0xffffffff);
+    device3d->SetRenderState(D3DRS_STENCILFAIL,     D3DSTENCILOP_KEEP);
+    device3d->SetRenderState(D3DRS_STENCILPASS,     D3DSTENCILOP_REPLACE);
+
+    // Write a 1 into the stencil buffer for each non-transparent pixel in ent
+    spriteBegin();
+    // Enable stencil buffer (must be after spriteBegin)
+    device3d->SetRenderState(D3DRS_STENCILENABLE,   true);
+    drawSprite(sprite2);            // write 1s to stencil buffer
+    spriteEnd();
+
+    // Change stencil buffer to only allow writes where the stencil value is 1
+    // (where the ent sprite is colliding with the current sprite)
+    device3d->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+    device3d->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+    
+    // Begin occlusion query to count pixels that are drawn
+    pOcclusionQuery->Issue(D3DISSUE_BEGIN);
+
+    spriteBegin();
+    // Enable stencil buffer (must be after spriteBegin)
+    device3d->SetRenderState(D3DRS_STENCILENABLE,   true);
+    drawSprite(sprite1);            // draw current entity 
+    spriteEnd();
+    // End occlusion query
+    pOcclusionQuery->Issue(D3DISSUE_END);
+
+    // Wait until the GPU is finished.
+    while(S_FALSE == pOcclusionQuery->GetData( &numberOfPixelsColliding, 
+                                  sizeof(DWORD), D3DGETDATA_FLUSH ))
+    {}
+
+    // Turn off stencil
+    device3d->SetRenderState(D3DRS_STENCILENABLE, false);
+
+    endScene();
+    return numberOfPixelsColliding;
+}
+
+//=============================================================================
+// Test for lost device
+//=============================================================================
+HRESULT Graphics::getDeviceState()
+{ 
+    result = E_FAIL;    // default to fail, replace on success
+    if (device3d == NULL)
+        return  result;
+    result = device3d->TestCooperativeLevel(); 
+    return result;
+}
+
+//=============================================================================
+// Reset the graphics device
+//=============================================================================
+HRESULT Graphics::reset()
+{
+    safeRelease(pOcclusionQuery);       // release query
+    initD3Dpp();                        // init D3D presentation parameters
+    sprite->OnLostDevice();             // release sprite
+    result = device3d->Reset(&d3dpp);   // attempt to reset graphics device
+
+    // Configure for alpha blend of primitives
+    device3d->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+    device3d->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+    device3d->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+    // recreate query
+    device3d->CreateQuery(D3DQUERYTYPE_OCCLUSION, &pOcclusionQuery);
+    sprite->OnResetDevice();            // recreate sprite
+    return result;
 }

@@ -1,7 +1,8 @@
 // Programming 2D Games
 // Copyright (c) 2011 by:
 // Charles Kelly
-// graphics.h v1.0
+// graphics.h v1.6
+// Last modification: March-28-2013
 
 #ifndef _GRAPHICS_H             // Prevent multiple definitions if this 
 #define _GRAPHICS_H             // file is included in more than one place
@@ -10,6 +11,9 @@
 #ifdef _DEBUG
 #define D3D_DEBUG_INFO
 #endif
+
+class Graphics;
+
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "constants.h"
@@ -26,6 +30,9 @@
 #define LP_VERTEXBUFFER LPDIRECT3DVERTEXBUFFER9
 
 // Color defines
+// ARGB numbers range from 0 through 255
+// a = Alpha channel (transparency where 255 is opaque)
+// r = Red, g = Green, b = Blue
 #define COLOR_ARGB DWORD
 #define SETCOLOR_ARGB(a,r,g,b) \
     ((COLOR_ARGB)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
@@ -58,6 +65,7 @@ namespace graphicsNS
     const COLOR_ARGB ALPHA25 = D3DCOLOR_ARGB( 64,255,255,255);  // AND with color to get 25% alpha
     const COLOR_ARGB ALPHA50 = D3DCOLOR_ARGB(128,255,255,255);  // AND with color to get 50% alpha
     const COLOR_ARGB BACK_COLOR = NAVY;                         // background color of game
+    const COLOR_ARGB TRANSCOLOR = MAGENTA;                      // transparent color
 
     enum DISPLAY_MODE{TOGGLE, FULLSCREEN, WINDOW};
 }
@@ -98,11 +106,14 @@ private:
     LP_SPRITE   sprite;
     D3DPRESENT_PARAMETERS d3dpp;
     D3DDISPLAYMODE pMode;
+    IDirect3DQuery9* pOcclusionQuery;   // for pixel perfect collision detection
+    DWORD   numberOfPixelsColliding;    // for pixel perfect collision detection
 
     // other variables
     HRESULT     result;         // standard Windows return codes
     HWND        hwnd;
     bool        fullscreen;
+    bool        stencilSupport; // true if device supports stencil buffer
     int         width;
     int         height;
     COLOR_ARGB  backColor;      // background color
@@ -197,25 +208,37 @@ public:
     // Transform vector v with matrix m.
     static VECTOR2* Vector2Transform(VECTOR2 *v, D3DXMATRIX *m) {return D3DXVec2TransformCoord(v,v,m);}
 
+    // Return the number of pixels colliding between the two sprites.
+    // Pre: The device supports a stencil buffer and pOcclusionQuery points to
+    // a valid occlusionQuery object.
+    // Post: Returns the number of pixels of overlap
+    DWORD pixelCollision(const SpriteData &sprite1, const SpriteData &sprite2);
+
     // get functions
     // Return direct3d.
-    LP_3D   get3D()             { return direct3d; }
+    LP_3D get3D()               { return direct3d; }
 
     // Return device3d.
     LP_3DDEVICE get3Ddevice()   { return device3d; }
 
     // Return sprite
-    LP_SPRITE   getSprite()     { return sprite; }
+    LP_SPRITE getSprite()       { return sprite; }
 
     // Return handle to device context (window).
-    HDC     getDC()             { return GetDC(hwnd); }
+    HDC getDC()                 { return GetDC(hwnd); }
 
     // Test for lost device
     HRESULT getDeviceState();
 
     // Return fullscreen
-    bool    getFullscreen()     { return fullscreen; }
- 
+    bool getFullscreen()        { return fullscreen; }
+
+    // Return pOcclusionQuery
+    IDirect3DQuery9* getPOcclusionQuery()   { return pOcclusionQuery; }
+
+    // Returns true if the graphics card supports a stencil buffer
+    bool getStencilSupport()    { return stencilSupport; }
+
     // Set color used to clear screen
     void setBackColor(COLOR_ARGB c) {backColor = c;}
 
@@ -227,8 +250,11 @@ public:
         result = E_FAIL;
         if(device3d == NULL)
             return result;
-        // clear backbuffer to backColor
-        device3d->Clear(0, NULL, D3DCLEAR_TARGET, backColor, 1.0F, 0);
+        // Clear back buffer, stencil buffer and depth buffer
+        device3d->Clear(0, 0, 
+            D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER,
+            backColor, 1.0f, 0);
+
         result = device3d->BeginScene();          // begin scene for drawing
         return result;
     }

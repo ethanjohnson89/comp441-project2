@@ -6,13 +6,18 @@
 #include "constants.h"
 #include "textureManager.h"
 #include "image.h"
+#include "entity.h"
 #include "dashboard.h"
 
 class RaccoonRun : public Game
 {
 private:
 	// game variables
-    
+    TextureManager jpoTexture;
+	Entity jpo;
+	enum LastDirection {left, right} lastDirection;
+	bool keyDownLastFrame;
+	bool keyDownThisFrame;
 
 public:
     RaccoonRun();
@@ -20,8 +25,8 @@ public:
     void initialize(HWND hwnd);
 	void reset();
     void update();
-    void ai() {};
-    void collisions() {};
+    void ai();
+    void collisions();
     void render();
 	void releaseAll();
 	void resetAll();
