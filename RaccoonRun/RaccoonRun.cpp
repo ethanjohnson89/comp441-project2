@@ -45,10 +45,15 @@ void RaccoonRun::initialize(HWND hwnd)
 void RaccoonRun::update()
 {
 	// JPo code imported from class exercise - added jumping to test platform
+	VECTOR2 currentVelocity = jpo.getVelocity();
+	VECTOR2 newVelocity = currentVelocity;
+
 	if(input->isKeyDown(JPO_JUMP_KEY))
 	{
-		// make JPo jump (need to implement gravity!)
+		// make JPo jump!
+		newVelocity = VECTOR2(newVelocity.x, -100);
 	}
+
 	if(input->isKeyDown(JPO_RIGHT_KEY))            // if move right
 	{
 		if(!keyDownLastFrame || lastDirection == left)
@@ -57,9 +62,8 @@ void RaccoonRun::update()
 			jpo.setCurrentFrame(JPO_WALKING_RIGHT_START);
 		}
 
-		jpo.setX(jpo.getX() + frameTime * JPO_SPEED);
-		if (jpo.getX() > GAME_WIDTH)               // if off screen right
-			jpo.setX((float)-jpo.getWidth());     // position off screen left
+		//jpo.setX(jpo.getX() + frameTime * JPO_SPEED);
+		newVelocity = VECTOR2(JPO_SPEED, newVelocity.y);
 
 		lastDirection = right;
 		keyDownLastFrame = keyDownThisFrame;
@@ -73,9 +77,8 @@ void RaccoonRun::update()
 			jpo.setFrames(JPO_WALKING_LEFT_START, JPO_WALKING_LEFT_END);
 		}
 
-		jpo.setX(jpo.getX() - frameTime * JPO_SPEED);
-		if (jpo.getX() < -jpo.getWidth())         // if off screen left
-			jpo.setX((float)GAME_WIDTH);           // position off screen right
+		//jpo.setX(jpo.getX() - frameTime * JPO_SPEED);
+		newVelocity = VECTOR2(-JPO_SPEED, newVelocity.y);
 
 		lastDirection = left;
 		keyDownLastFrame = keyDownThisFrame;
@@ -85,6 +88,7 @@ void RaccoonRun::update()
 	{
 		if(keyDownLastFrame)
 		{
+			newVelocity = VECTOR2(0, newVelocity.y);
 			if(lastDirection == right)
 			{
 				jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
@@ -100,6 +104,8 @@ void RaccoonRun::update()
 		keyDownLastFrame = keyDownThisFrame;
 		keyDownThisFrame = false;
 	}
+
+	jpo.setVelocity(newVelocity);
 
 	jpo.update(frameTime);
 }
