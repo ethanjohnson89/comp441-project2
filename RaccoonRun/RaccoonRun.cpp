@@ -12,6 +12,7 @@ RaccoonRun::RaccoonRun()
 RaccoonRun::~RaccoonRun()
 {
     releaseAll();           // call onLostDevice() for every graphics item
+	delete debugFont;
 }
 
 //=============================================================================
@@ -22,6 +23,13 @@ void RaccoonRun::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
+	// Initialize fonts
+	debugFont = new TextDX();
+    if(debugFont->initialize(graphics, 30, true, false, "Arial") == false)
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
+	debugFont->setFontColor(graphicsNS::RED);
+
+	// Initialize textures and images
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
 
@@ -34,7 +42,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	lastDirection = right;
 	keyDownLastFrame = false;
 	keyDownThisFrame = false;
-    return;
+	jumpedLastFrame = false;
 
     return;
 }
@@ -45,14 +53,17 @@ void RaccoonRun::initialize(HWND hwnd)
 void RaccoonRun::update()
 {
 	// JPo code imported from class exercise - added jumping to test platform
-	VECTOR2 currentVelocity = jpo.getVelocity();
-	VECTOR2 newVelocity = currentVelocity;
+	VECTOR2 newVelocity = jpo.getVelocity();
 
 	if(input->isKeyDown(JPO_JUMP_KEY))
 	{
 		// make JPo jump!
-		newVelocity = VECTOR2(newVelocity.x, -100);
+		if(!jumpedLastFrame)
+			newVelocity = VECTOR2(newVelocity.x, -500);
+		jumpedLastFrame = true;
 	}
+	else
+		jumpedLastFrame = false;
 
 	if(input->isKeyDown(JPO_RIGHT_KEY))            // if move right
 	{
@@ -140,6 +151,8 @@ void RaccoonRun::render()
 //=============================================================================
 void RaccoonRun::releaseAll()
 {
+	debugFont->onLostDevice();
+	
 	jpoTexture.onLostDevice();
 
     Game::releaseAll();
@@ -152,6 +165,8 @@ void RaccoonRun::releaseAll()
 //=============================================================================
 void RaccoonRun::resetAll()
 {
+	debugFont->onLostDevice();
+
 	jpoTexture.onResetDevice();
 
     Game::resetAll();

@@ -10,6 +10,12 @@
 #include "dashboard.h"
 #include "Character.h"
 
+#include <string>
+using std::string;
+using std::endl;
+#include <sstream>
+using std::stringstream;
+
 class RaccoonRun : public Game
 {
 private:
@@ -19,6 +25,9 @@ private:
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
 	bool keyDownThisFrame;
+	bool jumpedLastFrame;
+
+	TextDX *debugFont; // for debugging
 
 public:
     RaccoonRun();
