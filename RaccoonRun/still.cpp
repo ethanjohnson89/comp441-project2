@@ -43,15 +43,28 @@ bool Still::initialize(Game *gamePtr, int width, int height, int ncols,TextureMa
 void Still::update(float frameTime, bool left, bool right)
 {
 	//needs a move-left / move-right bool. If received, will move the still object either left or right. 
-    Entity::update(frameTime);
+    //Entity::update(frameTime);
 	if(left)
-	{
-		spriteData.x--;
-	}
-	else if(right)
 	{
 		spriteData.x++;
 	}
+	else if(right)
+	{
+		spriteData.x--;
+	}
     //spriteData.x += frameTime * velocity.x;         // move along X 
     //spriteData.y += frameTime * velocity.y;         // move along Y
+}
+void Still::update(bool moveLeft, bool moveRight)
+{
+	//if(moveLeft)
+	//{
+	//	spriteData.x++;
+	//}
+	//else if(moveRight)
+	//{
+	//	spriteData.x--;
+	//}
+	//else
+	//	return;
 }

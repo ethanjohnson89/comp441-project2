@@ -72,6 +72,7 @@ void RaccoonRun::setPlatformData(int level)
 		platform[i].setWorldY(GAME_HEIGHT/2);
 		platform[i].setX(newX);
 		platform[i].setY(GAME_HEIGHT/2);
+		platform[i].setScale(.75);
 	}
 	
 }
@@ -146,8 +147,52 @@ void RaccoonRun::update()
 	}
 
 	jpo.setVelocity(newVelocity);
-
+	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
 	jpo.update(frameTime);
+	if(jpoX==jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
+	{
+		if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
+			moveScreenRight=true;
+		else
+			moveScreenRight=false;
+		//PostQuitMessage(0);
+	}
+	else
+	{
+		moveScreenRight=false;
+	}
+	if(jpoX==jpo.getX() && input->isKeyDown(JPO_LEFT_KEY))
+	{
+		if(platform[0].getX()<5)//arbitrarily cannot move if more than 5px away.
+			moveScreenLeft=true;
+		else
+			moveScreenLeft=false;
+		//PostQuitMessage(0);
+	}
+	else{
+		moveScreenLeft=false;
+	}
+	//if(moveScreenLeft)
+	//{
+	//	//PostQuitMessage(0);
+	//	for(int i=0; i<15; i++)
+	//	{
+	//		float newX=platform[i].getX()+1;
+	//		platform[i].setX(newX);
+	//	}
+	//}
+	//else if(moveScreenRight)
+	//{
+	//	for(int i=0; i<15; i++)
+	//	{
+	//		float newX=platform[i].getX()-1;
+	//		platform[i].setX(newX);
+	//	}
+	//}
+	for(int i=0; i<15; i++)
+	{
+		platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
+	}
 }
 
 //=============================================================================

@@ -31,6 +31,8 @@ private:
 	bool keyDownLastFrame;
 	bool keyDownThisFrame;
 	bool jumpedLastFrame;
+	bool moveScreenRight;
+	bool moveScreenLeft;
 
 
 	TextDX *debugFont; // for debugging

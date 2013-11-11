@@ -40,18 +40,18 @@ bool Platform::initialize(Game *gamePtr, int width, int height, int ncols,Textur
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-void Platform::update(float frameTime, bool left, bool right)
-{
-	//needs a move-left / move-right bool. If received, will move the still object either left or right. 
-    Entity::update(frameTime);
-	if(left)
-	{
-		spriteData.x--;
-	}
-	else if(right)
-	{
-		spriteData.x++;
-	}
-    //spriteData.x += frameTime * velocity.x;         // move along X 
-    //spriteData.y += frameTime * velocity.y;         // move along Y
-}
+//void Platform::update(float frameTime, bool left, bool right)
+//{
+//	//needs a move-left / move-right bool. If received, will move the still object either left or right. 
+//    Entity::update(frameTime);
+//	if(left)
+//	{
+//		spriteData.x--;
+//	}
+//	else if(right)
+//	{
+//		spriteData.x++;
+//	}
+//    //spriteData.x += frameTime * velocity.x;         // move along X 
+//    //spriteData.y += frameTime * velocity.y;         // move along Y
+//}
