@@ -39,6 +39,15 @@ void RaccoonRun::initialize(HWND hwnd)
     jpo.setY(GAME_HEIGHT - (GAME_HEIGHT/3));
     jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);   // animation frames
 
+
+	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
+	if (!platform.initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
+
+	platform.setX(25);
+	platform.setY(25);
+
 	lastDirection = right;
 	keyDownLastFrame = false;
 	keyDownThisFrame = false;
@@ -140,6 +149,7 @@ void RaccoonRun::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
     
+	platform.draw();
 	jpo.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
@@ -154,6 +164,7 @@ void RaccoonRun::releaseAll()
 	debugFont->onLostDevice();
 	
 	jpoTexture.onLostDevice();
+	platformTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -168,6 +179,7 @@ void RaccoonRun::resetAll()
 	debugFont->onLostDevice();
 
 	jpoTexture.onResetDevice();
+	platformTexture.onLostDevice();
 
     Game::resetAll();
     return;

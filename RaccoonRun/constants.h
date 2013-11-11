@@ -92,6 +92,8 @@ const float GRAVITY = 2000.0f;                  // acceleration of gravity pixel
 // graphic images
 const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
 const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
+//platform images
+const char PLATFORM_TEXTURE[]="pictures\\platform1.png";
 
 const float JPO_ANIMATION_DELAY = 0.2f;    // time between frames of ship animation
 //JPO Cel
@@ -109,6 +111,10 @@ const int JPO_WALKING_LEFT_START = 12;
 const int JPO_WALKING_LEFT_END = 15;
 
 const float JPO_SPEED = 90.5f;
+
+//platform Constants
+const int PLATFORM_WIDTH = 256;
+const int PLATFORM_HEIGHT = 64;
 
 // audio files
 const char WAVE_BANK[] = "";

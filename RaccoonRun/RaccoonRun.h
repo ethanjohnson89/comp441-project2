@@ -9,6 +9,8 @@
 #include "entity.h"
 #include "dashboard.h"
 #include "Character.h"
+#include "Still.h"
+#include "platform.h"
 
 #include <string>
 using std::string;
@@ -22,10 +24,14 @@ private:
 	// game variables
     TextureManager jpoTexture;
 	Character jpo;
+	TextureManager platformTexture;
+	Platform platform;
+
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
 	bool keyDownThisFrame;
 	bool jumpedLastFrame;
+
 
 	TextDX *debugFont; // for debugging
 
