@@ -42,11 +42,9 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
-	if (!platform.initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
 
-	platform.setX(25);
-	platform.setY(25);
+	setPlatformData(1);	//eventually, will need to call it with level data.
+	//can just use an arbitrary integer for right now.
 
 	lastDirection = right;
 	keyDownLastFrame = false;
@@ -54,6 +52,28 @@ void RaccoonRun::initialize(HWND hwnd)
 	jumpedLastFrame = false;
 
     return;
+}
+
+//=========================================================================
+// Set by Christy. This initializes the platform data, based on what level we're at. 
+// Supposedly. Not functional quite yet.
+//=========================================================================
+void RaccoonRun::setPlatformData(int level)
+{
+	//this will set the world coordinates of the platform positions.
+	//will eventually be based on what level we are currently on.
+
+	for(int i=0; i<15; i++)
+	{
+		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
+		float newX=i*PLATFORM_WIDTH+i*5;
+		platform[i].setWorldX(newX); //these should be thought of as constants for each level.
+		platform[i].setWorldY(GAME_HEIGHT/2);
+		platform[i].setX(newX);
+		platform[i].setY(GAME_HEIGHT/2);
+	}
+	
 }
 
 //=============================================================================
@@ -148,8 +168,11 @@ void RaccoonRun::collisions()
 void RaccoonRun::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
-    
-	platform.draw();
+    for(int i=0; i<15; i++)
+	{
+		platform[i].draw();
+	}
+
 	jpo.draw();
 
     graphics->spriteEnd();                  // end drawing sprites

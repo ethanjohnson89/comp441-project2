@@ -13,7 +13,8 @@ namespace stillNS
 // inherits from Entity class
 class Still : public Entity
 {
-
+	float worldX;
+	float worldY;
 public:
     // constructor
 	Still();
@@ -22,5 +23,7 @@ public:
 
     // inherited member functions
     void update(float frameTime, bool left, bool right);
+	void setWorldX(float x){worldX=x;}
+	void setWorldY(float y){worldY=y;}
 };
 #endif

@@ -25,7 +25,7 @@ private:
     TextureManager jpoTexture;
 	Character jpo;
 	TextureManager platformTexture;
-	Platform platform;
+	Platform platform[15];
 
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
@@ -46,6 +46,7 @@ public:
     void render();
 	void releaseAll();
 	void resetAll();
+	void setPlatformData(int level);
 };
 
 #endif
