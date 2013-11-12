@@ -94,6 +94,8 @@ const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
 const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform1.png";
+//background image
+const char BACKGROUND_TEXTURE[]="pictures\\background1a.png";
 
 const float JPO_ANIMATION_DELAY = 0.2f;    // time between frames of ship animation
 //JPO Cel
@@ -115,6 +117,10 @@ const float JPO_SPEED = 90.5f;
 //platform Constants
 const int PLATFORM_WIDTH = 256;
 const int PLATFORM_HEIGHT = 64;
+
+//background constants
+const int BACKGROUND_WIDTH=2048;
+const int BACKGROUND_HEIGHT=512;
 
 // audio files
 const char WAVE_BANK[] = "";

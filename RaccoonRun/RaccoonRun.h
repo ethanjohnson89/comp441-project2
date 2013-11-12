@@ -27,6 +27,10 @@ private:
 	TextureManager platformTexture;
 	Platform platform[15];
 
+		//background textures
+	TextureManager backgroundTexture;
+	Still background;
+
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
 	bool keyDownThisFrame;

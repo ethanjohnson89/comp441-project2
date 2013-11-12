@@ -43,6 +43,13 @@ void RaccoonRun::initialize(HWND hwnd)
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
 
+	if(!backgroundTexture.initialize(graphics, BACKGROUND_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background.initialize(this,BACKGROUND_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	background.setX(-5);
+	background.setY(0);
+
 	setPlatformData(1);	//eventually, will need to call it with level data.
 	//can just use an arbitrary integer for right now.
 
@@ -149,9 +156,13 @@ void RaccoonRun::update()
 	jpo.setVelocity(newVelocity);
 	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
 	jpo.update(frameTime);
+
+	//Platform Updates. Checks to see if they need to move.
 	if(jpoX==jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
 	{
-		if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
+		//if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
+		int maxX=BACKGROUND_WIDTH-GAME_WIDTH;
+		if(background.getX()>-(maxX))
 			moveScreenRight=true;
 		else
 			moveScreenRight=false;
@@ -193,6 +204,7 @@ void RaccoonRun::update()
 	{
 		platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
 	}
+	background.update(frameTime, moveScreenLeft, moveScreenRight);
 }
 
 //=============================================================================
@@ -213,6 +225,7 @@ void RaccoonRun::collisions()
 void RaccoonRun::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
+	background.draw();
     for(int i=0; i<15; i++)
 	{
 		platform[i].draw();
@@ -233,6 +246,7 @@ void RaccoonRun::releaseAll()
 	
 	jpoTexture.onLostDevice();
 	platformTexture.onLostDevice();
+	backgroundTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -247,7 +261,8 @@ void RaccoonRun::resetAll()
 	debugFont->onLostDevice();
 
 	jpoTexture.onResetDevice();
-	platformTexture.onLostDevice();
+	platformTexture.onResetDevice();
+	backgroundTexture.onResetDevice();
 
     Game::resetAll();
     return;
