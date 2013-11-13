@@ -77,11 +77,11 @@ void RaccoonRun::setPlatformData(int level)
 	{
 		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
-		float newX=i*PLATFORM_WIDTH+i*5;
+		float newX=i*PLATFORM_WIDTH+i*150;
 		platform[i].setWorldX(newX); //these should be thought of as constants for each level.
-		platform[i].setWorldY(GAME_HEIGHT/2);
+		platform[i].setWorldY(2*GAME_HEIGHT/3);
 		platform[i].setX(newX);
-		platform[i].setY(GAME_HEIGHT/2);
+		platform[i].setY(2*GAME_HEIGHT/3);
 		platform[i].setScale(.75);
 	}
 	
@@ -231,7 +231,19 @@ void RaccoonRun::ai()
 // Handle collisions
 //=============================================================================
 void RaccoonRun::collisions()
-{}
+{
+
+	for(int i=0; i<15 && onLand!=true; i++)
+	{
+		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		{
+			onLand=true;
+			jpo.setY(platform[i].getY()-jpo.getHeight()*jpo.getScale()-1);
+			jpo.setVelocity(D3DXVECTOR2(0,0));
+			break;
+		}
+	}
+}
 
 //=============================================================================
 // Render game items
