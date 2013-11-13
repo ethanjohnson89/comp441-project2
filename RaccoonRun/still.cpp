@@ -19,7 +19,7 @@ Still::Still() : Entity()
 	spriteData.y = GAME_HEIGHT - (GAME_HEIGHT/3);
 	spriteData.rect.bottom = JPO_HEIGHT;
 	spriteData.rect.right = JPO_WIDTH;
-	velocity.x = 0;
+	velocity.x = STILL_SPEED;
 	velocity.y = 0;
 	frameDelay = JPO_ANIMATION_DELAY;
 	startFrame = JPO_LOOKING_RIGHT_START;
@@ -46,25 +46,10 @@ void Still::update(float frameTime, bool left, bool right)
     //Entity::update(frameTime);
 	if(left)
 	{
-		spriteData.x++;
+		spriteData.x+=frameTime*STILL_SPEED;
 	}
 	else if(right)
 	{
-		spriteData.x--;
+		spriteData.x-=frameTime*STILL_SPEED;
 	}
-    //spriteData.x += frameTime * velocity.x;         // move along X 
-    //spriteData.y += frameTime * velocity.y;         // move along Y
-}
-void Still::update(bool moveLeft, bool moveRight)
-{
-	//if(moveLeft)
-	//{
-	//	spriteData.x++;
-	//}
-	//else if(moveRight)
-	//{
-	//	spriteData.x--;
-	//}
-	//else
-	//	return;
 }

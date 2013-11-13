@@ -112,7 +112,11 @@ const int JPO_WALKING_RIGHT_END = 11;
 const int JPO_WALKING_LEFT_START = 12;
 const int JPO_WALKING_LEFT_END = 15;
 
-const float JPO_SPEED = 90.5f;
+//const float JPO_SPEED = 90.5f;
+const float JPO_SPEED=100.0f;
+
+//still constants.
+const float STILL_SPEED = 100.0f;
 
 //platform Constants
 const int PLATFORM_WIDTH = 256;

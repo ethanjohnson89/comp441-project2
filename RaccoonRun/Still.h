@@ -25,6 +25,5 @@ public:
     void update(float frameTime, bool left, bool right);
 	void setWorldX(float x){worldX=x;}
 	void setWorldY(float y){worldY=y;}
-	void update(bool moveLeft, bool moveRight);
 };
 #endif

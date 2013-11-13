@@ -38,6 +38,11 @@ private:
 	bool moveScreenRight;
 	bool moveScreenLeft;
 
+	//should JPO be able to jump
+	bool onLand;
+
+	//preemptive Easter Egg Bool
+	bool fly;
 
 	TextDX *debugFont; // for debugging
 

@@ -22,7 +22,10 @@ RaccoonRun::~RaccoonRun()
 void RaccoonRun::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
-
+	//set boolean for no easter egg.
+	fly=false;
+	//JPO starts on ground.
+	onLand=true;
 	// Initialize fonts
 	debugFont = new TextDX();
     if(debugFont->initialize(graphics, 30, true, false, "Arial") == false)
@@ -92,11 +95,11 @@ void RaccoonRun::update()
 	// JPo code imported from class exercise - added jumping to test platform
 	VECTOR2 newVelocity = jpo.getVelocity();
 
-	if(input->isKeyDown(JPO_JUMP_KEY))
+	if(input->isKeyDown(JPO_JUMP_KEY) && onLand)
 	{
 		// make JPo jump!
 		if(!jumpedLastFrame)
-			newVelocity = VECTOR2(newVelocity.x, -500);
+			newVelocity = VECTOR2(newVelocity.x, -750);
 		jumpedLastFrame = true;
 	}
 	else
@@ -183,6 +186,17 @@ void RaccoonRun::update()
 	else{
 		moveScreenLeft=false;
 	}
+	//checks if JPO is on a surface
+	if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT)
+	{
+		onLand=true;
+	}
+	else
+	{
+		onLand=false;
+	}
+
+
 	//if(moveScreenLeft)
 	//{
 	//	//PostQuitMessage(0);
