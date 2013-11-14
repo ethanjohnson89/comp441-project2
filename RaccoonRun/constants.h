@@ -118,7 +118,7 @@ const int JPO_WALKING_LEFT_END = 15;
 //raccoon cel
 const int RACCOON_COLS = 4;
 const int RACCOON_WIDTH = 128;
-const int RACCOON_HEIGHT = 130;
+const int RACCOON_HEIGHT = 115;
 
 //raccoon actions
 const int RACCOON_LOOKING_RIGHT_START = 0;			//1st row
