@@ -20,8 +20,10 @@ Character::Character() : Entity()
 	velocity.x = 0;
 	velocity.y = 0;
 	frameDelay = JPO_ANIMATION_DELAY;
-	startFrame = JPO_LOOKING_RIGHT_START;
-	endFrame = JPO_LOOKING_RIGHT_END;
+	/*startFrame = JPO_LOOKING_RIGHT_START;
+	endFrame = JPO_LOOKING_RIGHT_END;*/
+	startFrame = RACCOON_LOOKING_RIGHT_START;
+	endFrame=RACCOON_LOOKING_RIGHT_START;
 	currentFrame = startFrame;
 	
 	mass = 10.0f; // will probably need to change this!

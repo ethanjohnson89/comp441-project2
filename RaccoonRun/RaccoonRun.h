@@ -27,6 +27,8 @@ private:
 	TextureManager platformTexture;
 	Platform platform[15];
 
+	TextureManager raccoonTexture;
+
 		//background textures
 	TextureManager backgroundTexture;
 	Still background;

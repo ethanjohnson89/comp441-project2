@@ -36,8 +36,11 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
 
-    if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo"));
+	if(!raccoonTexture.initialize(graphics, RACCOON_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon texture"));
+
+    if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon"));
     jpo.setX(GAME_WIDTH/4);
     jpo.setY(GAME_HEIGHT - (GAME_HEIGHT/3));
     jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);   // animation frames
@@ -79,10 +82,12 @@ void RaccoonRun::setPlatformData(int level)
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
 		float newX=i*PLATFORM_WIDTH+i*150;
 		platform[i].setWorldX(newX); //these should be thought of as constants for each level.
-		platform[i].setWorldY(2*GAME_HEIGHT/3);
+		//platform[i].setWorldY(2*GAME_HEIGHT/3);
+		platform[i].setWorldY(350);
 		platform[i].setX(newX);
-		platform[i].setY(2*GAME_HEIGHT/3);
+		//platform[i].setY(2*GAME_HEIGHT/3);
 		platform[i].setScale(.75);
+		platform[i].setY(350);
 	}
 	
 }

@@ -92,6 +92,9 @@ const float GRAVITY = 2000.0f;                  // acceleration of gravity pixel
 // graphic images
 const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
 const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
+
+const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
+	
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform1.png";
 //background image
@@ -111,6 +114,29 @@ const int JPO_WALKING_RIGHT_START = 8;
 const int JPO_WALKING_RIGHT_END = 11;
 const int JPO_WALKING_LEFT_START = 12;
 const int JPO_WALKING_LEFT_END = 15;
+
+//raccoon cel
+const int RACCOON_COLS = 4;
+const int RACCOON_WIDTH = 128;
+const int RACCOON_HEIGHT = 130;
+
+//raccoon actions
+const int RACCOON_LOOKING_RIGHT_START = 0;			//1st row
+const int RACCOON_LOOKING_RIGHT_END = 3;
+const int RACCOON_LOOKING_LEFT_START = 4;				//2nd row
+const int RACCOON_LOOKING_LEFT_END = 7;
+const int RACCOON_WALKING_RIGHT_START = 8;
+const int RACCOON_WALKING_RIGHT_END = 11;
+const int RACCOON_WALKING_LEFT_START = 12;
+const int RACCOON_WALKING_LEFT_END = 15;
+const int RACCOON_JUMPING_RIGHT_START = 16;
+const int RACCOON_JUMPING_RIGHT_END = 17;
+const int RACCOON_JUMPING_RIGHT_DOWN_START = 18;
+const int RACCOON_JUMPING_RIGHT_DOWN_END = 19;
+const int RACCOON_JUMPING_LEFT_START = 20;
+const int RACCOON_JUMPING_LEFT_END = 21;
+const int RACCOON_JUMPING_LEFT_DOWN_START = 22;
+const int RACCOON_JUMPING_LEFT_DOWN_END = 23;
 
 //const float JPO_SPEED = 90.5f;
 const float JPO_SPEED=100.0f;
