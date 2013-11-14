@@ -41,10 +41,20 @@ void RaccoonRun::initialize(HWND hwnd)
 
     if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon"));
+
+	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
+
     jpo.setX(GAME_WIDTH/4);
     jpo.setY(GAME_HEIGHT - (GAME_HEIGHT/3));
-    jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);   // animation frames
+    jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 
+
+	cs.setX(25);
+	cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+	cs.setVelocity(D3DXVECTOR2(90.0f,0));
+
+	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
@@ -224,6 +234,7 @@ void RaccoonRun::update()
 		platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
 	}
 	background.update(frameTime, moveScreenLeft, moveScreenRight);
+	cs.update(frameTime);
 }
 
 //=============================================================================
@@ -263,6 +274,7 @@ void RaccoonRun::render()
 	}
 
 	jpo.draw();
+	cs.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }

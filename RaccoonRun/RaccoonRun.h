@@ -24,6 +24,10 @@ private:
 	// game variables
     TextureManager jpoTexture;
 	Character jpo;
+	
+	TextureManager csTexture;
+	Character cs;
+
 	TextureManager platformTexture;
 	Platform platform[15];
 
