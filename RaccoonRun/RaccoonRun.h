@@ -45,6 +45,9 @@ private:
 	bool moveScreenRight;
 	bool moveScreenLeft;
 
+	//game over?
+	bool gameOver;
+
 	//should JPO be able to jump
 	bool onLand;
 

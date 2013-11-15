@@ -22,6 +22,8 @@ RaccoonRun::~RaccoonRun()
 void RaccoonRun::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
+	//game does not start finished
+	gameOver=false;
 	//set boolean for no easter egg.
 	fly=false;
 	//JPO starts on ground.
@@ -45,7 +47,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
-    jpo.setX(GAME_WIDTH/4);
+    jpo.setX(GAME_WIDTH/2);
     jpo.setY(GAME_HEIGHT - (GAME_HEIGHT/3));
     jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 
@@ -235,6 +237,11 @@ void RaccoonRun::update()
 	}
 	background.update(frameTime, moveScreenLeft, moveScreenRight);
 	cs.update(frameTime);
+	if(jpo.collidesWith(frameTime, cs))
+	{
+		jpo.setVisible(false);
+		gameOver=true;
+	}
 }
 
 //=============================================================================
@@ -268,13 +275,20 @@ void RaccoonRun::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
 	background.draw();
-    for(int i=0; i<15; i++)
+	if(!gameOver)
 	{
-		platform[i].draw();
-	}
+		for(int i=0; i<15; i++)
+		{
+			platform[i].draw();
+		}
 
-	jpo.draw();
-	cs.draw();
+		jpo.draw();
+		cs.draw();
+	}
+	else
+	{
+		debugFont->print("Game OVER.",0,0);
+	}
 
     graphics->spriteEnd();                  // end drawing sprites
 }
