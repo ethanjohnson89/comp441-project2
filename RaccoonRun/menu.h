@@ -29,9 +29,11 @@ private:
    int selectedItem;
    std::string menuHeading;
    std::string creditHeading;
+   std::string instructionHeading;
    D3DXVECTOR2 menuAnchor;
    std::vector<std::string> menu;
    std::vector<std::string> credit;
+   std::vector<std::string> instruction;
    int verticalOffset;
    int linePtr;
    COLOR_ARGB highlightColor ;
@@ -39,6 +41,7 @@ private:
    bool upDepressedLastFrame;
    bool downDepressedLastFrame;
    bool credits;
+   bool instructions;
 
 public:
     // constructor
@@ -54,5 +57,8 @@ public:
 	void displayCredits();
 	bool getCredits(){return credits;}
 	void setCredits(bool Credits){credits=Credits;}
+	void displayInstructions();
+	bool getInstructions(){return instructions;}
+	void setInstructions(bool Instructions){instructions=Instructions;}
 };
 #endif

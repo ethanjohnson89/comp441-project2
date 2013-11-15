@@ -14,6 +14,7 @@ void Menu::initialize(Graphics *g, Input *i)
 
 	menu.push_back("Start Game");
 	menu.push_back("Enable SoundFX");
+	menu.push_back("Instructions");
 	menu.push_back("Credits");
 	menu.push_back("Quit");
 
@@ -21,6 +22,12 @@ void Menu::initialize(Graphics *g, Input *i)
 	credit.push_back("Christy Phillips");
 	credit.push_back("Eathan Johnson");
 	credit.push_back("Thomas Drehman");
+
+	instructionHeading = "Instructions";
+	instruction.push_back("Space to jump");
+	instruction.push_back("Left arrow to move left");
+	instruction.push_back("Right arrow to move right");
+	instruction.push_back("Escape to quit to menu");
 
 	highlightColor = graphicsNS::RED;
 	normalColor = graphicsNS::WHITE;
@@ -44,6 +51,8 @@ void Menu::initialize(Graphics *g, Input *i)
 	menuItemFontHighlight->setFontColor(highlightColor);
 	upDepressedLastFrame = false;
 	downDepressedLastFrame = false;
+	credits = false;
+	instructions = false;
 	
 }
 
@@ -83,20 +92,26 @@ void Menu::displayMenu()
 void Menu::displayCredits()
 {
 	menuHeadingFont->print(creditHeading, menuAnchor.x, menuAnchor.y);
-	for(int j=0;j<menu.size();++j)
+	for(int j=0;j<credit.size();++j)
 	{
-		if(linePtr==j)
-		{
-			menuItemFontHighlight->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
-		}
-		else
-		{
-			menuItemFont->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
-		}
+		menuItemFont->print(credit[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
 	}
 	if(input->isKeyDown(VK_ESCAPE))
 	{
 		credits = false;
+	}
+	return;
+}
+void Menu::displayInstructions()
+{
+	menuHeadingFont->print(instructionHeading, menuAnchor.x, menuAnchor.y);
+	for(int j=0;j<instruction.size();++j)
+	{
+		menuItemFont->print(instruction[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+	}
+	if(input->isKeyDown(VK_ESCAPE))
+	{
+		instructions = false;
 	}
 	return;
 }

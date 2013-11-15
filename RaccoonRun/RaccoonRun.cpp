@@ -135,7 +135,7 @@ void RaccoonRun::update()
 			}
 			else if(menu->getSelectedItem() == 2)
 			{
-				//
+				menu->setInstructions(true);
 			}
 			else if(menu->getSelectedItem() == 3)
 			{
@@ -300,6 +300,8 @@ void RaccoonRun::render()
 	case 0:
 		if(menu->getCredits())
 			menu->displayCredits();
+		else if(menu->getInstructions())
+			menu->displayInstructions();
 		else
 			menu->displayMenu();
 		break;
