@@ -11,6 +11,7 @@
 #include "Character.h"
 #include "Still.h"
 #include "platform.h"
+#include "raccoon.h"
 
 #include <string>
 using std::string;
@@ -23,7 +24,7 @@ class RaccoonRun : public Game
 private:
 	// game variables
     TextureManager jpoTexture;
-	Character jpo;
+	Raccoon jpo;
 	
 	TextureManager csTexture;
 	Character cs;
