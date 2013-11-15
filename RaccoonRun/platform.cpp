@@ -32,10 +32,10 @@ Platform::Platform() : Still()
 	magicNumberY=10;
 }
 
-bool Platform::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
-{
-    return(Entity::initialize(gamePtr, width, height, ncols, textureM));
-}
+//bool Platform::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
+//{
+//    return(Entity::initialize(gamePtr, width, height, ncols, textureM));
+//}
 
 //=============================================================================
 // update

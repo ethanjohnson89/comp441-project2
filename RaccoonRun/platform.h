@@ -20,7 +20,8 @@ public:
     // constructor
 	Platform();
 
-    virtual bool initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM);
+    // I don't think we need this - we're just calling the base function anyway
+    //virtual bool initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM);
 
     // inherited member functions
     //void update(float frameTime, bool left, bool right);
