@@ -238,11 +238,6 @@ void RaccoonRun::update()
 	background.update(frameTime, moveScreenLeft, moveScreenRight);
 
 	cs.update(frameTime);
-	if(jpo.collidesWith(frameTime, cs))
-	{
-		jpo.setVisible(false);
-		gameOver=true;
-	}
 }
 
 //=============================================================================
@@ -256,16 +251,24 @@ void RaccoonRun::ai()
 //=============================================================================
 void RaccoonRun::collisions()
 {
+	VECTOR2 collisionVector;
 
-	for(int i=0; i<15 && onLand!=true; i++)
+	for(int i=0; i<15 && !onLand; i++)
 	{
-		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		//if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		if(jpo.collidesWith(platform[i], collisionVector))
 		{
 			onLand=true;
 			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
 		}
+	}
+
+	if(jpo.collidesWith(cs, collisionVector))
+	{
+		jpo.setVisible(false);
+		gameOver=true;
 	}
 }
 

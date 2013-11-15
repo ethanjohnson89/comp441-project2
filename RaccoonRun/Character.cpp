@@ -34,10 +34,10 @@ Character::Character() : Entity()
 	magicNumberY=0;
 }
 
-bool Character::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
-{
-    return(Entity::initialize(gamePtr, width, height, ncols, textureM));
-}
+//bool Character::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
+//{
+//    return(Entity::initialize(gamePtr, width, height, ncols, textureM));
+//}
 
 //=============================================================================
 // update
@@ -51,18 +51,18 @@ void Character::update(float frameTime)
     spriteData.y += frameTime * velocity.y;         // move along Y
 
     // Bounce off walls
-    if (spriteData.x > GAME_WIDTH - JPO_WIDTH)  // if hit right screen edge
+    if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
     {
-        spriteData.x = GAME_WIDTH - JPO_WIDTH;  // position at right screen edge
+        spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
         velocity.x = -velocity.x;                   // reverse X direction
     } else if (spriteData.x < 0)                    // else if hit left screen edge
     {
         spriteData.x = 0;                           // position at left screen edge
         velocity.x = -velocity.x;                   // reverse X direction
     }
-    if (spriteData.y > GAME_HEIGHT - JPO_HEIGHT) // if hit bottom screen edge
+    if (spriteData.y > GAME_HEIGHT - spriteData.width) // if hit bottom screen edge
     {
-        spriteData.y = GAME_HEIGHT - JPO_HEIGHT; // position at bottom screen edge
+        spriteData.y = GAME_HEIGHT - spriteData.width; // position at bottom screen edge
         velocity.y = 0;
     } else if (spriteData.y < 0)                    // else if hit top screen edge
     {
@@ -72,21 +72,22 @@ void Character::update(float frameTime)
 
     velocity.y += frameTime * GRAVITY;              // gravity
 }
-bool Character::collidesWith(float frameTime, Entity object)
-{
-	bool collides=false;
-	int myLowY=getHeight()*getScale()+getMagicNumberY();
-	int left=getX();
-	int right=left+getWidth()*getScale();
-	//just checking baseCollision
-	if((left>=object.getX() && left<=object.getX()+object.getWidth()*object.getScale())||
-		(right>=object.getX() && right<=object.getX()+object.getWidth()*object.getScale()))
-		//checks left edge within collision width, then checks right edge.
-	{
-		if(myLowY>=object.getY()&&myLowY<=(object.getY()+object.getHeight()*getScale()))
-		{
-			collides=true;
-		}
-	}
-	return collides;
-}
+
+//bool Character::collidesWith(float frameTime, Entity object)
+//{
+//	bool collides=false;
+//	int myLowY=getHeight()*getScale()+getMagicNumberY();
+//	int left=getX();
+//	int right=left+getWidth()*getScale();
+//	//just checking baseCollision
+//	if((left>=object.getX() && left<=object.getX()+object.getWidth()*object.getScale())||
+//		(right>=object.getX() && right<=object.getX()+object.getWidth()*object.getScale()))
+//		//checks left edge within collision width, then checks right edge.
+//	{
+//		if(myLowY>=object.getY()&&myLowY<=(object.getY()+object.getHeight()*getScale()))
+//		{
+//			collides=true;
+//		}
+//	}
+//	return collides;
+//}
