@@ -12,11 +12,10 @@
 #include "Still.h"
 #include "platform.h"
 #include "raccoon.h"
+#include "menu.h"
 
-#include <string>
 using std::string;
 using std::endl;
-#include <sstream>
 using std::stringstream;
 
 class RaccoonRun : public Game
@@ -55,6 +54,11 @@ private:
 	bool fly;
 
 	TextDX *debugFont; // for debugging
+
+	Menu* menu;
+	int gameState;
+	bool audioOn;
+
 
 public:
     RaccoonRun();
