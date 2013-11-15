@@ -51,6 +51,10 @@ class Entity : public Image
     bool    rotatedBoxReady;    // true when rotated collision box is ready
     DWORD   pixelsColliding;    // number of pixels colliding in pixel perfect collision
 
+	//Christy Added Stuff
+	int magicNumberX;
+	int magicNumberY;
+
     // --- The following functions are protected because they are not intended to be
     // --- called from outside the class.
     // Circular collision detection 
@@ -205,6 +209,10 @@ class Entity : public Image
 
     // Adds the gravitational force to the velocity vector of this entity
     void gravityForce(Entity *other, float frameTime);
+
+	//Christy Added
+	int getMagicNumberX(){return magicNumberX;}
+	int getMagicNumberY(){return magicNumberY;}
 };
 
 #endif

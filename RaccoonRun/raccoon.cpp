@@ -28,6 +28,10 @@ Raccoon::Raccoon() : Character()
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;
+
+	//added by Christy. For Raccoon, obviously.
+	magicNumberX=0;
+	magicNumberY=0;
 }
 
 bool Raccoon::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
@@ -71,15 +75,16 @@ void Raccoon::update(float frameTime)
 bool Raccoon::collidesWith(float frameTime, Entity object)
 {
 	bool collides=false;
-	int myLowY=getHeight()*getScale()+spriteData.y;
-	int left=getX();
+	int myLowY=(getHeight()*getScale()+spriteData.y)+10;;
+	int left=getCenterX()-RACCOON_HALF_WIDTH*getScale();
 	int right=left+getWidth()*getScale();
+	//int top=getCenterY()-RACCOON_HALF_HEIGHT*getScale();
 	//just checking baseCollision
-	if((left>=object.getX() && left<=object.getX()+object.getWidth()*object.getScale())||
-		(right>=object.getX() && right<=object.getX()+object.getWidth()*object.getScale()))
+	if((left>=(object.getX()+object.getMagicNumberX()) && left<=object.getX()+object.getWidth()*object.getScale())||
+		(right>=(object.getX()+object.getMagicNumberX()) && right<=object.getX()+object.getWidth()*object.getScale()))
 		//checks left edge within collision width, then checks right edge.
 	{
-		if(myLowY>=object.getY()&&myLowY<=(object.getY()+object.getHeight()*getScale()))
+		if(myLowY>=object.getY()-object.getMagicNumberY() && myLowY<=(object.getY()+object.getHeight()*getScale()+object.getMagicNumberY()))
 		{
 			collides=true;
 		}

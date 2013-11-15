@@ -105,6 +105,9 @@ const float JPO_ANIMATION_DELAY = 0.2f;    // time between frames of ship animat
 const int  JPO_COLS = 4;
 const int  JPO_WIDTH = 128;
 const int  JPO_HEIGHT = 130;
+const int  JPO_HALF_WIDTH = 22;
+const int  JPO_HALF_HEIGHT = 48;
+
 //JPO actions
 const int JPO_LOOKING_RIGHT_START = 0;			//1st row
 const int JPO_LOOKING_RIGHT_END = 3;
@@ -119,6 +122,9 @@ const int JPO_WALKING_LEFT_END = 15;
 const int RACCOON_COLS = 4;
 const int RACCOON_WIDTH = 128;
 const int RACCOON_HEIGHT = 115;
+const int RACCOON_HALF_WIDTH = 43;
+const int RACCOON_HALF_HEIGHT = 25;
+//const int RACCOON_START_Y = 
 
 //raccoon actions
 const int RACCOON_LOOKING_RIGHT_START = 0;			//1st row

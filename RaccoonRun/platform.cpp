@@ -28,6 +28,8 @@ Platform::Platform() : Still()
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;
+	magicNumberX=50;
+	magicNumberY=10;
 }
 
 bool Platform::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)

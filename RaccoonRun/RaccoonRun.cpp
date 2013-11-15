@@ -236,6 +236,7 @@ void RaccoonRun::update()
 		platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
 	}
 	background.update(frameTime, moveScreenLeft, moveScreenRight);
+
 	cs.update(frameTime);
 	if(jpo.collidesWith(frameTime, cs))
 	{
@@ -261,7 +262,7 @@ void RaccoonRun::collisions()
 		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
 		{
 			onLand=true;
-			jpo.setY(platform[i].getY()-jpo.getHeight()*jpo.getScale()-1);
+			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
 		}

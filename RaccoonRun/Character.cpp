@@ -28,6 +28,10 @@ Character::Character() : Entity()
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;
+	
+	//to make it compile.
+	magicNumberX=0;
+	magicNumberY=0;
 }
 
 bool Character::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
@@ -71,7 +75,7 @@ void Character::update(float frameTime)
 bool Character::collidesWith(float frameTime, Entity object)
 {
 	bool collides=false;
-	int myLowY=getHeight()*getScale()+spriteData.y;
+	int myLowY=getHeight()*getScale()+getMagicNumberY();
 	int left=getX();
 	int right=left+getWidth()*getScale();
 	//just checking baseCollision
