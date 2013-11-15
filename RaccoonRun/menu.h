@@ -28,15 +28,17 @@ private:
    Graphics *graphics;
    int selectedItem;
    std::string menuHeading;
+   std::string creditHeading;
    D3DXVECTOR2 menuAnchor;
    std::vector<std::string> menu;
-   int MenuNumber;
+   std::vector<std::string> credit;
    int verticalOffset;
    int linePtr;
    COLOR_ARGB highlightColor ;
    COLOR_ARGB normalColor;
    bool upDepressedLastFrame;
    bool downDepressedLastFrame;
+   bool credits;
 
 public:
     // constructor
@@ -49,5 +51,8 @@ public:
 	int getLinePtr() {return linePtr;}
 	int getMenuSize() {return menu.size();}
 	void setSelectedItem(int number) {selectedItem=number;}
+	void displayCredits();
+	bool getCredits(){return credits;}
+	void setCredits(bool Credits){credits=Credits;}
 };
 #endif

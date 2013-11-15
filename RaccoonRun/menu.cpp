@@ -10,11 +10,17 @@ Menu::Menu()
 
 void Menu::initialize(Graphics *g, Input *i)
 {
-	menuHeading ="Test Menu";
+	menuHeading ="Raccoon Run";
 
 	menu.push_back("Start Game");
 	menu.push_back("Enable SoundFX");
 	menu.push_back("Credits");
+	menu.push_back("Quit");
+
+	creditHeading = "Thanks to:";
+	credit.push_back("Christy Phillips");
+	credit.push_back("Eathan Johnson");
+	credit.push_back("Thomas Drehman");
 
 	highlightColor = graphicsNS::RED;
 	normalColor = graphicsNS::WHITE;
@@ -38,8 +44,7 @@ void Menu::initialize(Graphics *g, Input *i)
 	menuItemFontHighlight->setFontColor(highlightColor);
 	upDepressedLastFrame = false;
 	downDepressedLastFrame = false;
-	MenuNumber = 1;
-
+	
 }
 
 void Menu::update()
@@ -62,18 +67,36 @@ void Menu::update()
 void Menu::displayMenu()
 {
 	menuHeadingFont->print(menuHeading, menuAnchor.x, menuAnchor.y);
-	if(MenuNumber == 1)
+	for(int j=0;j<menu.size();++j)
 	{
-		for(int j=0;j<menu.size();++j)
+		if(linePtr==j)
 		{
-			if(linePtr==j)
-			{
-				menuItemFontHighlight->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
-			}
-			else
-			{
-				menuItemFont->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
-			}
+			menuItemFontHighlight->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+		}
+		else
+		{
+			menuItemFont->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
 		}
 	}
+}
+
+void Menu::displayCredits()
+{
+	menuHeadingFont->print(creditHeading, menuAnchor.x, menuAnchor.y);
+	for(int j=0;j<menu.size();++j)
+	{
+		if(linePtr==j)
+		{
+			menuItemFontHighlight->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+		}
+		else
+		{
+			menuItemFont->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+		}
+	}
+	if(input->isKeyDown(VK_ESCAPE))
+	{
+		credits = false;
+	}
+	return;
 }

@@ -111,6 +111,14 @@ void RaccoonRun::update()
 				else
 					audioOn = true;
 			}
+			else if(menu->getSelectedItem() == 2)
+			{
+				menu->setCredits(true);
+			}
+			else if(menu->getSelectedItem() == 3)
+			{
+				PostQuitMessage(0);
+			}
 			break;
 //			menu.displayMenu();
 		case 1:
@@ -279,7 +287,10 @@ void RaccoonRun::render()
 	switch(gameState)
 	{
 	case 0:
-		menu->displayMenu();
+		if(menu->getCredits())
+			menu->displayCredits();
+		else
+			menu->displayMenu();
 		break;
 	case 1:
 		background.draw();
