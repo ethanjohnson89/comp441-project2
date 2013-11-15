@@ -121,7 +121,11 @@ void RaccoonRun::update()
 		case 0:
 			menu->update();
 			if(menu->getSelectedItem() == 0)
-				gameState = 1;
+			{
+				if(!gameOver)
+					gameState = 1;
+//				else
+			}
 			else if(menu->getSelectedItem() == 1)
 			{
 				if(audioOn)
@@ -131,15 +135,18 @@ void RaccoonRun::update()
 			}
 			else if(menu->getSelectedItem() == 2)
 			{
-				menu->setCredits(true);
+				//
 			}
 			else if(menu->getSelectedItem() == 3)
+			{
+				menu->setCredits(true);
+			}
+			else if(menu->getSelectedItem() == 4)
 			{
 				PostQuitMessage(0);
 			}
 			break;
-//			menu.displayMenu();
-			case 1:
+		case 1:
 		// JPo code imported from class exercise - added jumping to test platform
 			VECTOR2 newVelocity = jpo.getVelocity();
 
@@ -217,7 +224,6 @@ void RaccoonRun::update()
 					moveScreenRight=true;
 				else
 					moveScreenRight=false;
-				//PostQuitMessage(0);
 			}
 			else
 			{
@@ -229,7 +235,6 @@ void RaccoonRun::update()
 					moveScreenLeft=true;
 				else
 					moveScreenLeft=false;
-				//PostQuitMessage(0);
 			}
 			else{
 				moveScreenLeft=false;
@@ -244,24 +249,6 @@ void RaccoonRun::update()
 				onLand=false;
 			}
 
-
-			//if(moveScreenLeft)
-			//{
-			//	//PostQuitMessage(0);
-			//	for(int i=0; i<15; i++)
-			//	{
-			//		float newX=platform[i].getX()+1;
-			//		platform[i].setX(newX);
-			//	}
-			//}
-			//else if(moveScreenRight)
-			//{
-			//	for(int i=0; i<15; i++)
-			//	{
-			//		float newX=platform[i].getX()-1;
-			//		platform[i].setX(newX);
-			//	}
-			//}
 			for(int i=0; i<15; i++)
 			{
 				platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
