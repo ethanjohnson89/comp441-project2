@@ -20,7 +20,7 @@ void Menu::initialize(Graphics *g, Input *i)
 
 	creditHeading = "Thanks to:";
 	credit.push_back("Christy Phillips");
-	credit.push_back("Eathan Johnson");
+	credit.push_back("Ethan Johnson");
 	credit.push_back("Thomas Drehman");
 
 	instructionHeading = "Instructions";
