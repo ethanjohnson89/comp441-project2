@@ -13,6 +13,7 @@
 #include "platform.h"
 #include "raccoon.h"
 #include "menu.h"
+#include "walkingGuard.h"
 
 using std::string;
 using std::endl;
@@ -26,7 +27,7 @@ private:
 	Raccoon jpo;
 	
 	TextureManager csTexture;
-	Character cs;
+	WalkingGuard cs;
 
 	TextureManager platformTexture;
 	Platform platform[15];

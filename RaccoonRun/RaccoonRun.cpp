@@ -97,6 +97,7 @@ void RaccoonRun::setPlatformData(int level)
 	for(int i=0; i<15; i++)
 	{
 		platform[i].setVisible(false);
+		platform[i].set(-500,-500);
 	}
 	switch(level)
 	{
@@ -132,6 +133,7 @@ void RaccoonRun::setPlatformData(int level)
 //=============================================================================
 void RaccoonRun::update()
 {
+
 	switch(gameState)
 	{
 		case 0:
@@ -271,12 +273,23 @@ void RaccoonRun::update()
 			}
 			background.update(frameTime, moveScreenLeft, moveScreenRight);
 
-			cs.update(frameTime);
-			if(jpo.collidesWith(frameTime, cs))
+			
+			//if(jpo.collidesWith(frameTime, cs))
+			//{
+			//	jpo.setVisible(false);
+			//	gameOver=true;
+			//}
+			//bool collision=cs.collidesWith(frameTime, jpo);
+			if(cs.collidesWith(frameTime, jpo))
 			{
-				jpo.setVisible(false);
-				gameOver=true;
+				//PostQuitMessage(0);
+				//jpo.setVisible(false);
+				//gameOver=true;
+				paused=true;
+				//throw(GameError(gameErrorNS::FATAL_ERROR, "Somehow false=true"));
+
 			}
+			cs.update(frameTime);
 			break;
 		}
 }
