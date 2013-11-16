@@ -17,8 +17,10 @@ public:
     // constructor
 	Raccoon();
 
-    void update(float frameTime);
+    virtual bool initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM);
 
-	bool onLand;
+    // inherited member functions
+    void update(float frameTime);
+	bool collidesWith(float frameTime, Entity object);
 };
 #endif
