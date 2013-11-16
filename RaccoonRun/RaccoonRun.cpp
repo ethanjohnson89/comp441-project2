@@ -27,7 +27,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//set boolean for no easter egg.
 	fly=false;
 	//JPO starts on ground.
-	onLand=true;
+	//onLand=true;
 	// Initialize fonts
 	debugFont = new TextDX();
     if(debugFont->initialize(graphics, 30, true, false, "Arial") == false)
@@ -112,12 +112,13 @@ void RaccoonRun::update()
 	// JPo code imported from class exercise - added jumping to test platform
 	VECTOR2 newVelocity = jpo.getVelocity();
 
-	if(input->isKeyDown(JPO_JUMP_KEY) && onLand)
+	if(input->isKeyDown(JPO_JUMP_KEY) && jpo.onLand)
 	{
 		// make JPo jump!
-		if(!jumpedLastFrame)
+		//if(!jumpedLastFrame)
 			newVelocity = VECTOR2(newVelocity.x, -750);
 		jumpedLastFrame = true;
+		jpo.onLand = false;
 	}
 	else
 		jumpedLastFrame = false;
@@ -204,15 +205,14 @@ void RaccoonRun::update()
 		moveScreenLeft=false;
 	}
 	//checks if JPO is on a surface
-	if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT)
+	if(jpo.getY()>=GAME_HEIGHT-RACCOON_HEIGHT)
 	{
-		onLand=true;
+		jpo.onLand=true;
 	}
 	else
 	{
-		onLand=false;
+		jpo.onLand=false;
 	}
-
 
 	//if(moveScreenLeft)
 	//{
@@ -253,13 +253,13 @@ void RaccoonRun::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for(int i=0; i<15 && !onLand; i++)
+	for(int i=0; i<15 && !jpo.onLand; i++)
 	{
 		//if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
 		if(jpo.collidesWith(platform[i], collisionVector))
 		{
-			onLand=true;
-			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
+			jpo.onLand=true;
+			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()));
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
 		}

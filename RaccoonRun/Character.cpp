@@ -25,6 +25,12 @@ Character::Character() : Entity()
 	startFrame = RACCOON_LOOKING_RIGHT_START;
 	endFrame=RACCOON_LOOKING_RIGHT_START;
 	currentFrame = startFrame;
+
+	// Collision box
+	edge.bottom = JPO_HALF_HEIGHT;
+	edge.top = -JPO_HALF_HEIGHT;
+	edge.left = -JPO_HALF_WIDTH;
+	edge.right = JPO_HALF_WIDTH;
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;

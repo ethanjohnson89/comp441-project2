@@ -25,6 +25,12 @@ Raccoon::Raccoon() : Character()
 	startFrame = RACCOON_LOOKING_RIGHT_START;
 	endFrame = RACCOON_LOOKING_RIGHT_START;
 	currentFrame = startFrame;
+
+	// Collision box
+	edge.bottom = JPO_HALF_HEIGHT;
+	edge.top = -JPO_HALF_HEIGHT;
+	edge.left = -JPO_HALF_WIDTH;
+	edge.right = JPO_HALF_WIDTH;
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;
@@ -32,6 +38,8 @@ Raccoon::Raccoon() : Character()
 	//added by Christy. For Raccoon, obviously.
 	magicNumberX=0;
 	magicNumberY=0;
+
+	onLand = true;
 }
 
 //bool Raccoon::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
@@ -62,6 +70,7 @@ void Raccoon::update(float frameTime)
     }
     if (spriteData.y > GAME_HEIGHT - spriteData.height) // if hit bottom screen edge
     {
+		onLand = true;
         spriteData.y = GAME_HEIGHT - spriteData.height; // position at bottom screen edge
         velocity.y = 0;
     } else if (spriteData.y < 0)                    // else if hit top screen edge
@@ -70,7 +79,8 @@ void Raccoon::update(float frameTime)
         velocity.y = -velocity.y;                   // reverse Y direction
     }
 
-    velocity.y += frameTime * GRAVITY;              // gravity
+	if(!onLand)
+		velocity.y += frameTime * GRAVITY;              // gravity
 }
 
 //bool Raccoon::collidesWith(float frameTime, Entity object)

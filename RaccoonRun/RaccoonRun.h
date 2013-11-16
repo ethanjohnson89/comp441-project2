@@ -49,7 +49,7 @@ private:
 	bool gameOver;
 
 	//should JPO be able to jump
-	bool onLand;
+	//bool onLand; // now a member of Raccoon
 
 	//preemptive Easter Egg Bool
 	bool fly;

@@ -23,5 +23,7 @@ public:
     // inherited member functions
     void update(float frameTime);
 	//bool collidesWith(float frameTime, Entity object);
+
+	bool onLand;
 };
 #endif
