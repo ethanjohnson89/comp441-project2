@@ -97,6 +97,7 @@ void RaccoonRun::setPlatformData(int level)
 	for(int i=0; i<15; i++)
 	{
 		platform[i].setVisible(false);
+		platform[i].set(-500,-500); //gets unused platforms out of the way.
 	}
 	switch(level)
 	{
@@ -272,10 +273,11 @@ void RaccoonRun::update()
 			background.update(frameTime, moveScreenLeft, moveScreenRight);
 
 			cs.update(frameTime);
-			if(jpo.collidesWith(frameTime, cs))
+			if(cs.collidesWith(frameTime, jpo))
 			{
-				jpo.setVisible(false);
-				gameOver=true;
+				/*jpo.setVisible(false);
+				gameOver=true;*/
+				paused = true;
 			}
 			break;
 		}
