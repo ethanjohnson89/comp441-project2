@@ -58,6 +58,9 @@ void Raccoon::update(float frameTime)
     spriteData.x += frameTime * velocity.x;         // move along X 
     spriteData.y += frameTime * velocity.y;         // move along Y
 
+	if(!onLand)
+		velocity.y += frameTime * GRAVITY;              // gravity
+
     // Bounce off walls
     if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
     {
@@ -70,7 +73,6 @@ void Raccoon::update(float frameTime)
     }
     if (spriteData.y > GAME_HEIGHT - spriteData.height) // if hit bottom screen edge
     {
-		onLand = true;
         spriteData.y = GAME_HEIGHT - spriteData.height; // position at bottom screen edge
         velocity.y = 0;
     } else if (spriteData.y < 0)                    // else if hit top screen edge
@@ -78,9 +80,6 @@ void Raccoon::update(float frameTime)
         spriteData.y = 0;                           // position at top screen edge
         velocity.y = -velocity.y;                   // reverse Y direction
     }
-
-	if(!onLand)
-		velocity.y += frameTime * GRAVITY;              // gravity
 }
 
 //bool Raccoon::collidesWith(float frameTime, Entity object)
