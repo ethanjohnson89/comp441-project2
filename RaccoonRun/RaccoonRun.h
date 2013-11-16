@@ -56,6 +56,9 @@ private:
 
 	TextDX *debugFont; // for debugging
 
+	bool onPlatform;
+	int lastPlatform;
+
 public:
     RaccoonRun();
     virtual ~RaccoonRun();

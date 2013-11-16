@@ -76,6 +76,8 @@ void RaccoonRun::initialize(HWND hwnd)
 	keyDownThisFrame = false;
 	jumpedLastFrame = false;
 
+	lastPlatform = -1;
+
     return;
 }
 
@@ -248,19 +250,29 @@ void RaccoonRun::ai()
 void RaccoonRun::collisions()
 {
 	VECTOR2 collisionVector;
-
+	
 	for(int i=0; i<15 && !jpo.onLand; i++)
 	{
 		//if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
-		if(jpo.collidesWith(platform[i], collisionVector))
+		if(jpo.collidesWith(platform[i], collisionVector) && jpo.getVelocity().y>=0)
 		{
 			jpo.onLand=true;
 			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale())+10);
 			jpo.setVelocity(D3DXVECTOR2(jpo.getVelocity().x,0)); // set y velocity to 0
+			lastPlatform = i;
 			break;
 		}
 	}
-
+	
+	if(lastPlatform!= -1 && jpo.collidesWith(platform[lastPlatform],collisionVector))
+	{
+		lastPlatform = -1;
+		jpo.onLand = false;
+	}
+//	if(!onPlatform && jpo.getY() < GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
+//	{
+//		jpo.onLand = false;
+//	}
 	if(jpo.collidesWith(cs, collisionVector))
 	{
 		jpo.setVisible(false);
@@ -288,6 +300,10 @@ void RaccoonRun::render()
 		stringstream debugText;
 		debugText << "onLand = " << jpo.onLand << endl;
 		debugText << "velocity: x=" << jpo.getVelocity().x << "/y=" << jpo.getVelocity().y << endl;
+		debugText << "onPlatform = " << onPlatform << endl;
+		debugText << "Platform0: x=" << platform[0].getX() + platform[0].getWidth()*platform[0].getScale() << "/y=" << platform[0].getY() << endl;
+		debugText << "Raccoon: x=" << jpo.getX() << "/y=" << jpo.getY() << endl;
+		debugText << "Width: Raccoon" << jpo.getWidth()*jpo.getScale() << "Platform1" << platform[0].getWidth()*platform[0].getScale() << endl;
 		debugFont->print(debugText.str(), 0, 30);
 	}
 	else

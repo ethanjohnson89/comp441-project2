@@ -27,7 +27,7 @@ Raccoon::Raccoon() : Character()
 	currentFrame = startFrame;
 
 	// Collision box
-	edge.bottom = JPO_HALF_HEIGHT;
+	edge.bottom = JPO_HALF_HEIGHT+10;
 	edge.top = -JPO_HALF_HEIGHT;
 	edge.left = -JPO_HALF_WIDTH;
 	edge.right = JPO_HALF_WIDTH;
