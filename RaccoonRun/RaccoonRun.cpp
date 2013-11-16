@@ -47,8 +47,8 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
-    jpo.setX(GAME_WIDTH/2);
-    jpo.setY(GAME_HEIGHT - (GAME_HEIGHT/3));
+    jpo.setX(30);
+    jpo.setY(175-RACCOON_HEIGHT);
     jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 
 
