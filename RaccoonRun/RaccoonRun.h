@@ -58,7 +58,8 @@ private:
 	Menu* menu;
 	int gameState;
 	bool audioOn;
-
+	
+	int lastPlatform;
 
 public:
     RaccoonRun();

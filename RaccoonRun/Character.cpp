@@ -72,21 +72,21 @@ void Character::update(float frameTime)
 
     velocity.y += frameTime * GRAVITY;              // gravity
 }
-bool Character::collidesWith(float frameTime, Entity object)
-{
-	bool collides=false;
-	int myLowY=getHeight()*getScale()+getMagicNumberY();
-	int left=getX();
-	int right=left+getWidth()*getScale();
-	//just checking baseCollision
-	if((left>=object.getX() && left<=object.getX()+object.getWidth()*object.getScale())||
-		(right>=object.getX() && right<=object.getX()+object.getWidth()*object.getScale()))
-		//checks left edge within collision width, then checks right edge.
-	{
-		if(myLowY>=object.getY()&&myLowY<=(object.getY()+object.getHeight()*getScale()))
-		{
-			collides=true;
-		}
-	}
-	return collides;
-}
+//bool Character::collidesWith(float frameTime, Entity object)
+//{
+//	bool collides=false;
+//	int myLowY=getHeight()*getScale()+getMagicNumberY();
+//	int left=getX();
+//	int right=left+getWidth()*getScale();
+//	//just checking baseCollision
+//	if((left>=object.getX() && left<=object.getX()+object.getWidth()*object.getScale())||
+//		(right>=object.getX() && right<=object.getX()+object.getWidth()*object.getScale()))
+//		//checks left edge within collision width, then checks right edge.
+//	{
+//		if(myLowY>=object.getY()&&myLowY<=(object.getY()+object.getHeight()*getScale()))
+//		{
+//			collides=true;
+//		}
+//	}
+//	return collides;
+//}

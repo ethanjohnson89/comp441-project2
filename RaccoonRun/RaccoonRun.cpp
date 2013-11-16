@@ -82,8 +82,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	gameState = 0;
 	audioOn = true;
 
-
-    return;
+	return;
 }
 
 //=========================================================================
@@ -97,6 +96,7 @@ void RaccoonRun::setPlatformData(int level)
 	for(int i=0; i<15; i++)
 	{
 		platform[i].setVisible(false);
+		platform[i].set(-500,-500);		//offscreen
 	}
 	switch(level)
 	{
@@ -124,6 +124,8 @@ void RaccoonRun::setPlatformData(int level)
 		platform[6].set(1225,130);
 		platform[7].set(1494,222);
 		platform[8].set(1805,130);
+		lastPlatform = 0;
+		jpo.onLand = 1;
 	}
 }
 
@@ -165,8 +167,7 @@ void RaccoonRun::update()
 		case 1:
 		// JPo code imported from class exercise - added jumping to test platform
 			VECTOR2 newVelocity = jpo.getVelocity();
-
-			if(input->isKeyDown(JPO_JUMP_KEY) && onLand)
+			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.onLand)
 			{
 				// make JPo jump!
 				if(!jumpedLastFrame)
@@ -175,7 +176,7 @@ void RaccoonRun::update()
 			}
 			else
 				jumpedLastFrame = false;
-				
+
 			if(input->isKeyDown(JPO_RIGHT_KEY))            // if move right
 			{
 				if(!keyDownLastFrame || lastDirection == left)
@@ -183,10 +184,10 @@ void RaccoonRun::update()
 					jpo.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 					jpo.setCurrentFrame(JPO_WALKING_RIGHT_START);
 				}
-	
+
 				//jpo.setX(jpo.getX() + frameTime * JPO_SPEED);
 				newVelocity = VECTOR2(JPO_SPEED, newVelocity.y);
-	
+
 				lastDirection = right;
 				keyDownLastFrame = keyDownThisFrame;
 				keyDownThisFrame = true;
@@ -240,6 +241,7 @@ void RaccoonRun::update()
 					moveScreenRight=true;
 				else
 					moveScreenRight=false;
+				//PostQuitMessage(0);
 			}
 			else
 			{
@@ -251,20 +253,35 @@ void RaccoonRun::update()
 					moveScreenLeft=true;
 				else
 					moveScreenLeft=false;
+				//PostQuitMessage(0);
 			}
 			else{
 				moveScreenLeft=false;
 			}
-			//checks if JPO is on a surface
-			if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT)
-			{
-				onLand=true;
-			}
-			else
-			{
-				onLand=false;
-			}
 
+			// Raccoon is "on land" if he's not falling
+			if(jpo.getVelocity().y == 0)
+				jpo.onLand = true;
+			else
+				jpo.onLand = false;
+
+			//if(moveScreenLeft)
+			//{
+			//	//PostQuitMessage(0);
+			//	for(int i=0; i<15; i++)
+			//	{
+			//		float newX=platform[i].getX()+1;
+			//		platform[i].setX(newX);
+			//	}
+			//}
+			//else if(moveScreenRight)
+			//{
+			//	for(int i=0; i<15; i++)
+			//	{
+			//		float newX=platform[i].getX()-1;
+			//		platform[i].setX(newX);
+			//	}
+			//}
 			for(int i=0; i<15; i++)
 			{
 				platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
@@ -272,11 +289,6 @@ void RaccoonRun::update()
 			background.update(frameTime, moveScreenLeft, moveScreenRight);
 
 			cs.update(frameTime);
-			if(jpo.collidesWith(frameTime, cs))
-			{
-				jpo.setVisible(false);
-				gameOver=true;
-			}
 			break;
 		}
 }
@@ -292,16 +304,34 @@ void RaccoonRun::ai()
 //=============================================================================
 void RaccoonRun::collisions()
 {
-
-	for(int i=0; i<15 && onLand!=true; i++)
+	VECTOR2 collisionVector;
+	
+	for(int i=0; i<15 && !jpo.onLand; i++)
 	{
-		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		//if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		if(jpo.collidesWith(platform[i], collisionVector) && jpo.getVelocity().y>=0)
 		{
-			onLand=true;
-			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
-			jpo.setVelocity(D3DXVECTOR2(0,0));
+			jpo.onLand=true;
+			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10));
+			jpo.setVelocity(D3DXVECTOR2(jpo.getVelocity().x,0)); // set y velocity to 0
+			lastPlatform = i;
 			break;
 		}
+	}
+	
+	if(lastPlatform!= -1 && !jpo.collidesWith(platform[lastPlatform],collisionVector))
+	{
+		lastPlatform = -1;
+		jpo.onLand = false;
+	}
+//	if(!onPlatform && jpo.getY() < GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
+//	{
+//		jpo.onLand = false;
+//	}
+	if(jpo.collidesWith(cs, collisionVector))
+	{
+		jpo.setVisible(false);
+		gameOver=true;
 	}
 }
 
@@ -334,6 +364,15 @@ void RaccoonRun::render()
 
 			jpo.draw();
 			cs.draw();
+
+			stringstream debugText;
+			debugText << "onLand = " << jpo.onLand << endl;
+			debugText << "velocity: x=" << jpo.getVelocity().x << "/y=" << jpo.getVelocity().y << endl;
+			if(lastPlatform > 0)
+				debugText << "Last Platform: x=" << platform[lastPlatform].getX() + platform[lastPlatform].getWidth()*platform[lastPlatform].getScale() << "/y=" << platform[lastPlatform].getY() << endl;
+			debugText << "Raccoon: x=" << jpo.getX() << "/y=" << jpo.getY() << endl;
+			debugText << "Width: Raccoon" << jpo.getWidth()*jpo.getScale() << "Platform1" << platform[0].getWidth()*platform[0].getScale() << endl;
+			debugFont->print(debugText.str(), 0, 30);
 		}
 		else
 		{
