@@ -77,6 +77,11 @@ void RaccoonRun::initialize(HWND hwnd)
 	jumpedLastFrame = false;
 
 	lastPlatform = -1;
+	menu = new Menu();
+	menu->initialize(graphics, input);
+
+	gameState = 0;
+	audioOn = true;
 
     return;
 }
@@ -111,131 +116,144 @@ void RaccoonRun::setPlatformData(int level)
 //=============================================================================
 void RaccoonRun::update()
 {
-	// JPo code imported from class exercise - added jumping to test platform
-	VECTOR2 newVelocity = jpo.getVelocity();
-
-	if(input->isKeyDown(JPO_JUMP_KEY) && jpo.onLand)
+	switch(gameState)
 	{
-		// make JPo jump!
-		if(!jumpedLastFrame)
-			newVelocity = VECTOR2(newVelocity.x, -750);
-		jumpedLastFrame = true;
-	}
-	else
-		jumpedLastFrame = false;
-
-	if(input->isKeyDown(JPO_RIGHT_KEY))            // if move right
-	{
-		if(!keyDownLastFrame || lastDirection == left)
-		{
-			jpo.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
-			jpo.setCurrentFrame(JPO_WALKING_RIGHT_START);
-		}
-
-		//jpo.setX(jpo.getX() + frameTime * JPO_SPEED);
-		newVelocity = VECTOR2(JPO_SPEED, newVelocity.y);
-
-		lastDirection = right;
-		keyDownLastFrame = keyDownThisFrame;
-		keyDownThisFrame = true;
-	}
-	else if(input->isKeyDown(JPO_LEFT_KEY))             // if move left
-	{
-		if(!keyDownLastFrame || lastDirection == right)
-		{
-			jpo.setCurrentFrame(JPO_WALKING_LEFT_START);
-			jpo.setFrames(JPO_WALKING_LEFT_START, JPO_WALKING_LEFT_END);
-		}
-
-		//jpo.setX(jpo.getX() - frameTime * JPO_SPEED);
-		newVelocity = VECTOR2(-JPO_SPEED, newVelocity.y);
-
-		lastDirection = left;
-		keyDownLastFrame = keyDownThisFrame;
-		keyDownThisFrame = true;
-	}
-	else
-	{
-		if(keyDownLastFrame)
-		{
-			newVelocity = VECTOR2(0, newVelocity.y);
-			if(lastDirection == right)
+		case 0:
+			menu->update();
+			if(menu->getSelectedItem() == 0)
 			{
-				jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
-				jpo.setCurrentFrame(JPO_LOOKING_RIGHT_START);
+				if(!gameOver)
+					gameState = 1;
+//				else
 			}
-			else // lastDirection == left
+			else if(menu->getSelectedItem() == 1)
 			{
-				jpo.setFrames(JPO_LOOKING_LEFT_START, JPO_LOOKING_LEFT_END);
-				jpo.setCurrentFrame(JPO_LOOKING_LEFT_START);
+				if(audioOn)
+					audioOn = false;
+				else
+					audioOn = true;
 			}
+			else if(menu->getSelectedItem() == 2)
+			{
+				menu->setInstructions(true);
+			}
+			else if(menu->getSelectedItem() == 3)
+			{
+				menu->setCredits(true);
+			}
+			else if(menu->getSelectedItem() == 4)
+			{
+				PostQuitMessage(0);
+			}
+			break;
+		case 1:
+		// JPo code imported from class exercise - added jumping to test platform
+			VECTOR2 newVelocity = jpo.getVelocity();
+
+			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.onLand)
+			{
+				// make JPo jump!
+				if(!jumpedLastFrame)
+					newVelocity = VECTOR2(newVelocity.x, -750);
+				jumpedLastFrame = true;
+			}
+			else
+				jumpedLastFrame = false;
+				
+			if(input->isKeyDown(JPO_RIGHT_KEY))            // if move right
+			{
+				if(!keyDownLastFrame || lastDirection == left)
+				{
+					jpo.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
+					jpo.setCurrentFrame(JPO_WALKING_RIGHT_START);
+				}
+	
+				//jpo.setX(jpo.getX() + frameTime * JPO_SPEED);
+				newVelocity = VECTOR2(JPO_SPEED, newVelocity.y);
+	
+				lastDirection = right;
+				keyDownLastFrame = keyDownThisFrame;
+				keyDownThisFrame = true;
+			}
+			else if(input->isKeyDown(JPO_LEFT_KEY))             // if move left
+			{
+				if(!keyDownLastFrame || lastDirection == right)
+				{
+					jpo.setCurrentFrame(JPO_WALKING_LEFT_START);
+					jpo.setFrames(JPO_WALKING_LEFT_START, JPO_WALKING_LEFT_END);
+				}
+
+				//jpo.setX(jpo.getX() - frameTime * JPO_SPEED);
+				newVelocity = VECTOR2(-JPO_SPEED, newVelocity.y);
+
+				lastDirection = left;
+				keyDownLastFrame = keyDownThisFrame;
+				keyDownThisFrame = true;
+			}
+			else
+			{
+				if(keyDownLastFrame)
+				{
+					newVelocity = VECTOR2(0, newVelocity.y);
+					if(lastDirection == right)
+					{
+						jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
+						jpo.setCurrentFrame(JPO_LOOKING_RIGHT_START);
+					}
+					else // lastDirection == left
+					{
+						jpo.setFrames(JPO_LOOKING_LEFT_START, JPO_LOOKING_LEFT_END);
+						jpo.setCurrentFrame(JPO_LOOKING_LEFT_START);
+					}
+				}
+
+				keyDownLastFrame = keyDownThisFrame;
+				keyDownThisFrame = false;
+			}
+
+			jpo.setVelocity(newVelocity);
+			int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
+			jpo.update(frameTime);
+
+			//Platform Updates. Checks to see if they need to move.
+			if(jpoX==jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
+			{
+				//if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
+				int maxX=BACKGROUND_WIDTH-GAME_WIDTH;
+				if(background.getX()>-(maxX))
+					moveScreenRight=true;
+				else
+					moveScreenRight=false;
+			}
+			else
+			{
+				moveScreenRight=false;
+			}
+			if(jpoX==jpo.getX() && input->isKeyDown(JPO_LEFT_KEY))
+			{
+				if(platform[0].getX()<5)//arbitrarily cannot move if more than 5px away.
+					moveScreenLeft=true;
+				else
+					moveScreenLeft=false;
+			}
+			else{
+				moveScreenLeft=false;
+			}
+			// Raccoon is "on land" if he's not falling
+			if(jpo.getVelocity().y == 0)
+				jpo.onLand = true;
+			else
+				jpo.onLand = false;
+
+			for(int i=0; i<15; i++)
+			{
+				platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
+			}
+			background.update(frameTime, moveScreenLeft, moveScreenRight);
+
+			cs.update(frameTime);
+			break;
 		}
-
-		keyDownLastFrame = keyDownThisFrame;
-		keyDownThisFrame = false;
-	}
-
-	jpo.setVelocity(newVelocity);
-	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
-	jpo.update(frameTime);
-
-	//Platform Updates. Checks to see if they need to move.
-	if(jpoX==jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
-	{
-		//if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
-		int maxX=BACKGROUND_WIDTH-GAME_WIDTH;
-		if(background.getX()>-(maxX))
-			moveScreenRight=true;
-		else
-			moveScreenRight=false;
-		//PostQuitMessage(0);
-	}
-	else
-	{
-		moveScreenRight=false;
-	}
-	if(jpoX==jpo.getX() && input->isKeyDown(JPO_LEFT_KEY))
-	{
-		if(platform[0].getX()<5)//arbitrarily cannot move if more than 5px away.
-			moveScreenLeft=true;
-		else
-			moveScreenLeft=false;
-		//PostQuitMessage(0);
-	}
-	else{
-		moveScreenLeft=false;
-	}
-
-	// Raccoon is "on land" if he's not falling
-	if(jpo.getVelocity().y == 0)
-		jpo.onLand = true;
-	else
-		jpo.onLand = false;
-
-	//if(moveScreenLeft)
-	//{
-	//	//PostQuitMessage(0);
-	//	for(int i=0; i<15; i++)
-	//	{
-	//		float newX=platform[i].getX()+1;
-	//		platform[i].setX(newX);
-	//	}
-	//}
-	//else if(moveScreenRight)
-	//{
-	//	for(int i=0; i<15; i++)
-	//	{
-	//		float newX=platform[i].getX()-1;
-	//		platform[i].setX(newX);
-	//	}
-	//}
-	for(int i=0; i<15; i++)
-	{
-		platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
-	}
-	background.update(frameTime, moveScreenLeft, moveScreenRight);
-
-	cs.update(frameTime);
 }
 
 //=============================================================================
@@ -286,31 +304,46 @@ void RaccoonRun::collisions()
 void RaccoonRun::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
-	background.draw();
-	if(!gameOver)
+	switch(gameState)
 	{
-		for(int i=0; i<15; i++)
+	case 0:
+		if(menu->getCredits())
+			menu->displayCredits();
+		else if(menu->getInstructions())
+			menu->displayInstructions();
+		else
+			menu->displayMenu();
+		break;
+	case 1:
+
+		background.draw();
+		if(!gameOver)
 		{
-			platform[i].draw();
+			for(int i=0; i<15; i++)
+			{
+				platform[i].draw();
+			}
+
+			jpo.draw();
+			cs.draw();
+
+			stringstream debugText;
+			debugText << "onLand = " << jpo.onLand << endl;
+			debugText << "velocity: x=" << jpo.getVelocity().x << "/y=" << jpo.getVelocity().y << endl;
+			debugText << "onPlatform = " << onPlatform << endl;
+			debugText << "Platform0: x=" << platform[0].getX() + platform[0].getWidth()*platform[0].getScale() << "/y=" << platform[0].getY() << endl;
+			debugText << "Raccoon: x=" << jpo.getX() << "/y=" << jpo.getY() << endl;
+			debugText << "Width: Raccoon" << jpo.getWidth()*jpo.getScale() << "Platform1" << platform[0].getWidth()*platform[0].getScale() << endl;
+			debugFont->print(debugText.str(), 0, 30);
 		}
-
-		jpo.draw();
-		cs.draw();
-
-		stringstream debugText;
-		debugText << "onLand = " << jpo.onLand << endl;
-		debugText << "velocity: x=" << jpo.getVelocity().x << "/y=" << jpo.getVelocity().y << endl;
-		debugText << "onPlatform = " << onPlatform << endl;
-		debugText << "Platform0: x=" << platform[0].getX() + platform[0].getWidth()*platform[0].getScale() << "/y=" << platform[0].getY() << endl;
-		debugText << "Raccoon: x=" << jpo.getX() << "/y=" << jpo.getY() << endl;
-		debugText << "Width: Raccoon" << jpo.getWidth()*jpo.getScale() << "Platform1" << platform[0].getWidth()*platform[0].getScale() << endl;
-		debugFont->print(debugText.str(), 0, 30);
-	}
-	else
-	{
-		debugFont->print("Game OVER.",0,0);
-	}
-
+		else
+		{
+			debugFont->print("Game OVER.",0,0);
+			if(input->isKeyDown(VK_ESCAPE))
+				gameState=0;
+		}
+		break;
+		}
     graphics->spriteEnd();                  // end drawing sprites
 }
 
