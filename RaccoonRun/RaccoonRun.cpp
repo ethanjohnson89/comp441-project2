@@ -282,7 +282,7 @@ void RaccoonRun::collisions()
 		}
 	}
 	
-	if(lastPlatform!= -1 && jpo.collidesWith(platform[lastPlatform],collisionVector))
+	if(lastPlatform!= -1 && !jpo.collidesWith(platform[lastPlatform],collisionVector))
 	{
 		lastPlatform = -1;
 		jpo.onLand = false;
