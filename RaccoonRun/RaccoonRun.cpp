@@ -189,7 +189,7 @@ void RaccoonRun::update()
 				}
 	
 				//jpo.setX(jpo.getX() + frameTime * JPO_SPEED);
-				newVelocity = VECTOR2(JPO_SPEED, newVelocity.y);
+				newVelocity = VECTOR2(RACCOON_SPEED, newVelocity.y);
 	
 				lastDirection = right;
 				keyDownLastFrame = keyDownThisFrame;
@@ -204,7 +204,7 @@ void RaccoonRun::update()
 				}
 
 				//jpo.setX(jpo.getX() - frameTime * JPO_SPEED);
-				newVelocity = VECTOR2(-JPO_SPEED, newVelocity.y);
+				newVelocity = VECTOR2(-RACCOON_SPEED, newVelocity.y);
 
 				lastDirection = left;
 				keyDownLastFrame = keyDownThisFrame;

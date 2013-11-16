@@ -25,6 +25,12 @@ Platform::Platform() : Still()
 	startFrame = JPO_LOOKING_RIGHT_START;
 	endFrame = JPO_LOOKING_RIGHT_END;
 	currentFrame = startFrame;
+
+	// Collision box
+    edge.bottom = -PLATFORM_HALF_HEIGHT-1; // same as top so that he only collides from the top
+    edge.top = -PLATFORM_HALF_HEIGHT;
+    edge.left = -PLATFORM_HALF_WIDTH;
+    edge.right = PLATFORM_HALF_WIDTH;
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;

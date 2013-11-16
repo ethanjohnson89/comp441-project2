@@ -146,6 +146,7 @@ const int RACCOON_JUMPING_LEFT_DOWN_END = 23;
 
 //const float JPO_SPEED = 90.5f;
 const float JPO_SPEED=100.0f;
+const float RACCOON_SPEED = 200.0f;
 
 //still constants.
 const float STILL_SPEED = 100.0f;
@@ -153,6 +154,8 @@ const float STILL_SPEED = 100.0f;
 //platform Constants
 const int PLATFORM_WIDTH = 256;
 const int PLATFORM_HEIGHT = 64;
+const int PLATFORM_HALF_WIDTH = 128;
+const int PLATFORM_HALF_HEIGHT = 32;
 
 //background constants
 const int BACKGROUND_WIDTH=2048;

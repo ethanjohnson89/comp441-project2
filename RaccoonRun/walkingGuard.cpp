@@ -25,6 +25,12 @@ WalkingGuard::WalkingGuard() : Character()
 	startFrame = JPO_LOOKING_RIGHT_START;
 	endFrame=JPO_LOOKING_RIGHT_START;
 	currentFrame = startFrame;
+
+	// Collision box
+	edge.bottom = JPO_HALF_HEIGHT;
+	edge.top = -JPO_HALF_HEIGHT;
+	edge.left = -JPO_HALF_WIDTH;
+	edge.right = JPO_HALF_WIDTH;
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;
@@ -51,18 +57,18 @@ void WalkingGuard::update(float frameTime)
     spriteData.y += frameTime * velocity.y;         // move along Y
 
     // Bounce off walls
-    if (spriteData.x > GAME_WIDTH - JPO_WIDTH)  // if hit right screen edge
+    if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
     {
-        spriteData.x = GAME_WIDTH - JPO_WIDTH;  // position at right screen edge
+        spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
         velocity.x = -velocity.x;                   // reverse X direction
     } else if (spriteData.x < 0)                    // else if hit left screen edge
     {
         spriteData.x = 0;                           // position at left screen edge
         velocity.x = -velocity.x;                   // reverse X direction
     }
-    if (spriteData.y > GAME_HEIGHT - JPO_HEIGHT) // if hit bottom screen edge
+    if (spriteData.y > GAME_HEIGHT - spriteData.height) // if hit bottom screen edge
     {
-        spriteData.y = GAME_HEIGHT - JPO_HEIGHT; // position at bottom screen edge
+        spriteData.y = GAME_HEIGHT - spriteData.height; // position at bottom screen edge
         velocity.y = 0;
     } else if (spriteData.y < 0)                    // else if hit top screen edge
     {
