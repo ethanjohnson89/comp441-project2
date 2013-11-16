@@ -11,6 +11,7 @@
 #include "Character.h"
 #include "Still.h"
 #include "platform.h"
+#include "cpsoup.h"
 #include "raccoon.h"
 #include "menu.h"
 #include "walkingGuard.h"
@@ -28,6 +29,9 @@ private:
 	
 	TextureManager csTexture;
 	WalkingGuard cs;
+
+	TextureManager cpsoupTexture;
+	CPSoup cpsoup;
 
 	TextureManager platformTexture;
 	Platform platform[15];

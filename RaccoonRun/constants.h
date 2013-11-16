@@ -92,8 +92,8 @@ const float GRAVITY = 2000.0f;                  // acceleration of gravity pixel
 // graphic images
 const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
 const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
-
 const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
+const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 	
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform1.png";
@@ -143,6 +143,14 @@ const int RACCOON_JUMPING_LEFT_START = 20;
 const int RACCOON_JUMPING_LEFT_END = 21;
 const int RACCOON_JUMPING_LEFT_DOWN_START = 22;
 const int RACCOON_JUMPING_LEFT_DOWN_END = 23;
+
+// cheeseburger pizza soup cels
+const int CPSOUP_COLS = 4;
+const int CPSOUP_WIDTH = 81;
+const int CPSOUP_HEIGHT = 96;
+const int CPSOUP_HALF_WIDTH = 40;
+const int CPSOUP_HALF_HEIGHT = 48;
+const float CPSOUP_ANIMATION_DELAY = 0.5f;
 
 //const float JPO_SPEED = 90.5f;
 const float JPO_SPEED=100.0f;

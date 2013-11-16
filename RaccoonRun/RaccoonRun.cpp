@@ -41,11 +41,17 @@ void RaccoonRun::initialize(HWND hwnd)
 	if(!raccoonTexture.initialize(graphics, RACCOON_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon texture"));
 
+	if(!cpsoupTexture.initialize(graphics, CPSOUP_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup texture"));
+
     if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon"));
 
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
+
+	if (!cpsoup.initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
 
     jpo.setX(30);
     jpo.setY(175-RACCOON_HEIGHT);
@@ -57,6 +63,9 @@ void RaccoonRun::initialize(HWND hwnd)
 	cs.setVelocity(D3DXVECTOR2(90.0f,0));
 
 	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
+
+	cpsoup.set(30, GAME_HEIGHT - (10+CPSOUP_HEIGHT));
+	cpsoup.setVisible(true);
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
@@ -282,6 +291,9 @@ void RaccoonRun::update()
 				gameOver=true;*/
 				paused = true;
 			}
+
+			cpsoup.update(frameTime, moveScreenLeft, moveScreenRight);
+
 			break;
 		}
 }
@@ -339,6 +351,7 @@ void RaccoonRun::render()
 
 			jpo.draw();
 			cs.draw();
+			cpsoup.draw();
 		}
 		else
 		{
@@ -361,6 +374,7 @@ void RaccoonRun::releaseAll()
 	
 	jpoTexture.onLostDevice();
 	platformTexture.onLostDevice();
+	cpsoupTexture.onLostDevice();
 	backgroundTexture.onLostDevice();
 
     Game::releaseAll();
@@ -377,6 +391,7 @@ void RaccoonRun::resetAll()
 
 	jpoTexture.onResetDevice();
 	platformTexture.onResetDevice();
+	cpsoupTexture.onResetDevice();
 	backgroundTexture.onResetDevice();
 
     Game::resetAll();

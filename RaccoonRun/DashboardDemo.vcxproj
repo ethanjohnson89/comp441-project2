@@ -92,6 +92,7 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="console.cpp" />
+    <ClCompile Include="cpsoup.cpp" />
     <ClCompile Include="dashboardDemo.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="constants.h" />
+    <ClInclude Include="cpsoup.h" />
     <ClInclude Include="dashboardDemo.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="game.h" />
