@@ -78,7 +78,7 @@ void WalkingGuard::update(float frameTime)
 
     velocity.y += frameTime * GRAVITY;              // gravity
 }
-bool WalkingGuard::collidesWith(float frameTime, Entity object)
+bool WalkingGuard::collidesWithRaccoon(float frameTime, Entity object)
 {
 	//ONLY USE THIS WITH RACCOON.
 	bool collides=false;

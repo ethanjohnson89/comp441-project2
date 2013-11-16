@@ -21,9 +21,16 @@ RaccoonRun::~RaccoonRun()
 //=============================================================================
 void RaccoonRun::initialize(HWND hwnd)
 {
+
     Game::initialize(hwnd); // throws GameError
 	//game does not start finished
 	gameOver=false;
+
+	//score init
+	score=0;
+	//level init
+	level=1;
+
 	//set boolean for no easter egg.
 	fly=false;
 	//JPO starts on ground.
@@ -44,28 +51,34 @@ void RaccoonRun::initialize(HWND hwnd)
 	if(!cpsoupTexture.initialize(graphics, CPSOUP_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup texture"));
 
+	setSoupData();
+
     if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon"));
 
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
-	if (!cpsoup.initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
-
-    jpo.setX(30);
-    jpo.setY(175-RACCOON_HEIGHT);
-    jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 
 
-	cs.setX(25);
-	cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-	cs.setVelocity(D3DXVECTOR2(90.0f,0));
+	//if (!cpsoup.initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
+ //       throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
+
+ //   jpo.setX(30);
+ //   jpo.setY(175-RACCOON_HEIGHT);
+ //   jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
+
+
+	//cs.setX(25);
+	//cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+	//cs.setVelocity(D3DXVECTOR2(90.0f,0));
+
+	levelSet();
 
 	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
 
-	cpsoup.set(30, GAME_HEIGHT - (10+CPSOUP_HEIGHT));
-	cpsoup.setVisible(true);
+	//cpsoup.set(30, GAME_HEIGHT - (10+CPSOUP_HEIGHT));
+	//cpsoup.setVisible(true);
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
@@ -285,14 +298,17 @@ void RaccoonRun::update()
 			background.update(frameTime, moveScreenLeft, moveScreenRight);
 
 			cs.update(frameTime);
-			if(cs.collidesWith(frameTime, jpo))
+			if(cs.collidesWithRaccoon(frameTime, jpo))
 			{
-				/*jpo.setVisible(false);
-				gameOver=true;*/
+				jpo.setVisible(false);
+				/*gameOver=true;*/
 				paused = true;
 			}
 
-			cpsoup.update(frameTime, moveScreenLeft, moveScreenRight);
+			for(int i=0; i<3; i++)
+			{
+				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
+			}
 
 			break;
 		}
@@ -343,7 +359,7 @@ void RaccoonRun::render()
 		background.draw();
 		if(!gameOver)
 		{
-			for(int i=0; platform[i].getVisible(); i++)
+			for(int i=0; platform[i].getVisible(); i++)//this keeps track of which platforms are visible.
 			{
 				//throw(GameError(gameErrorNS::FATAL_ERROR, "Made it to "));
 				platform[i].draw();
@@ -351,7 +367,10 @@ void RaccoonRun::render()
 
 			jpo.draw();
 			cs.draw();
-			cpsoup.draw();
+			for(int i=0; i<3; i++)
+			{
+				cpsoup[i].draw();
+			}
 		}
 		else
 		{
@@ -396,4 +415,26 @@ void RaccoonRun::resetAll()
 
     Game::resetAll();
     return;
+}
+void RaccoonRun::levelSet()
+{
+	switch (level)
+	{
+	case 1:
+		jpo.setX(30);
+		jpo.setY(175-RACCOON_HEIGHT);
+		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
+		jpo.setVisible(true);
+
+		cs.setX(25);
+		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+		break;
+	}
+}
+void RaccoonRun::setSoupData()
+{
+	for(int i=0; i<3; i++)
+	if (!cpsoup[i].initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
 }

@@ -31,7 +31,7 @@ private:
 	WalkingGuard cs;
 
 	TextureManager cpsoupTexture;
-	CPSoup cpsoup;
+	CPSoup cpsoup[3];
 
 	TextureManager platformTexture;
 	Platform platform[15];
@@ -64,6 +64,8 @@ private:
 	int gameState;
 	bool audioOn;
 
+	int score;
+	int level;
 
 public:
     RaccoonRun();
@@ -76,7 +78,10 @@ public:
     void render();
 	void releaseAll();
 	void resetAll();
+	void setStillData();
 	void setPlatformData(int level);
+	void setSoupData();
+	void levelSet();
 };
 
 #endif
