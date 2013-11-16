@@ -81,7 +81,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	gameState = 0;
 	audioOn = true;
-
+	//audio->playCue(LEVEL);
 
     return;
 }
@@ -102,6 +102,7 @@ void RaccoonRun::setPlatformData(int level)
 	switch(level)
 	{
 	case 1:
+		audio->playCue(LEVEL);
 		for(int i=0; i<9; i++)
 		{
 			if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
@@ -141,6 +142,7 @@ void RaccoonRun::update()
 			{
 				if(!gameOver)
 					gameState = 1;
+				
 //				else
 			}
 			else if(menu->getSelectedItem() == 1)
@@ -164,6 +166,9 @@ void RaccoonRun::update()
 			}
 			break;
 		case 1:
+			//start background music
+			if(audioOn)
+				audio->playCue(LEVEL);
 		// JPo code imported from class exercise - added jumping to test platform
 			VECTOR2 newVelocity = jpo.getVelocity();
 

@@ -158,9 +158,14 @@ const int PLATFORM_HEIGHT = 64;
 const int BACKGROUND_WIDTH=2048;
 const int BACKGROUND_HEIGHT=512;
 
+
 // audio files
-const char WAVE_BANK[] = "";
-const char SOUND_BANK[] = "";
+const char WAVE_BANK[]  = "audio\\Win\\Wave Bank.xwb";
+// SOUND_BANK must be location of .xsb file.
+const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
+
+//audio cues
+const char LEVEL[] = "raccoonLevel1";
 
 // audio cues
 
