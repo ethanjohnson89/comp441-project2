@@ -74,6 +74,7 @@ void WalkingGuard::update(float frameTime)
 }
 bool WalkingGuard::collidesWith(float frameTime, Entity object)
 {
+	//ONLY USE THIS WITH RACCOON.
 	bool collides=false;
 
 	float bottom;
@@ -82,24 +83,22 @@ bool WalkingGuard::collidesWith(float frameTime, Entity object)
 	float top;
 	top=spriteData.y+20;
 	float left;
-	left=getX();
+	left=getX()+22;
 	float right;
-	right=getCenterY()+(JPO_WIDTH*getScale()/2);
+	right=getX()+JPO_WIDTH*getScale();
 
 	float ebottom;
 	ebottom=(object.getY())+object.getHeight()*object.getScale();
 	float eleft;
-	eleft= object.getX()/* - object.getWidth()*object.getScale()/2*/;
+	eleft= object.getX();
 	float eright;
-	eright= object.getX() + object.getWidth()*object.getScale();
+	eright= object.getX() + object.getWidth()*object.getScale()-50;
+	float etop;
+	etop=ebottom+RACCOON_HEIGHT;
 
-	///*if(ebottom<=bottom)
-	//	return true;*/
-	//if(ebottom>=top)
-	//	return true;
-	if(ebottom<=bottom && ebottom>=top)
+	if(ebottom<=bottom && ebottom>=(top+40))
 	{
-		if(eleft>=left)
+		if(eleft<=left && eright>=left)
 			return true;
 		else
 			return false;
