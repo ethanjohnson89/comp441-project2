@@ -90,7 +90,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	background.setX(-5);
 	background.setY(0);
 
-	setPlatformData(1);	//eventually, will need to call it with level data.
+	//setPlatformData(1);	//eventually, will need to call it with level data.
 	//can just use an arbitrary integer for right now.
 
 	lastDirection = right;
@@ -364,13 +364,14 @@ void RaccoonRun::render()
 				//throw(GameError(gameErrorNS::FATAL_ERROR, "Made it to "));
 				platform[i].draw();
 			}
-
-			jpo.draw();
-			cs.draw();
 			for(int i=0; i<3; i++)
 			{
 				cpsoup[i].draw();
 			}
+
+			jpo.draw();
+			cs.draw();
+			
 		}
 		else
 		{
@@ -429,12 +430,30 @@ void RaccoonRun::levelSet()
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+
+		setStillData();
+
 		break;
 	}
+}
+void RaccoonRun::setStillData()
+{
+	setPlatformData(level);
+	setSoupData();
 }
 void RaccoonRun::setSoupData()
 {
 	for(int i=0; i<3; i++)
-	if (!cpsoup[i].initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
+	{
+		if (!cpsoup[i].initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
+		cpsoup[i].setScale(.5);
+	}
+	switch(level)
+	{
+	case 1:
+		cpsoup[0].set(277,400);
+		cpsoup[1].set(599,400);
+		cpsoup[2].set(964,180);
+	}
 }
