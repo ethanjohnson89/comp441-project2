@@ -94,21 +94,37 @@ void RaccoonRun::setPlatformData(int level)
 {
 	//this will set the world coordinates of the platform positions.
 	//will eventually be based on what level we are currently on.
-
 	for(int i=0; i<15; i++)
 	{
-		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
-		float newX=i*PLATFORM_WIDTH+i*150;
-		platform[i].setWorldX(newX); //these should be thought of as constants for each level.
-		//platform[i].setWorldY(2*GAME_HEIGHT/3);
-		platform[i].setWorldY(350);
-		platform[i].setX(newX);
-		//platform[i].setY(2*GAME_HEIGHT/3);
-		platform[i].setScale(.75);
-		platform[i].setY(350);
+		platform[i].setVisible(false);
 	}
-	
+	switch(level)
+	{
+	case 1:
+		for(int i=0; i<9; i++)
+		{
+			if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
+				throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
+			//float newX=i*PLATFORM_WIDTH+i*150;
+			//platform[i].setWorldX(newX); //these should be thought of as constants for each level.
+			////platform[i].setWorldY(2*GAME_HEIGHT/3);
+			//platform[i].setWorldY(350);
+			//platform[i].setX(newX);
+			//platform[i].setY(2*GAME_HEIGHT/3);
+			platform[i].setScale(.75);
+			platform[i].setVisible(true);
+			//platform[i].setY(350);
+		}
+		platform[0].set(29,176);
+		platform[1].set(350,135);
+		platform[2].set(405,232);
+		platform[3].set(636,310);
+		platform[4].set(686,164);
+		platform[5].set(964,222);
+		platform[6].set(1225,130);
+		platform[7].set(1494,222);
+		platform[8].set(1805,130);
+	}
 }
 
 //=============================================================================
@@ -310,8 +326,9 @@ void RaccoonRun::render()
 		background.draw();
 		if(!gameOver)
 		{
-			for(int i=0; i<15; i++)
+			for(int i=0; platform[i].getVisible(); i++)
 			{
+				//throw(GameError(gameErrorNS::FATAL_ERROR, "Made it to "));
 				platform[i].draw();
 			}
 
