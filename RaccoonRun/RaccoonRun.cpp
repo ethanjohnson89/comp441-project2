@@ -53,10 +53,10 @@ void RaccoonRun::initialize(HWND hwnd)
 	if(!cpsoupTexture.initialize(graphics, CPSOUP_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup texture"));
 
-	if (!jpoTexture.initialize(graphics,CHEESEBURGER_IMAGE))
+	if (!cheeseburgerTexture.initialize(graphics,CHEESEBURGER_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger texture"));
 
-	if (!jpoTexture.initialize(graphics,PIZZA_IMAGE))
+	if (!pizzaTexture.initialize(graphics,PIZZA_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza texture"));
 
 	//setSoupData();
@@ -185,8 +185,6 @@ void RaccoonRun::update()
 			{
 				if(!gameOver)
 					gameState = 1;
-				
-//				else
 			}
 			else if(menu->getSelectedItem() == 1)
 			{
@@ -339,6 +337,16 @@ void RaccoonRun::update()
 			for(int i=0; i<3; i++)
 			{
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
+			}
+
+			for(int i=0; i<3; i++)
+			{
+				cheeseburger[i].update(frameTime, moveScreenLeft, moveScreenRight);
+			}
+
+			for(int i=0; i<3; i++)
+			{
+				pizza[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
 
 			break;
