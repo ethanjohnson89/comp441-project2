@@ -207,7 +207,6 @@ void RaccoonRun::update()
 			}
 			break;
 		case 1:
-		// JPo code imported from class exercise - added jumping to test platform
 			VECTOR2 newVelocity = jpo.getVelocity();
 
 			if(input->isKeyDown(JPO_JUMP_KEY) && onLand)

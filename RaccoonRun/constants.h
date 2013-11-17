@@ -182,7 +182,7 @@ const float JPO_SPEED = 90.5f;
 const float RACCOON_SPEED = 200.0f;
 
 //still constants.
-const float STILL_SPEED = 100.0f;
+const float STILL_SPEED = RACCOON_SPEED;
 
 //platform Constants
 const int PLATFORM_WIDTH = 256;
