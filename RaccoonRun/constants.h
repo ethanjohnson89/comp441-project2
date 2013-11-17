@@ -102,6 +102,12 @@ const char BACKGROUND1A_TEXTURE[]="pictures\\background1a.png";
 const char BACKGROUND1B_TEXTURE[]="pictures\\background1b.png";
 const char BACKGROUND2_TEXTURE[]="pictures\\background2.png";
 
+const char CHECKPOINT_TEXTURE[]="pictures\\checkPoint.png";
+
+//checkpoint constants
+const int CHECKPOINT_WIDTH = 64;
+const int CHECKPOINT_HEIGHT = 64;
+
 const float JPO_ANIMATION_DELAY = 0.2f;    // time between frames of ship animation
 //JPO Cel
 const int  JPO_COLS = 4;

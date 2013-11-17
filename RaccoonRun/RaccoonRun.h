@@ -42,6 +42,9 @@ private:
 	TextureManager backgroundTexture;
 	Still background[3];
 
+	TextureManager checkpointTexture;
+	Still checkPoint;
+
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
 	bool keyDownThisFrame;

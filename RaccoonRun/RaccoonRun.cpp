@@ -294,6 +294,7 @@ void RaccoonRun::update()
 			background[level-1].update(frameTime, moveScreenLeft, moveScreenRight);
 
 			cs.update(frameTime);
+			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			if(cs.collidesWithRaccoon(frameTime, jpo))
 			{
 				jpo.setVisible(false);
@@ -375,7 +376,7 @@ void RaccoonRun::render()
 			{
 				cpsoup[i].draw();
 			}
-
+			checkPoint.draw();
 			jpo.draw();
 			cs.draw();
 			
@@ -448,6 +449,12 @@ void RaccoonRun::setStillData()
 	setBgData();
 	setPlatformData(level);
 	setSoupData();
+	//checkpoint stuff
+	if(!checkpointTexture.initialize(graphics, CHECKPOINT_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
+	if (!checkPoint.initialize(this,CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT, 0, &checkpointTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint"));
+	checkPoint.set(1930,76);
 }
 void RaccoonRun::setSoupData()
 {
