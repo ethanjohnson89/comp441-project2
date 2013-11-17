@@ -67,34 +67,14 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
-
-	//if (!cpsoup.initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
- //       throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
-
- //   jpo.setX(30);
- //   jpo.setY(175-RACCOON_HEIGHT);
- //   jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
-
-
-	//cs.setX(25);
-	//cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-	//cs.setVelocity(D3DXVECTOR2(90.0f,0));
-
 	levelSet();
 
 	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
 	cs.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 
-	//cpsoup.set(30, GAME_HEIGHT - (10+CPSOUP_HEIGHT));
-	//cpsoup.setVisible(true);
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
-
-	
-
-	//setPlatformData(1);	//eventually, will need to call it with level data.
-	//can just use an arbitrary integer for right now.
 
 	lastDirection = right;
 	keyDownLastFrame = false;
@@ -123,12 +103,6 @@ void RaccoonRun::setPlatformData(int level)
 	{
 		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
 				throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
-			//float newX=i*PLATFORM_WIDTH+i*150;
-			//platform[i].setWorldX(newX); //these should be thought of as constants for each level.
-			////platform[i].setWorldY(2*GAME_HEIGHT/3);
-			//platform[i].setWorldY(350);
-			//platform[i].setX(newX);
-			//platform[i].setY(2*GAME_HEIGHT/3);
 			platform[i].setScale(.75);
 		platform[i].setVisible(false);
 		platform[i].set(-500,-500); //gets unused platforms out of the way.
@@ -375,6 +349,14 @@ void RaccoonRun::collisions()
 			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
+		}
+	}
+	for(int i=0; i<3; ++i)
+	{
+		if(jpo.collidesWith(frameTime,cpsoup[i])&&cpsoup[i].getActive())
+		{
+			cpsoup[i].setActive(false);
+			cpsoup[i].setVisible(false);
 		}
 	}
 }
