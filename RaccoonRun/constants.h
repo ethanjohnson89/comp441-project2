@@ -78,8 +78,8 @@ inline void safeOnResetDevice(T& ptr)
 const char CLASS_NAME[] = "RaccoonRun";
 const char GAME_TITLE[] = "Raccoon Run";
 const bool FULLSCREEN = false;          // windowed or fullscreen
-const UINT GAME_WIDTH = 640;			// width of game in pixels
-const UINT GAME_HEIGHT = 480;			// height of game in pixels
+const UINT GAME_WIDTH = 800;			// width of game in pixels
+const UINT GAME_HEIGHT = 512;			// height of game in pixels
 
 // game
 const double PI = 3.14159265;
