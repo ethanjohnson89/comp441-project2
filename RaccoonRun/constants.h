@@ -108,6 +108,12 @@ const char MENU_TEXTURE[]="pictures\\menuBackground.png";
 
 const char CHECKPOINT_TEXTURE[]="pictures\\checkPoint.png";
 
+//different screen textures
+const char SPLASH_TEXTURE[]="pictures\\splashScreen.png";
+const char WIN_TEXTURE[]="pictures\\youWon.png";
+const char LOSE_TEXTURE[]="pictures\\youLost.png";
+
+
 //status images
 const char BLACK_TEXTURE[]="pictures\\blackBar.png";
 const char LIVES_TEXTURE[]="pictures\\RaccoonLife.png";
