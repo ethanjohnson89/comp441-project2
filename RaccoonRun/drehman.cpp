@@ -151,7 +151,8 @@ void Menu::displayCheats()
 	}
 	if(input->isKeyDown(VK_RETURN))
 	{
-		cheatCodes[linePtr2] = true;
+		//cheatCodes[linePtr2] = true;
+		selectedItem2 = linePtr2;
 	}
 	return;
 }

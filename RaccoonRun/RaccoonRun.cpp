@@ -222,6 +222,21 @@ void RaccoonRun::update()
 			else if(menu->getSelectedItem() == 4)
 			{
 				menu->setCheats(true);
+				switch(menu->getSelectedItem2())
+				{
+				case 0:
+					fly = true;
+					break;
+				case 1:
+					jpo.incrementLivesBy(1000000);
+					break;
+				}
+				case 2:
+					level = 2;
+					break;
+				//fly=1;
+				//lives=10000000
+				//level=2;
 			}
 			break;
 		case 1:
@@ -240,13 +255,22 @@ void RaccoonRun::update()
 		case 5:
 			
 
-			if(input->isKeyDown(JPO_JUMP_KEY) && onLand)
+			if(input->isKeyDown(JPO_JUMP_KEY))
 			{
 				// make JPo jump!
-				if(!jumpedLastFrame)
-					newVelocity = VECTOR2(newVelocity.x, -750);
-				jumpedLastFrame = true;
-				audio->playCue(BOING);
+				if(onLand && !fly)
+				{
+					if(!jumpedLastFrame)
+						newVelocity = VECTOR2(newVelocity.x, -750);
+					jumpedLastFrame = true;
+					audio->playCue(BOING);
+				}
+				else if(fly)
+				{
+					if(!jumpedLastFrame)
+						newVelocity = VECTOR2(newVelocity.x, -750);
+					jumpedLastFrame = true;
+				}
 			}
 			else
 				jumpedLastFrame = false;
@@ -353,7 +377,8 @@ void RaccoonRun::update()
 				if(jpo.getVisible())
 				{
 					jpo.incrementLivesBy(-1);
-					lives[jpo.getLives()].setVisible(false);
+					if(jpo.getLives()<3)
+						lives[jpo.getLives()].setVisible(false);
 				}
 				jpo.setVisible(false);
 				

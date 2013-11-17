@@ -27,6 +27,7 @@ private:
    Input   *input;         // pointer to the input system
    Graphics *graphics;
    int selectedItem;
+   int selectedItem2;
    std::string menuHeading;
    std::string creditHeading;
    std::string instructionHeading;
@@ -68,6 +69,8 @@ public:
 	void Menu::displayCheats();
 	bool getCheats(){return cheats;}
 	void setCheats(bool Cheats){cheats=Cheats;}
+	int getSelectedItem2() {return selectedItem2;}
+	void setSelectedItem2(int number) {selectedItem2=number;}
 	std::vector<bool> getCheatCodes(){return cheatCodes;}
 };
 #endif
