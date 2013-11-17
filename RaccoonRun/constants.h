@@ -91,7 +91,7 @@ const float GRAVITY = 2000.0f;                  // acceleration of gravity pixel
 
 // graphic images
 const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
-const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
+const char JPO_IMAGE[]   = "pictures\\JPo Officer.png";
 const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
 const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 const char CHEESEBURGER_IMAGE[] = "pictures\\cheeseburger.png";
