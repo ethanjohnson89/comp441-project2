@@ -90,7 +90,7 @@ bool Checkpoint::collidesWith(float frameTime, Entity object)
 
 	if((ebottom<=(bottom+10) && ebottom>=(top-10))|| (etop>=bottom && etop<=bottom))
 	{
-		if(eleft<=left && eright>=left)
+		if(/*eleft<=left && eright>=left*/eright>=left)
 			return true;
 		//else
 			//return false;

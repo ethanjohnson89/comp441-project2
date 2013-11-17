@@ -25,6 +25,7 @@ void RaccoonRun::initialize(HWND hwnd)
     Game::initialize(hwnd); // throws GameError
 	//game does not start finished
 	gameOver=false;
+	win=false;
 
 	//score init
 	score=0;
@@ -153,8 +154,8 @@ void RaccoonRun::setPlatformData(int level)
 		platform[1].set(475,232);
 		platform[2].set(806,188);
 		platform[3].set(1076,279);
-		platform[4].set(1296,265);
-		platform[5].set(1721,291);
+		platform[4].set(1486,265);
+		platform[5].set(1701,291);
 		platform[6].set(175,350);
 	}
 
@@ -328,7 +329,13 @@ void RaccoonRun::update()
 			}
 			if(checkPoint.collidesWith(frameTime, jpo))
 				//paused=true;
-				reset();
+				if(level!=3)
+					reset();
+				else
+				{
+					gameOver=true;
+					win=true;
+				}
 
 			for(int i=0; i<3; i++)
 			{
@@ -339,6 +346,17 @@ void RaccoonRun::update()
 			{
 				pizza[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
+
+			//if(level==3)
+			//{
+			//	int maxX=background[level-1].getWidth()-GAME_WIDTH;
+			//	if(jpo.getX()>=checkPoint.getX())
+			//	{
+			//		paused=true;
+			//		gameOver=true;
+			//		
+			//	}
+			//}
 
 			break;
 		}
@@ -566,6 +584,8 @@ void RaccoonRun::setStillData()
 	case 2:
 		checkPoint.set(860,131);
 		break;
+	case 3:
+		checkPoint.set(1821,240);
 	}
 	
 }

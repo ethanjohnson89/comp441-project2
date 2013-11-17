@@ -69,6 +69,7 @@ private:
 
 	//game over?
 	bool gameOver;
+	bool win;
 
 	//should JPO be able to jump
 	bool onLand;
