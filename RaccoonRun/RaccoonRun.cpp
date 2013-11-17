@@ -31,6 +31,8 @@ void RaccoonRun::initialize(HWND hwnd)
 	//level init
 	level=1;
 
+	statusSet();
+
 	//set boolean for no easter egg.
 	fly=false;
 	//JPO starts on ground.
@@ -320,7 +322,10 @@ void RaccoonRun::update()
 			if(cs.collidesWithRaccoon(frameTime, jpo))
 			{
 				if(jpo.getVisible())
+				{
 					jpo.incrementLivesBy(-1);
+					lives[jpo.getLives()].setVisible(false);
+				}
 				jpo.setVisible(false);
 				
 				/*gameOver=true;*/
@@ -382,6 +387,7 @@ void RaccoonRun::render()
 		break;
 	case 1:
 		background[level-1].draw();
+		blackBar.draw();
 		if(!gameOver)
 		{
 			for(int i=0; platform[i].getVisible(); i++)//this keeps track of which platforms are visible.
@@ -412,6 +418,11 @@ void RaccoonRun::render()
 			if(input->isKeyDown(VK_ESCAPE))
 				gameState=0;
 		}
+		
+		for(int i=0; lives[i].getVisible(); i++)
+		{
+			lives[i].draw();
+		}
 		break;
 		}
     graphics->spriteEnd();                  // end drawing sprites
@@ -431,6 +442,8 @@ void RaccoonRun::releaseAll()
 	backgroundTexture[0].onLostDevice();
 	backgroundTexture[1].onLostDevice();
 	backgroundTexture[2].onLostDevice();
+	livesTexture.onLostDevice();
+	blackTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -450,6 +463,8 @@ void RaccoonRun::resetAll()
 	backgroundTexture[0].onResetDevice();
 	backgroundTexture[1].onResetDevice();
 	backgroundTexture[2].onResetDevice();
+	livesTexture.onResetDevice();
+	blackTexture.onResetDevice();
 
     Game::resetAll();
     return;
@@ -595,4 +610,33 @@ void RaccoonRun::reset()
 	if(level<3)
 		level++;
 	setStillData();
+}
+void RaccoonRun::statusSet()
+{
+	if(!blackTexture.initialize(graphics, BLACK_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!blackBar.initialize(graphics,0, 0, 0, &blackTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black bar"));
+	blackBar.setX(0);
+	blackBar.setY(-20);
+	
+	if(!livesTexture.initialize(graphics, LIVES_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	for(int i=0; i<5; i++)	
+	{
+		if (!lives[i].initialize(graphics,256, 256, 0, &livesTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing lives image"));
+	}
+	int xOffset=65;
+	for(int i=0; i<5; i++)
+	{
+		lives[i].setX(5+i*xOffset);
+		lives[i].setY(0);
+		lives[i].setVisible(false);
+		lives[i].setScale(.2);
+	}
+	for(int i=0; i<jpo.getLives(); i++)
+	{
+		lives[i].setVisible(true);
+	}
 }
