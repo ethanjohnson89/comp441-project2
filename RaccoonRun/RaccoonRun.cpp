@@ -110,6 +110,8 @@ void RaccoonRun::setPlatformData(int level)
 	}
 	switch(level)
 	{
+		//audio->stopCue(LEVEL);
+		//audio->stopCue(LEVEL);
 	case 1:
 		//audio->playCue(LEVEL);
 		for(int i=0; i<9; i++)
@@ -141,9 +143,22 @@ void RaccoonRun::setPlatformData(int level)
 		platform[4].set(625,141);
 		platform[5].set(638,412);
 		platform[6].set(948,147);
+	case 3:
+		for(int i=0; i<7; i++)
+		{
+			platform[i].setVisible(true);
+			platform[i].setScale(.75);
+		}
+		platform[0].set(67,260);
+		platform[1].set(475,232);
+		platform[2].set(806,188);
+		platform[3].set(1076,279);
+		platform[4].set(1296,265);
+		platform[5].set(1721,291);
+		platform[6].set(175,350);
 	}
 
-	audio->playCue(LEVEL);
+	//audio->playCue(LEVEL);
 }
 
 //=============================================================================
@@ -465,6 +480,9 @@ void RaccoonRun::levelSet()
 	switch (level)
 	{
 	case 1:
+		audio->stopCue(LEVEL);
+		audio->playCue(LEVEL);
+		
 		jpo.setX(30);
 		jpo.setY(175-RACCOON_HEIGHT);
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
@@ -490,6 +508,19 @@ void RaccoonRun::levelSet()
 		setStillData();
 
 		break;
+	case 3:
+		jpo.setX(17);
+		jpo.setY(67-RACCOON_HEIGHT);
+		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
+		jpo.setVisible(true);
+
+		cs.setX(25);
+		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+
+		setStillData();
+
+		break;
 	}
 }
 void RaccoonRun::setStillData()
@@ -504,7 +535,17 @@ void RaccoonRun::setStillData()
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
 	if (!checkPoint.initialize(this,CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT, 0, &checkpointTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint"));
-	checkPoint.set(1930,76);
+	
+	switch(level)
+	{
+	case 1:
+		checkPoint.set(1930,76);
+		break;
+	case 2:
+		checkPoint.set(960,76);
+		break;
+	}
+	
 }
 void RaccoonRun::setSoupData()
 {
