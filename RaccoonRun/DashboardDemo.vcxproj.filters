@@ -81,6 +81,9 @@
     <ClCompile Include="cpsoup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="phillips.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -150,6 +153,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cpsoup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="phillips.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

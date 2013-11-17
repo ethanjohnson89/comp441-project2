@@ -13,6 +13,8 @@ namespace raccoonNS
 // inherits from Entity class
 class Raccoon : public Character
 {
+private:
+	int lives;
 public:
     // constructor
 	Raccoon();
@@ -22,5 +24,7 @@ public:
     // inherited member functions
     void update(float frameTime);
 	bool collidesWith(float frameTime, Entity object);
+	void incrementLivesBy(int x){lives+=x;}
+	int getLives(){return lives;}
 };
 #endif

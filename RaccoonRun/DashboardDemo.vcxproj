@@ -103,6 +103,7 @@
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="messageDialog.cpp" />
+    <ClCompile Include="phillips.cpp" />
     <ClCompile Include="platform.cpp" />
     <ClCompile Include="raccoon.cpp" />
     <ClCompile Include="RaccoonRun.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="messageDialog.h" />
+    <ClInclude Include="phillips.h" />
     <ClInclude Include="platform.h" />
     <ClInclude Include="raccoon.h" />
     <ClInclude Include="RaccoonRun.h" />
