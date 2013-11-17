@@ -94,7 +94,9 @@ const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
 const char JPO_IMAGE[]   = "pictures\\JPo Sheet.png";
 const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
 const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
-	
+const char CHEESEBURGER_IMAGE[] = "pictures\\cheeseburger.png";
+const char PIZZA_IMAGE[] = "pictures\\pizza.png";
+
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform2.png";
 //background images
@@ -159,6 +161,18 @@ const int CPSOUP_HEIGHT = 96;
 const int CPSOUP_HALF_WIDTH = 43;
 const int CPSOUP_HALF_HEIGHT = 48;
 const float CPSOUP_ANIMATION_DELAY = 0.5f;
+
+// cheeseburger
+const int CHEESEBURGER_WIDTH = 64;
+const int CHEESEBURGER_HEIGHT = 64;
+const int CHEESEBURGER_HALF_WIDTH = 32;
+const int CHEESEBURGER_HALF_HEIGHT = 32;
+
+// pizza
+const int PIZZA_WIDTH = 64;
+const int PIZZA_HEIGHT = 64;
+const int PIZZA_HALF_WIDTH = 32;
+const int PIZZA_HALF_HEIGHT = 32;
 
 //const float JPO_SPEED = 90.5f;
 const float JPO_SPEED=100.0f;

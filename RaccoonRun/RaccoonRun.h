@@ -16,6 +16,8 @@
 #include "menu.h"
 #include "walkingGuard.h"
 #include "phillips.h"
+#include "cheeseburger.h"
+#include "pizza.h";
 
 using std::string;
 using std::endl;
@@ -33,6 +35,12 @@ private:
 
 	TextureManager cpsoupTexture;
 	CPSoup cpsoup[3];
+
+	TextureManager cheeseburgerTexture;
+	Cheeseburger cheeseburger[3];
+
+	TextureManager pizzaTexture;
+	Pizza pizza[3];
 
 	TextureManager platformTexture;
 	Platform platform[15];
@@ -85,6 +93,8 @@ public:
 	void setStillData();
 	void setPlatformData(int level);
 	void setSoupData();
+	void setCheeseburgerData();
+	void setPizzaData();
 	void setBgData();
 	void levelSet();
 };

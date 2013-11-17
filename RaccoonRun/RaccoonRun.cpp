@@ -51,6 +51,12 @@ void RaccoonRun::initialize(HWND hwnd)
 	if(!cpsoupTexture.initialize(graphics, CPSOUP_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup texture"));
 
+	if (!jpoTexture.initialize(graphics,CHEESEBURGER_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger texture"));
+
+	if (!jpoTexture.initialize(graphics,PIZZA_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza texture"));
+
 	//setSoupData();
 
     if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
@@ -387,6 +393,14 @@ void RaccoonRun::render()
 			{
 				cpsoup[i].draw();
 			}
+			for(int i=0; i<3; i++)
+			{
+				cheeseburger[i].draw();
+			}
+			for(int i=0; i<3; i++)
+			{
+				pizza[i].draw();
+			}
 			checkPoint.draw();
 			jpo.draw();
 			cs.draw();
@@ -477,6 +491,8 @@ void RaccoonRun::setStillData()
 	setBgData();
 	setPlatformData(level);
 	setSoupData();
+	setCheeseburgerData();
+	setPizzaData();
 	//checkpoint stuff
 	if(!checkpointTexture.initialize(graphics, CHECKPOINT_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
@@ -495,17 +511,65 @@ void RaccoonRun::setSoupData()
 	switch(level)
 	{
 	case 1:
-		cpsoup[0].set(277,400);
-		cpsoup[1].set(685,400);
-		cpsoup[2].set(964,110);
+		cpsoup[0].set(377,400);
+		cpsoup[1].set(785,400);
+		cpsoup[2].set(1064,110);
 		break;
 	case 2:
-		cpsoup[0].set(149,423);
-		cpsoup[1].set(400,310);
-		cpsoup[2].set(863,400);
+		cpsoup[0].set(249,423);
+		cpsoup[1].set(500,310);
+		cpsoup[2].set(963,400);
 		break;
 	}
 }
+
+void RaccoonRun::setCheeseburgerData()
+{
+	for(int i=0; i<3; i++)
+	{
+		if (!cheeseburger[i].initialize(this,CHEESEBURGER_WIDTH, CHEESEBURGER_HEIGHT, 0, &cheeseburgerTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger"));
+		cheeseburger[i].setScale(.5);
+	}
+	switch(level)
+	{
+	case 1:
+		cheeseburger[0].set(177,400);
+		cheeseburger[1].set(585,400);
+		cheeseburger[2].set(864,110);
+		break;
+	case 2:
+		cheeseburger[0].set(49,423);
+		cheeseburger[1].set(300,310);
+		cheeseburger[2].set(763,400);
+		break;
+	}
+}
+
+void RaccoonRun::setPizzaData()
+{
+	for(int i=0; i<3; i++)
+	{
+		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
+		pizza[i].setScale(.5);
+	}
+	switch(level)
+	{
+	case 1:
+		pizza[0].set(277,400);
+		pizza[1].set(685,400);
+		pizza[2].set(964,110);
+		break;
+	case 2:
+		pizza[0].set(149,423);
+		pizza[1].set(400,310);
+		pizza[2].set(863,400);
+		break;
+	}
+}
+
+
 void RaccoonRun::setBgData()
 {
 	if(!backgroundTexture[0].initialize(graphics, BACKGROUND1A_TEXTURE))
