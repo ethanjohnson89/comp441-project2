@@ -39,7 +39,7 @@ private:
 	TextureManager raccoonTexture;
 
 		//background textures
-	TextureManager backgroundTexture;
+	TextureManager backgroundTexture[3];
 	Still background[3];
 
 	TextureManager checkpointTexture;
