@@ -5,6 +5,7 @@
 //#include "entity.h"
 #include "Still.h"
 #include "constants.h"
+#include "image.h"
 
 namespace checkpointNS
 {
@@ -25,4 +26,5 @@ public:
     // inherited member functions
     //void update(float frameTime, bool left, bool right);
 };
+
 #endif

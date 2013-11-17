@@ -104,6 +104,10 @@ const char BACKGROUND2_TEXTURE[]="pictures\\background2.png";
 
 const char CHECKPOINT_TEXTURE[]="pictures\\checkPoint.png";
 
+//status images
+const char BLACK_TEXTURE[]="pictures\\blackBar.png";
+const char LIVES_TEXTURE[]="pictures\\RaccoonLife.png";
+
 //checkpoint constants
 const int CHECKPOINT_WIDTH = 64;
 const int CHECKPOINT_HEIGHT = 64;

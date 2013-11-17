@@ -25,6 +25,12 @@ class RaccoonRun : public Game
 {
 private:
 	// game variables
+	TextureManager blackTexture;
+	Image blackBar;
+
+	TextureManager livesTexture;
+	Image lives[5];
+
     TextureManager jpoTexture;
 	Raccoon jpo;
 	
@@ -87,6 +93,7 @@ public:
 	void setSoupData();
 	void setBgData();
 	void levelSet();
+	void statusSet();
 };
 
 #endif
