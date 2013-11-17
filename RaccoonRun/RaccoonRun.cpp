@@ -214,6 +214,7 @@ void RaccoonRun::update()
 				if(!jumpedLastFrame)
 					newVelocity = VECTOR2(newVelocity.x, -750);
 				jumpedLastFrame = true;
+				audio->playCue(BOING);
 			}
 			else
 				jumpedLastFrame = false;
