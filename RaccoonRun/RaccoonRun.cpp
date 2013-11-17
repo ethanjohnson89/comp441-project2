@@ -181,7 +181,6 @@ void RaccoonRun::update()
 			}
 			break;
 		case 1:
-		// JPo code imported from class exercise - added jumping to test platform
 			VECTOR2 newVelocity = jpo.getVelocity();
 
 			if(input->isKeyDown(JPO_JUMP_KEY) && onLand)
@@ -289,7 +288,7 @@ void RaccoonRun::update()
 			}
 			background[level-1].update(frameTime, moveScreenLeft, moveScreenRight);
 
-			cs.update(frameTime);
+			cs.update(frameTime, moveScreenLeft, moveScreenRight);
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			if(cs.collidesWithRaccoon(frameTime, jpo))
 			{
@@ -473,7 +472,7 @@ void RaccoonRun::levelSet()
 
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
 		setStillData();
 
@@ -486,7 +485,7 @@ void RaccoonRun::levelSet()
 
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
 		setStillData();
 

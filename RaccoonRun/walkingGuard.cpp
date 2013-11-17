@@ -50,13 +50,20 @@ bool WalkingGuard::initialize(Game *gamePtr, int width, int height, int ncols,Te
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-void WalkingGuard::update(float frameTime)
+void WalkingGuard::update(float frameTime, bool left, bool right)
 {
     Entity::update(frameTime);
     spriteData.x += frameTime * velocity.x;         // move along X 
     spriteData.y += frameTime * velocity.y;         // move along Y
 
+	// Compensate for scrolling screen
+	if(left)
+		spriteData.x += frameTime*STILL_SPEED;
+	else if(right)
+		spriteData.x -= frameTime*STILL_SPEED;
+
     // Bounce off walls
+	// Note: top-of-screen commented out since the guard will never go there
     if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
     {
         spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
@@ -72,11 +79,11 @@ void WalkingGuard::update(float frameTime)
     {
         spriteData.y = GAME_HEIGHT - spriteData.height; // position at bottom screen edge
         velocity.y = 0;
-    } else if (spriteData.y < 0)                    // else if hit top screen edge
+    } /*else if (spriteData.y < 0)                    // else if hit top screen edge
     {
         spriteData.y = 0;                           // position at top screen edge
         velocity.y = -velocity.y;                   // reverse Y direction
-    }
+    }*/
 
     velocity.y += frameTime * GRAVITY;              // gravity
 }
