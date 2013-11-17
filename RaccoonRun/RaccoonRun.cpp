@@ -60,7 +60,6 @@ void RaccoonRun::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
 
-
 	//if (!cpsoup.initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
  //       throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
 
@@ -83,12 +82,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
 
-	if(!backgroundTexture.initialize(graphics, BACKGROUND_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	if (!background.initialize(this,BACKGROUND_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-	background.setX(-5);
-	background.setY(0);
+	
 
 	//setPlatformData(1);	//eventually, will need to call it with level data.
 	//can just use an arbitrary integer for right now.
@@ -261,8 +255,8 @@ void RaccoonRun::update()
 			if(jpoX==jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
 			{
 				//if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
-				int maxX=BACKGROUND_WIDTH-GAME_WIDTH;
-				if(background.getX()>-(maxX))
+				int maxX=background[level-1].getWidth()-GAME_WIDTH;
+				if(background[level-1].getX()>-(maxX))
 					moveScreenRight=true;
 				else
 					moveScreenRight=false;
@@ -295,7 +289,7 @@ void RaccoonRun::update()
 			{
 				platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
-			background.update(frameTime, moveScreenLeft, moveScreenRight);
+			background[level-1].update(frameTime, moveScreenLeft, moveScreenRight);
 
 			cs.update(frameTime);
 			if(cs.collidesWithRaccoon(frameTime, jpo))
@@ -355,8 +349,19 @@ void RaccoonRun::render()
 			menu->displayMenu();
 		break;
 	case 1:
-
-		background.draw();
+		switch(level)
+		{
+		case 1:
+			background[0].draw();
+			break;
+		case 2:
+			background[1].draw();
+			break;
+		case 3:
+			background[2].draw();
+			break;
+		}
+		
 		if(!gameOver)
 		{
 			for(int i=0; platform[i].getVisible(); i++)//this keeps track of which platforms are visible.
@@ -438,6 +443,7 @@ void RaccoonRun::levelSet()
 }
 void RaccoonRun::setStillData()
 {
+	setBgData();
 	setPlatformData(level);
 	setSoupData();
 }
@@ -456,4 +462,21 @@ void RaccoonRun::setSoupData()
 		cpsoup[1].set(599,400);
 		cpsoup[2].set(964,180);
 	}
+}
+void RaccoonRun::setBgData()
+{
+	if(!backgroundTexture.initialize(graphics, BACKGROUND1A_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background[0].initialize(this,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	if(!backgroundTexture.initialize(graphics, BACKGROUND1B_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background[1].initialize(this,BACKGROUND1B_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	if(!backgroundTexture.initialize(graphics, BACKGROUND2_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background[2].initialize(this,BACKGROUND2_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	background[0].setX(-5);
+	background[0].setY(0);
 }

@@ -40,7 +40,7 @@ private:
 
 		//background textures
 	TextureManager backgroundTexture;
-	Still background;
+	Still background[3];
 
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;
@@ -81,6 +81,7 @@ public:
 	void setStillData();
 	void setPlatformData(int level);
 	void setSoupData();
+	void setBgData();
 	void levelSet();
 };
 

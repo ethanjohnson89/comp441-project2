@@ -97,8 +97,10 @@ const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 	
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform1.png";
-//background image
-const char BACKGROUND_TEXTURE[]="pictures\\background1a.png";
+//background images
+const char BACKGROUND1A_TEXTURE[]="pictures\\background1a.png";
+const char BACKGROUND1B_TEXTURE[]="pictures\\background1b.png";
+const char BACKGROUND2_TEXTURE[]="pictures\\background2.png";
 
 const float JPO_ANIMATION_DELAY = 0.2f;    // time between frames of ship animation
 //JPO Cel
@@ -166,8 +168,12 @@ const int PLATFORM_HALF_WIDTH = 128;
 const int PLATFORM_HALF_HEIGHT = 32;
 
 //background constants
-const int BACKGROUND_WIDTH=2048;
+const int BACKGROUND1A_WIDTH=2048;
+const int BACKGROUND1B_WIDTH=1024;
+const int BACKGROUND2_WIDTH=2048;
 const int BACKGROUND_HEIGHT=512;
+
+
 
 
 // audio files
