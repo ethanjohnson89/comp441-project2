@@ -55,6 +55,20 @@ void RaccoonRun::initialize(HWND hwnd)
 	menuBackground.setX(0);
 	menuBackground.setY(0);
 
+	if (!splashTexture.initialize(graphics,SPLASH_TEXTURE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing splash texture"));
+	if(!splash.initialize(graphics, 800,512,0,&splashTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu background"));
+
+	if (!winTexture.initialize(graphics,WIN_TEXTURE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing splash texture"));
+	if(!winScreen.initialize(graphics, 800,512,0,&winTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu background"));
+
+	if (!loseTexture.initialize(graphics,LOSE_TEXTURE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing splash texture"));
+	if(!lose.initialize(graphics, 800,512,0,&loseTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu background"));
 
 
 	if(!raccoonTexture.initialize(graphics, RACCOON_IMAGE))

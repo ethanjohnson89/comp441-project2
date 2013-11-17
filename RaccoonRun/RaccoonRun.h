@@ -61,6 +61,15 @@ private:
 	TextureManager menuBackgroundTexture;
 	Image menuBackground;
 
+	TextureManager splashTexture;
+	Image splash;
+
+	TextureManager winTexture;
+	Image winScreen;
+	
+	TextureManager loseTexture;
+	Image lose;
+
 	TextureManager checkpointTexture;
 	Checkpoint checkPoint;
 
