@@ -112,16 +112,7 @@ void RaccoonRun::setPlatformData(int level)
 	//will eventually be based on what level we are currently on.
 	for(int i=0; i<15; i++)
 	{
-		platform[i].setVisible(false);
-		platform[i].set(-500,-500); //gets unused platforms out of the way.
-	}
-	switch(level)
-	{
-	case 1:
-		//audio->playCue(LEVEL);
-		for(int i=0; i<9; i++)
-		{
-			if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
+		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
 				throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
 			//float newX=i*PLATFORM_WIDTH+i*150;
 			//platform[i].setWorldX(newX); //these should be thought of as constants for each level.
@@ -130,6 +121,17 @@ void RaccoonRun::setPlatformData(int level)
 			//platform[i].setX(newX);
 			//platform[i].setY(2*GAME_HEIGHT/3);
 			platform[i].setScale(.75);
+		platform[i].setVisible(false);
+		platform[i].set(-500,-500); //gets unused platforms out of the way.
+		
+	}
+	switch(level)
+	{
+	case 1:
+		//audio->playCue(LEVEL);
+		for(int i=0; i<9; i++)
+		{
+			
 			platform[i].setVisible(true);
 			//platform[i].setY(350);
 		}
@@ -477,6 +479,9 @@ void RaccoonRun::setBgData()
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
 	if (!background[2].initialize(this,BACKGROUND2_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-	background[0].setX(-5);
-	background[0].setY(0);
+
+	for(int i=0; i<3; i++)
+	{
+		background[i].set(-5,0);
+	}
 }

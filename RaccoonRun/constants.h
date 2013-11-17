@@ -182,7 +182,7 @@ const char WAVE_BANK[]  = "audio\\Win\\Wave Bank.xwb";
 const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 
 //audio cues
-const char LEVEL[] = "raccoonLevel1";
+const char LEVEL[] = "raccoonLevel1"; //background music.
 
 // audio cues
 
