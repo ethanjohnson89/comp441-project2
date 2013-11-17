@@ -201,22 +201,19 @@ void RaccoonRun::update()
 			}
 			else if(menu->getSelectedItem() == 1)
 			{
-				if(audioOn)
-					audioOn = false;
-				else
-					audioOn = true;
+				menu->setInstructions(true);
 			}
 			else if(menu->getSelectedItem() == 2)
 			{
-				menu->setInstructions(true);
+				menu->setCredits(true);
 			}
 			else if(menu->getSelectedItem() == 3)
 			{
-				menu->setCredits(true);
+				PostQuitMessage(0);
 			}
 			else if(menu->getSelectedItem() == 4)
 			{
-				PostQuitMessage(0);
+				menu->setCheats(true);
 			}
 			break;
 		case 1:
@@ -475,6 +472,8 @@ void RaccoonRun::render()
 			menu->displayCredits();
 		else if(menu->getInstructions())
 			menu->displayInstructions();
+		else if(menu->getCheats())
+			menu->displayCheats();
 		else
 			menu->displayMenu();
 		break;

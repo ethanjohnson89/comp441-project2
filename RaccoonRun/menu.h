@@ -30,18 +30,23 @@ private:
    std::string menuHeading;
    std::string creditHeading;
    std::string instructionHeading;
+   std::string cheatHeading;
    D3DXVECTOR2 menuAnchor;
    std::vector<std::string> menu;
    std::vector<std::string> credit;
    std::vector<std::string> instruction;
+   std::vector<std::string> cheat;
    int verticalOffset;
    int linePtr;
+   int linePtr2;
    COLOR_ARGB highlightColor ;
    COLOR_ARGB normalColor;
    bool upDepressedLastFrame;
    bool downDepressedLastFrame;
    bool credits;
    bool instructions;
+   bool cheats;
+   std::vector<bool> cheatCodes;
 
 public:
     // constructor
@@ -60,5 +65,9 @@ public:
 	void displayInstructions();
 	bool getInstructions(){return instructions;}
 	void setInstructions(bool Instructions){instructions=Instructions;}
+	void Menu::displayCheats();
+	bool getCheats(){return cheats;}
+	void setCheats(bool Cheats){cheats=Cheats;}
+	std::vector<bool> getCheatCodes(){return cheatCodes;}
 };
 #endif
