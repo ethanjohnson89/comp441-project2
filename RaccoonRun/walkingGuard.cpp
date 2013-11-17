@@ -66,15 +66,15 @@ void WalkingGuard::update(float frameTime, bool left, bool right)
 
     // Bounce off walls
 	// Note: top-of-screen commented out since the guard will never go there
-    if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
-    {
-        spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
-        turnLeft = true;
-    } else if (spriteData.x < 0)                    // else if hit left screen edge
-    {
-        spriteData.x = 0;                           // position at left screen edge
-        turnRight = true;
-    }
+    //if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
+    //{
+    //    spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
+    //    turnLeft = true;
+    //} else if (spriteData.x < 0)                    // else if hit left screen edge
+    //{
+    //    spriteData.x = 0;                           // position at left screen edge
+    //    turnRight = true;
+    //}
     if (spriteData.y > GAME_HEIGHT - spriteData.height) // if hit bottom screen edge
     {
         spriteData.y = GAME_HEIGHT - spriteData.height; // position at bottom screen edge
@@ -163,4 +163,19 @@ void WalkingGuard::ai(Entity *player)
 		turnRight = true;
 	else if(spriteData.x > player->getX() && velocity.x > 0)
 		turnLeft = true;
+
+	if(abs(spriteData.x - player->getX()) > JPO_PROXIMITY_DISTANCE)
+	{
+		if(velocity.x >= 0)
+			velocity.x = JPO_PROXIMITY_SPEED;
+		else
+			velocity.x = -JPO_PROXIMITY_SPEED;
+	}
+	else
+	{
+		if(velocity.x >= 0)
+			velocity.x = JPO_SPEED;
+		else
+			velocity.x = -JPO_SPEED;
+	}
 }
