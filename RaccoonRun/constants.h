@@ -154,9 +154,9 @@ const int RACCOON_JUMPING_LEFT_DOWN_END = 23;
 
 // cheeseburger pizza soup cels
 const int CPSOUP_COLS = 4;
-const int CPSOUP_WIDTH = 81;
+const int CPSOUP_WIDTH = 86;
 const int CPSOUP_HEIGHT = 96;
-const int CPSOUP_HALF_WIDTH = 40;
+const int CPSOUP_HALF_WIDTH = 43;
 const int CPSOUP_HALF_HEIGHT = 48;
 const float CPSOUP_ANIMATION_DELAY = 0.5f;
 

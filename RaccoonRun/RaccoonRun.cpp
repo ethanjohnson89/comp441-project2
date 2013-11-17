@@ -29,7 +29,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//score init
 	score=0;
 	//level init
-	level=2;
+	level=1;
 
 	//set boolean for no easter egg.
 	fly=false;
