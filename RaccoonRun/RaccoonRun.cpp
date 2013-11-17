@@ -230,10 +230,10 @@ void RaccoonRun::update()
 				case 1:
 					jpo.incrementLivesBy(1000000);
 					break;
-				}
 				case 2:
 					level = 2;
 					break;
+				}
 				//fly=1;
 				//lives=10000000
 				//level=2;
