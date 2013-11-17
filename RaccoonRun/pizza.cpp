@@ -44,6 +44,6 @@ bool Pizza::initialize(Game *gamePtr, int width, int height, int ncols,TextureMa
 
 void Pizza::update(float frameTime, bool left, bool right)
 {
-	Entity::update(frameTime);
+//	Entity::update(frameTime);
 	Still::update(frameTime, left, right);
 }

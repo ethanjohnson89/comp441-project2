@@ -44,6 +44,6 @@ bool Cheeseburger::initialize(Game *gamePtr, int width, int height, int ncols,Te
 
 void Cheeseburger::update(float frameTime, bool left, bool right)
 {
-	Entity::update(frameTime);
+//	Entity::update(frameTime);
 	Still::update(frameTime, left, right);
 }
