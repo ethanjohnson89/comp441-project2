@@ -489,8 +489,14 @@ void RaccoonRun::setSoupData()
 	{
 	case 1:
 		cpsoup[0].set(277,400);
-		cpsoup[1].set(599,400);
-		cpsoup[2].set(964,180);
+		cpsoup[1].set(685,400);
+		cpsoup[2].set(964,110);
+		break;
+	case 2:
+		cpsoup[0].set(149,423);
+		cpsoup[1].set(400,310);
+		cpsoup[2].set(863,400);
+		break;
 	}
 }
 void RaccoonRun::setBgData()
