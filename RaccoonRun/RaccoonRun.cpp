@@ -355,6 +355,7 @@ void RaccoonRun::update()
 			//		paused=true;
 			//		gameOver=true;
 			//		
+
 			//	}
 			//}
 
@@ -397,21 +398,39 @@ void RaccoonRun::collisions()
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(jpo.collidesWith(frameTime,cheeseburger[i])&&cheeseburger[i].getActive())
+		if(cheeseburger[i].collidesWith(frameTime,jpo))
 		{
-     		cheeseburger[i].setActive(false);
+			if(cheeseburger[i].getVisible())
+				score+=10;
+			cheeseburger[i].setActive(false);
 			cheeseburger[i].setVisible(false);
-			paused = true;
+			
 		}
+			//paused=true;
+		//if(jpo.collidesWith(frameTime,cheeseburger[i])&&cheeseburger[i].getActive())
+		//{
+  //   		cheeseburger[i].setActive(false);
+		//	cheeseburger[i].setVisible(false);
+		//	//paused = true;
+		//}
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(jpo.collidesWith(frameTime,pizza[i])&&pizza[i].getActive())
+		if(pizza[i].collidesWith(frameTime, jpo))
 		{
-     		pizza[i].setActive(false);
+			if(pizza[i].getVisible())
+				score+=5;
+			pizza[i].setActive(false);
 			pizza[i].setVisible(false);
-			paused = true;
+
+			//paused=true;
 		}
+		//if(jpo.collidesWith(frameTime,pizza[i])&&pizza[i].getActive())
+		//{
+  //   		pizza[i].setActive(false);
+		//	pizza[i].setVisible(false);
+		//	//paused = true;
+		//}
 	}
 }
 

@@ -26,5 +26,8 @@ public:
 	void setWorldX(float x){worldX=x;}
 	void setWorldY(float y){worldY=y;}
 	void set(float x, float y){worldX=x; worldY=y; spriteData.x=x; spriteData.y=y;}
+
+	float getX(){return spriteData.x;}
+	float getY(){return spriteData.y;}
 };
 #endif
