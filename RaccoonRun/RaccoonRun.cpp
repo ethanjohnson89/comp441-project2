@@ -615,7 +615,7 @@ void RaccoonRun::render()
 		message="Score: ";
 		stuff<<score;
 		stuff>>message;
-		debugFont->print("score: "+message,350,350);
+		debugFont->print("score: "+message,350,380);
 		break;
 	case 7:
 		lose.draw();
