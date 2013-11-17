@@ -1,8 +1,8 @@
 
               // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
-#ifndef MENU_H                 // Prevent multiple definitions if this 
-#define MENU_H 
+#ifndef DREHMAN_H                 // Prevent multiple definitions if this 
+#define DREHMAN_H 
 
 class Menu;
 

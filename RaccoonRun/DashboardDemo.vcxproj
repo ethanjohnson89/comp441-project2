@@ -90,7 +90,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio.cpp" />
-    <ClCompile Include="Character.cpp" />
     <ClCompile Include="cheeseburger.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="cpsoup.cpp" />
@@ -102,7 +101,8 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inputDialog.cpp" />
-    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="drehman.cpp" />
+    <ClCompile Include="Johnson.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="phillips.cpp" />
     <ClCompile Include="pizza.cpp" />
@@ -131,7 +131,7 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inputDialog.h" />
-    <ClInclude Include="menu.h" />
+    <ClInclude Include="drehman.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="phillips.h" />
     <ClInclude Include="pizza.h" />
