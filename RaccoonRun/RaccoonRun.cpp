@@ -19,6 +19,10 @@ RaccoonRun::~RaccoonRun()
 // Initializes the game
 // Throws GameError on error
 //=============================================================================
+void RaccoonRun::reinit()
+{
+
+}
 void RaccoonRun::initialize(HWND hwnd)
 {
 
@@ -112,6 +116,8 @@ void RaccoonRun::initialize(HWND hwnd)
 	audioOn = true;
 	//audio->playCue(LEVEL);
 
+	audio->playCue(MENU);
+
     return;
 }
 
@@ -190,6 +196,8 @@ void RaccoonRun::setPlatformData(int level)
 //=============================================================================
 void RaccoonRun::update()
 {
+	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
+	VECTOR2 newVelocity = jpo.getVelocity();
 	switch(gameState)
 	{
 		case 0:
@@ -217,7 +225,20 @@ void RaccoonRun::update()
 			}
 			break;
 		case 1:
-			VECTOR2 newVelocity = jpo.getVelocity();
+			if(input->isKeyDown(VK_SPACE))
+			{
+				gameState=5;
+				audio->stopCue(MENU);
+				audio->playCue(LEVEL);
+			}
+
+			break;
+		case 2:
+		case 3:
+		case 4:
+			break; 
+		case 5:
+			
 
 			if(input->isKeyDown(JPO_JUMP_KEY) && onLand)
 			{
@@ -282,7 +303,7 @@ void RaccoonRun::update()
 			}
 
 			jpo.setVelocity(newVelocity);
-			int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
+			
 			jpo.update(frameTime);
 
 			//Platform Updates. Checks to see if they need to move.
@@ -341,7 +362,11 @@ void RaccoonRun::update()
 				if(jpo.getLives()>0)
 					levelSet();
 				else
+				{
 					gameOver=true;
+					gameState=7;
+
+				}
 			}
 
 			for(int i=0; i<3; i++)
@@ -359,7 +384,8 @@ void RaccoonRun::update()
 					gameOver=true;
 					win=true;
 					jpo.setX(-500);
-
+					gameState=6;
+					audio->playCue(YAY);
 				}
 			}
 
@@ -386,6 +412,37 @@ void RaccoonRun::update()
 			//}
 
 			break;
+		case 6:
+			if(input->wasKeyPressed(VK_ESCAPE))
+				{
+					audio->stopCue(LEVEL);
+					audio->playCue(MENU);
+					gameState=0;
+					gameOver=false;
+					jpo.incrementLivesBy(3);
+					score=0;
+					statusSet();
+				}
+			break;
+		case 7:
+			if(input->wasKeyPressed(VK_ESCAPE))
+				{
+					audio->stopCue(LEVEL);
+					audio->playCue(MENU);
+					gameState=0;
+					gameOver=false;
+					jpo.incrementLivesBy(3);
+					score=0;
+					statusSet();
+				}
+			break;
+
+		/*	default:
+				if(input->wasKeyPressed(VK_RETURN))
+				{
+					gameState=0;
+				}
+				break;*/
 		}
 }
 
@@ -463,6 +520,8 @@ void RaccoonRun::collisions()
 //=============================================================================
 void RaccoonRun::render()
 {
+	std::string message;
+	std::stringstream stuff;
 	graphics->spriteBegin();                // begin drawing sprites
 	switch(gameState)
 	{
@@ -478,6 +537,9 @@ void RaccoonRun::render()
 			menu->displayMenu();
 		break;
 	case 1:
+		splash.draw();
+		break;
+	case 5:
 		background[level-1].draw();
 		blackBar.draw();
 		if(!gameOver)
@@ -515,12 +577,23 @@ void RaccoonRun::render()
 		{
 			lives[i].draw();
 		}
-		std::string message;
-		std::stringstream stuff;
+		/*std::string message;,
+		std::stringstream stuff;*/
 		message="Score: ";
 		stuff<<score;
 		stuff>>message;
 		debugFont->print("score: "+message,600,0);
+		break;
+	case 6:
+		winScreen.draw();
+		
+		message="Score: ";
+		stuff<<score;
+		stuff>>message;
+		debugFont->print("score: "+message,350,350);
+		break;
+	case 7:
+		lose.draw();
 		break;
 		}
     graphics->spriteEnd();                  // end drawing sprites
@@ -572,8 +645,8 @@ void RaccoonRun::levelSet()
 	switch (level)
 	{
 	case 1:
-		audio->stopCue(LEVEL);
-		audio->playCue(LEVEL);
+		//audio->stopCue(LEVEL);
+		//audio->playCue(LEVEL);
 		
 		jpo.setX(30);
 		jpo.setY(175-RACCOON_HEIGHT);
@@ -648,6 +721,8 @@ void RaccoonRun::setSoupData()
 		if (!cpsoup[i].initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
 		cpsoup[i].setScale(.5);
+		cpsoup[i].setActive(true);
+		cpsoup[i].setVisible(true);
 	}
 	switch(level)
 	{
@@ -676,6 +751,8 @@ void RaccoonRun::setCheeseburgerData()
 		if (!cheeseburger[i].initialize(this,CHEESEBURGER_WIDTH, CHEESEBURGER_HEIGHT, 0, &cheeseburgerTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger"));
 		cheeseburger[i].setScale(.5);
+		cheeseburger[i].setActive(true);
+		cheeseburger[i].setVisible(true);
 	}
 	switch(level)
 	{
@@ -704,6 +781,8 @@ void RaccoonRun::setPizzaData()
 		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
 		pizza[i].setScale(.5);
+		pizza[i].setActive(true);
+		pizza[i].setVisible(true);
 	}
 	switch(level)
 	{

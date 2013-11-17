@@ -218,6 +218,7 @@ const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 const char LEVEL[] = "level"; //background music.
 const char BOING[] = "boing";
 const char YAY[] = "triumph1";
+const char MENU[] = "RaccoonMenu1";
 
 // audio cues
 

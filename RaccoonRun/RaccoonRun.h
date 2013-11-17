@@ -118,6 +118,7 @@ public:
 	void setBgData();
 	void levelSet();
 	void statusSet();
+	void reinit();
 };
 
 #endif

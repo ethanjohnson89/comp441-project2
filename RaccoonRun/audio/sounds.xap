@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 199756413;
-    Last Modified High = 30335835;
+    Last Modified Low = 2637210214;
+    Last Modified High = 30335838;
 
     Category
     {
@@ -227,10 +227,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 199806413;
-    PC Bank Last Modified High = 30335835;
-    Bank Last Revised Low = 60966413;
-    Bank Last Revised High = 30335835;
+    PC Bank Last Modified Low = 2637440237;
+    PC Bank Last Modified High = 30335838;
+    Bank Last Revised Low = 2327009197;
+    Bank Last Revised High = 30335838;
 
     Wave
     {
@@ -250,8 +250,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 169148489;
-            Last Modified High = 30335770;
+            Last Modified Low = 455608140;
+            Last Modified High = 30335738;
         }
     }
 
@@ -273,8 +273,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 171738748;
-            Last Modified High = 30335770;
+            Last Modified Low = 1984489738;
+            Last Modified High = 30335742;
         }
     }
 
@@ -296,8 +296,54 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 851033709;
-            Last Modified High = 30335834;
+            Last Modified Low = 2502292408;
+            Last Modified High = 30335836;
+        }
+    }
+
+    Wave
+    {
+        Name = level;
+        File = level.wav;
+        Build Settings Last Modified Low = 2218378335;
+        Build Settings Last Modified High = 30335838;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 5820416;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 459312446;
+            Last Modified High = 30335838;
+        }
+    }
+
+    Wave
+    {
+        Name = triumph1;
+        File = triumph1.wav;
+        Build Settings Last Modified Low = 2244970994;
+        Build Settings Last Modified High = 30335838;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 441344;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3805409024;
+            Last Modified High = 30330706;
         }
     }
 }
@@ -309,8 +355,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 200176413;
-    Bank Last Modified High = 30335835;
+    Bank Last Modified Low = 2638370330;
+    Bank Last Modified High = 30335838;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -455,6 +501,100 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = triumph1;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = triumph1;
+                    Entry Index = 4;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = level;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = level;
+                    Entry Index = 3;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = raccoonLevel1;
@@ -510,6 +650,46 @@ Sound Bank
         {
             Name = boing;
             Index = 2;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = triumph1;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = triumph1;
+            Index = 3;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = level;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = level;
+            Index = 4;
             Weight Min = 0;
             Weight Max = 255;
         }
