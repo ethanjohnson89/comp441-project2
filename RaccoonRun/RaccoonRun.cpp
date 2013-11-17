@@ -48,6 +48,15 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
 
+	if (!menuBackgroundTexture.initialize(graphics,MENU_TEXTURE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu texture"));
+	if(!menuBackground.initialize(graphics, 800,512,0,&menuBackgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu background"));
+	menuBackground.setX(0);
+	menuBackground.setY(0);
+
+
+
 	if(!raccoonTexture.initialize(graphics, RACCOON_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon texture"));
 
@@ -443,6 +452,7 @@ void RaccoonRun::render()
 	switch(gameState)
 	{
 	case 0:
+		menuBackground.draw();
 		if(menu->getCredits())
 			menu->displayCredits();
 		else if(menu->getInstructions())
@@ -628,6 +638,11 @@ void RaccoonRun::setSoupData()
 		cpsoup[1].set(500,310);
 		cpsoup[2].set(963,400);
 		break;
+	case 3:
+		cpsoup[0].set(249,423);
+		cpsoup[1].set(500,310);
+		cpsoup[2].set(963,400);
+		break;
 	}
 }
 
@@ -651,6 +666,11 @@ void RaccoonRun::setCheeseburgerData()
 		cheeseburger[1].set(300,310);
 		cheeseburger[2].set(763,400);
 		break;
+	case 3:
+		cheeseburger[0].set(49,423);
+		cheeseburger[1].set(300,310);
+		cheeseburger[2].set(763,400);
+		break;
 	}
 }
 
@@ -670,6 +690,11 @@ void RaccoonRun::setPizzaData()
 		pizza[2].set(964,110);
 		break;
 	case 2:
+		pizza[0].set(149,423);
+		pizza[1].set(400,310);
+		pizza[2].set(863,400);
+		break;
+	case 3:
 		pizza[0].set(149,423);
 		pizza[1].set(400,310);
 		pizza[2].set(863,400);

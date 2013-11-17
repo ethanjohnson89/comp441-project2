@@ -57,6 +57,9 @@ private:
 	TextureManager backgroundTexture[3];
 	Still background[3];
 
+	TextureManager menuBackgroundTexture;
+	Image menuBackground;
+
 	TextureManager checkpointTexture;
 	Checkpoint checkPoint;
 

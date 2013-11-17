@@ -57,9 +57,9 @@ bool Cheeseburger::collidesWith(float frameTime, Entity object)
 	//bottom=(JPO_HEIGHT*getScale()+spriteData.y);
 	bottom=getY()+getHeight()*getScale();// THIS WORKS. DO NOT CHANGE.
 	float top;
-	top=spriteData.y/*+20*/;
+	top=spriteData.y+20;
 	float left;
-	left=getX()/*+22*/;
+	left=getX()+22;
 	float right;
 	right=getX()+CHECKPOINT_WIDTH*getScale();
 
@@ -68,7 +68,7 @@ bool Cheeseburger::collidesWith(float frameTime, Entity object)
 	float eleft;
 	eleft= object.getX();
 	float eright;
-	eright= object.getX() + object.getWidth()*object.getScale()/*-50*/;
+	eright= object.getX() + object.getWidth()*object.getScale()-50;
 	float etop;
 	etop=ebottom+RACCOON_HEIGHT;
 
