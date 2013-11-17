@@ -403,6 +403,7 @@ void RaccoonRun::collisions()
 		{
      		cpsoup[i].setActive(false);
 			cpsoup[i].setVisible(false);
+			score-=5;
 		}
 	}
 	for(int i=0; i<3; ++i)
@@ -495,6 +496,12 @@ void RaccoonRun::render()
 		{
 			lives[i].draw();
 		}
+		std::string message;
+		std::stringstream stuff;
+		message="Score: ";
+		stuff<<score;
+		stuff>>message;
+		debugFont->print("score: "+message,600,0);
 		break;
 		}
     graphics->spriteEnd();                  // end drawing sprites

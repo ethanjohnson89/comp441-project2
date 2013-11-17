@@ -18,6 +18,7 @@
 #include "phillips.h"
 #include "cheeseburger.h"
 #include "pizza.h";
+#include <sstream>
 
 using std::string;
 using std::endl;
