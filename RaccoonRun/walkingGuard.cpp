@@ -61,10 +61,12 @@ void WalkingGuard::update(float frameTime)
     {
         spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
         velocity.x = -velocity.x;                   // reverse X direction
+		setFrames(JPO_WALKING_LEFT_START, JPO_WALKING_LEFT_END);
     } else if (spriteData.x < 0)                    // else if hit left screen edge
     {
         spriteData.x = 0;                           // position at left screen edge
         velocity.x = -velocity.x;                   // reverse X direction
+		setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
     }
     if (spriteData.y > GAME_HEIGHT - spriteData.height) // if hit bottom screen edge
     {

@@ -75,6 +75,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	levelSet();
 
 	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
+	cs.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 
 	//cpsoup.set(30, GAME_HEIGHT - (10+CPSOUP_HEIGHT));
 	//cpsoup.setVisible(true);

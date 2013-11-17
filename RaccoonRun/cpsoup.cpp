@@ -42,6 +42,12 @@ bool CPSoup::initialize(Game *gamePtr, int width, int height, int ncols,TextureM
     return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
+void CPSoup::update(float frameTime, bool left, bool right)
+{
+	Entity::update(frameTime);
+	Still::update(frameTime, left, right);
+}
+
 //=============================================================================
 // update
 // typically called once per frame
