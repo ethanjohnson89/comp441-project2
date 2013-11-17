@@ -26,7 +26,7 @@ CPSoup::CPSoup() : Still()
 	currentFrame = startFrame;
 
 	// Collision box
-    edge.bottom = -CPSOUP_HALF_HEIGHT-1; // same as top so that he only collides from the top
+    edge.bottom = CPSOUP_HALF_HEIGHT-1;
     edge.top = -CPSOUP_HALF_HEIGHT;
     edge.left = -CPSOUP_HALF_WIDTH;
     edge.right = CPSOUP_HALF_WIDTH;

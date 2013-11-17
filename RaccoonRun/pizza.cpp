@@ -26,7 +26,7 @@ Pizza::Pizza() : Still()
 //	currentFrame = startFrame;
 
 	// Collision box
-    edge.bottom = -PIZZA_HALF_HEIGHT-1; // same as top so that he only collides from the top
+    edge.bottom = PIZZA_HALF_HEIGHT-1;
     edge.top = -PIZZA_HALF_HEIGHT;
     edge.left = -PIZZA_HALF_WIDTH;
     edge.right = PIZZA_HALF_WIDTH;

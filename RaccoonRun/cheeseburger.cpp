@@ -26,7 +26,7 @@ Cheeseburger::Cheeseburger() : Still()
 //	currentFrame = startFrame;
 
 	// Collision box
-    edge.bottom = -CHEESEBURGER_HALF_HEIGHT-1; // same as top so that he only collides from the top
+    edge.bottom = CHEESEBURGER_HALF_HEIGHT-1;
     edge.top = -CHEESEBURGER_HALF_HEIGHT;
     edge.left = -CHEESEBURGER_HALF_WIDTH;
     edge.right = CHEESEBURGER_HALF_WIDTH;

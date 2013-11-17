@@ -171,14 +171,14 @@ const float CPSOUP_ANIMATION_DELAY = 0.5f;
 // cheeseburger
 const int CHEESEBURGER_WIDTH = 64;
 const int CHEESEBURGER_HEIGHT = 64;
-const int CHEESEBURGER_HALF_WIDTH = 32;
-const int CHEESEBURGER_HALF_HEIGHT = 32;
+const int CHEESEBURGER_HALF_WIDTH = 10;
+const int CHEESEBURGER_HALF_HEIGHT = 10;
 
 // pizza
 const int PIZZA_WIDTH = 64;
 const int PIZZA_HEIGHT = 64;
-const int PIZZA_HALF_WIDTH = 32;
-const int PIZZA_HALF_HEIGHT = 32;
+const int PIZZA_HALF_WIDTH = 10;
+const int PIZZA_HALF_HEIGHT = 10;
 
 const float JPO_SPEED = 90.5f;
 const float JPO_PROXIMITY_SPEED = 150.0f;

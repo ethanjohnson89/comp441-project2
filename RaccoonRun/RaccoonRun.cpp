@@ -385,7 +385,7 @@ void RaccoonRun::ai()
 //=============================================================================
 void RaccoonRun::collisions()
 {
-
+	VECTOR2 collisionVector;
 
 	for(int i=0; i<15 && onLand!=true; i++)
 	{
@@ -399,7 +399,7 @@ void RaccoonRun::collisions()
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(jpo.collidesWith(frameTime,cpsoup[i])&&cpsoup[i].getActive())
+		if(cpsoup[i].collidesWith(jpo, collisionVector) && cpsoup[i].getActive())
 		{
      		cpsoup[i].setActive(false);
 			cpsoup[i].setVisible(false);
@@ -407,13 +407,12 @@ void RaccoonRun::collisions()
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(cheeseburger[i].collidesWith(frameTime,jpo))
+		if(cheeseburger[i].collidesWith(jpo, collisionVector) && cheeseburger[i].getActive())
 		{
 			if(cheeseburger[i].getVisible())
 				score+=10;
 			cheeseburger[i].setActive(false);
 			cheeseburger[i].setVisible(false);
-			
 		}
 			//paused=true;
 		//if(jpo.collidesWith(frameTime,cheeseburger[i])&&cheeseburger[i].getActive())
@@ -425,14 +424,12 @@ void RaccoonRun::collisions()
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(pizza[i].collidesWith(frameTime, jpo))
+		if(pizza[i].collidesWith(jpo, collisionVector) && pizza[i].getActive())
 		{
 			if(pizza[i].getVisible())
 				score+=5;
 			pizza[i].setActive(false);
 			pizza[i].setVisible(false);
-
-			//paused=true;
 		}
 		//if(jpo.collidesWith(frameTime,pizza[i])&&pizza[i].getActive())
 		//{
