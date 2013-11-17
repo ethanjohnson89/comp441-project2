@@ -73,9 +73,9 @@ bool Checkpoint::collidesWith(float frameTime, Entity object)
 	//bottom=(JPO_HEIGHT*getScale()+spriteData.y);
 	bottom=getY()+getHeight()*getScale();// THIS WORKS. DO NOT CHANGE.
 	float top;
-	top=spriteData.y+20;
+	top=spriteData.y/*+20*/;
 	float left;
-	left=getX()+22;
+	left=getX()/*+22*/;
 	float right;
 	right=getX()+CHECKPOINT_WIDTH*getScale();
 
@@ -88,12 +88,12 @@ bool Checkpoint::collidesWith(float frameTime, Entity object)
 	float etop;
 	etop=ebottom+RACCOON_HEIGHT;
 
-	if(ebottom<=bottom && ebottom>=(top+40))
+	if((ebottom<=(bottom+10) && ebottom>=(top-10))|| (etop>=bottom && etop<=bottom))
 	{
 		if(eleft<=left && eright>=left)
 			return true;
-		else
-			return false;
+		//else
+			//return false;
 	}
 
 	return collides;

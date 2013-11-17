@@ -327,6 +327,7 @@ void RaccoonRun::update()
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
 			if(checkPoint.collidesWith(frameTime, jpo))
+				//paused=true;
 				reset();
 
 			for(int i=0; i<3; i++)
@@ -563,7 +564,7 @@ void RaccoonRun::setStillData()
 		checkPoint.set(1930,76);
 		break;
 	case 2:
-		checkPoint.set(960,76);
+		checkPoint.set(860,131);
 		break;
 	}
 	
