@@ -143,10 +143,10 @@ void RaccoonRun::setPlatformData(int level)
 		platform[5].set(964,222);
 		platform[6].set(1225,130);
 		platform[7].set(1494,222);
-		platform[8].set(1805,130);
+		platform[8].set(1705,130);
 		break;
 	case 2:
-		for(int i=0; i<8; i++)
+		for(int i=0; i<7; i++)
 		{
 			platform[i].setVisible(true);
 		}
@@ -154,11 +154,9 @@ void RaccoonRun::setPlatformData(int level)
 		platform[1].set(170,253);
 		platform[2].set(331,172);
 		platform[3].set(325,354);
-		platform[4].set(530,141);
+		platform[4].set(625,141);
 		platform[5].set(638,412);
-		platform[6].set(720,212);
-		platform[7].set(948,147);
-		//platform[8].set(1805,130);
+		platform[6].set(948,147);
 	}
 
 	audio->playCue(LEVEL);
@@ -451,8 +449,8 @@ void RaccoonRun::levelSet()
 
 		break;
 	case 2:
-		jpo.setX(30);
-		jpo.setY(175-RACCOON_HEIGHT);
+		jpo.setX(17);
+		jpo.setY(163-RACCOON_HEIGHT);
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 		jpo.setVisible(true);
 
