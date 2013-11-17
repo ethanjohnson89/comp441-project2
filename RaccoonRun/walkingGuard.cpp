@@ -38,6 +38,8 @@ WalkingGuard::WalkingGuard() : Character()
 	//added by Christy. For Raccoon, obviously.
 	magicNumberX=0;
 	magicNumberY=0;
+
+	turnLeft = turnRight = false;
 }
 
 bool WalkingGuard::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
@@ -67,13 +69,11 @@ void WalkingGuard::update(float frameTime, bool left, bool right)
     if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
     {
         spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
-        velocity.x = -velocity.x;                   // reverse X direction
-		setFrames(JPO_WALKING_LEFT_START, JPO_WALKING_LEFT_END);
+        turnLeft = true;
     } else if (spriteData.x < 0)                    // else if hit left screen edge
     {
         spriteData.x = 0;                           // position at left screen edge
-        velocity.x = -velocity.x;                   // reverse X direction
-		setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
+        turnRight = true;
     }
     if (spriteData.y > GAME_HEIGHT - spriteData.height) // if hit bottom screen edge
     {
@@ -84,6 +84,19 @@ void WalkingGuard::update(float frameTime, bool left, bool right)
         spriteData.y = 0;                           // position at top screen edge
         velocity.y = -velocity.y;                   // reverse Y direction
     }*/
+
+	if(turnLeft)
+	{
+		velocity.x = -velocity.x;                   // reverse X direction
+		setFrames(JPO_WALKING_LEFT_START, JPO_WALKING_LEFT_END);
+		turnLeft = false;
+	}
+	else if(turnRight)
+	{
+		velocity.x = -velocity.x;                   // reverse X direction
+		setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
+		turnRight = false;
+	}
 
     velocity.y += frameTime * GRAVITY;              // gravity
 }
@@ -142,4 +155,12 @@ bool WalkingGuard::collidesWithRaccoon(float frameTime, Entity object)
 	//	}
 	//}
 	return collides;
+}
+
+void WalkingGuard::ai(Entity *player)
+{
+	if(spriteData.x < player->getX() && velocity.x < 0)
+		turnRight = true;
+	else if(spriteData.x > player->getX() && velocity.x > 0)
+		turnLeft = true;
 }
