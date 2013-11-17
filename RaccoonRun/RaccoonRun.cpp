@@ -255,22 +255,19 @@ void RaccoonRun::update()
 		case 5:
 			
 
-			if(input->isKeyDown(JPO_JUMP_KEY))
+			if(input->isKeyDown(JPO_JUMP_KEY) && onLand && !fly)
 			{
 				// make JPo jump!
-				if(onLand && !fly)
-				{
-					if(!jumpedLastFrame)
+				if(!jumpedLastFrame)
 						newVelocity = VECTOR2(newVelocity.x, -750);
-					jumpedLastFrame = true;
-					audio->playCue(BOING);
-				}
-				else if(fly)
-				{
-					if(!jumpedLastFrame)
-						newVelocity = VECTOR2(newVelocity.x, -750);
-					jumpedLastFrame = true;
-				}
+				jumpedLastFrame = true;
+				audio->playCue(BOING);
+			}
+			else if(fly && input->isKeyDown(JPO_JUMP_KEY))
+			{
+				if(!jumpedLastFrame)
+					newVelocity = VECTOR2(newVelocity.x, -750);
+				jumpedLastFrame = true;
 			}
 			else
 				jumpedLastFrame = false;
@@ -376,6 +373,7 @@ void RaccoonRun::update()
 			{
 				if(jpo.getVisible())
 				{
+					audio->playCue(CAUGHT);
 					jpo.incrementLivesBy(-1);
 					if(jpo.getLives()<3)
 						lives[jpo.getLives()].setVisible(false);

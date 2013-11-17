@@ -219,6 +219,7 @@ const char LEVEL[] = "level"; //background music.
 const char BOING[] = "boing";
 const char YAY[] = "triumph1";
 const char MENU[] = "RaccoonMenu1";
+const char CAUGHT[] = "EvilLaugh";
 
 // audio cues
 
