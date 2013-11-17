@@ -491,7 +491,7 @@ void RaccoonRun::levelSet()
 
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
 		setStillData();
 
@@ -504,7 +504,7 @@ void RaccoonRun::levelSet()
 
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
 		setStillData();
 

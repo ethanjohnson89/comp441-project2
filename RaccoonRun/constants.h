@@ -178,8 +178,7 @@ const int PIZZA_HEIGHT = 64;
 const int PIZZA_HALF_WIDTH = 32;
 const int PIZZA_HALF_HEIGHT = 32;
 
-//const float JPO_SPEED = 90.5f;
-const float JPO_SPEED=100.0f;
+const float JPO_SPEED = 90.5f;
 const float RACCOON_SPEED = 200.0f;
 
 //still constants.
