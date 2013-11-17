@@ -352,6 +352,8 @@ void RaccoonRun::update()
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
 			if(checkPoint.collidesWith(frameTime, jpo))
+			{
+				audio->playCue(YAY);
 				//paused=true;
 				if(level!=3)
 					reset();
@@ -359,7 +361,10 @@ void RaccoonRun::update()
 				{
 					gameOver=true;
 					win=true;
+					jpo.setX(-500);
+
 				}
+			}
 
 			for(int i=0; i<3; i++)
 			{
