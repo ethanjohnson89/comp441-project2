@@ -117,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h" />
-    <ClInclude Include="Character.h" />
+    <ClInclude Include="Johnson.h" />
     <ClInclude Include="cheeseburger.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="constants.h" />

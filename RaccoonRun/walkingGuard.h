@@ -2,7 +2,7 @@
 #define walkingGuard_h               // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
-#include "Character.h"
+#include "Johnson.h"
 #include "constants.h"
 
 namespace walkingGuardNS

@@ -8,7 +8,7 @@
 #include "image.h"
 #include "entity.h"
 #include "dashboard.h"
-#include "Character.h"
+#include "Johnson.h"
 #include "Still.h"
 #include "platform.h"
 #include "cpsoup.h"
