@@ -23,6 +23,7 @@ public:
 
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM);
 
+	bool collidesWith(float frameTime, Entity object);
     // inherited member functions
     //void update(float frameTime, bool left, bool right);
 };

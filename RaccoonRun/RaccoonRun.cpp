@@ -338,6 +338,8 @@ void RaccoonRun::update()
 			{
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
+			if(checkPoint.collidesWith(frameTime, jpo))
+				reset();
 
 			for(int i=0; i<3; i++)
 			{
@@ -617,6 +619,7 @@ void RaccoonRun::reset()
 {
 	if(level<3)
 		level++;
+	levelSet();
 	setStillData();
 }
 void RaccoonRun::statusSet()
