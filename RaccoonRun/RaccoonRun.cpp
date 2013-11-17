@@ -29,7 +29,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//score init
 	score=0;
 	//level init
-	level=2;
+	level=1;
 
 	//set boolean for no easter egg.
 	fly=false;
@@ -144,7 +144,7 @@ void RaccoonRun::setPlatformData(int level)
 		platform[5].set(964,222);
 		platform[6].set(1225,130);
 		platform[7].set(1494,222);
-		platform[8].set(1705,130);
+		platform[8].set(1805,130);
 		break;
 	case 2:
 		for(int i=0; i<7; i++)
@@ -313,9 +313,16 @@ void RaccoonRun::update()
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			if(cs.collidesWithRaccoon(frameTime, jpo))
 			{
+				if(jpo.getVisible())
+					jpo.incrementLivesBy(-1);
 				jpo.setVisible(false);
+				
 				/*gameOver=true;*/
-				paused = true;
+				//paused = true;
+				if(jpo.getLives()>0)
+					levelSet();
+				else
+					gameOver=true;
 			}
 
 			for(int i=0; i<3; i++)

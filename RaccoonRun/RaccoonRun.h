@@ -15,6 +15,7 @@
 #include "raccoon.h"
 #include "menu.h"
 #include "walkingGuard.h"
+#include "phillips.h"
 
 using std::string;
 using std::endl;
@@ -43,7 +44,7 @@ private:
 	Still background[3];
 
 	TextureManager checkpointTexture;
-	Still checkPoint;
+	Checkpoint checkPoint;
 
 	enum LastDirection {left, right} lastDirection;
 	bool keyDownLastFrame;

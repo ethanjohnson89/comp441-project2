@@ -38,6 +38,8 @@ Raccoon::Raccoon() : Character()
 	//added by Christy. For Raccoon, obviously.
 	magicNumberX=0;
 	magicNumberY=0;
+
+	lives=3;
 }
 
 bool Raccoon::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
