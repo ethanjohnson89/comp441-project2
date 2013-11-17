@@ -150,6 +150,7 @@ void RaccoonRun::setPlatformData(int level)
 		for(int i=0; i<7; i++)
 		{
 			platform[i].setVisible(true);
+			platform[i].setScale(.65);
 		}
 		platform[0].set(17,123);
 		platform[1].set(170,253);
