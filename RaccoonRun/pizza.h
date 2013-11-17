@@ -25,7 +25,7 @@ public:
     // inherited member functions
     void update(float frameTime, bool left, bool right);
 
-	bool collidesWith(float frameTime, Entity object);
+	//bool collidesWith(float frameTime, Entity object);
 	float getX(){return spriteData.x;}
 	float getY(){return spriteData.y;}
 };

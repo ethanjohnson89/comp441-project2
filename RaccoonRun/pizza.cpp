@@ -47,36 +47,36 @@ void Pizza::update(float frameTime, bool left, bool right)
 //	Entity::update(frameTime);
 	Still::update(frameTime, left, right);
 }
-bool Pizza::collidesWith(float frameTime, Entity object)
-{
-	bool collides=false;
-
-		//bool collides=false;
-
-	float bottom;
-	//bottom=(JPO_HEIGHT*getScale()+spriteData.y);
-	bottom=getY()+getHeight()*getScale();// THIS WORKS. DO NOT CHANGE.
-	float top;
-	top=spriteData.y/*+20*/;
-	float left;
-	left=getX()/*+22*/;
-	float right;
-	right=getX()+CHECKPOINT_WIDTH*getScale();
-
-	float ebottom;
-	ebottom=(object.getY())+object.getHeight()*object.getScale();
-	float eleft;
-	eleft= object.getX();
-	float eright;
-	eright= object.getX() + object.getWidth()*object.getScale()-50;
-	float etop;
-	etop=ebottom+RACCOON_HEIGHT;
-
-	if((ebottom<=(bottom) && ebottom>=(top))|| (etop>=bottom && etop<=bottom))
-	{
-		if(eleft<=left && eright>=left)
-			collides = true;
-	}
-
-	return collides;
-}
+//bool Pizza::collidesWith(float frameTime, Entity object)
+//{
+//	bool collides=false;
+//
+//		//bool collides=false;
+//
+//	float bottom;
+//	//bottom=(JPO_HEIGHT*getScale()+spriteData.y);
+//	bottom=getY()+getHeight()*getScale();// THIS WORKS. DO NOT CHANGE.
+//	float top;
+//	top=spriteData.y/*+20*/;
+//	float left;
+//	left=getX()/*+22*/;
+//	float right;
+//	right=getX()+CHECKPOINT_WIDTH*getScale();
+//
+//	float ebottom;
+//	ebottom=(object.getY())+object.getHeight()*object.getScale();
+//	float eleft;
+//	eleft= object.getX();
+//	float eright;
+//	eright= object.getX() + object.getWidth()*object.getScale()-50;
+//	float etop;
+//	etop=ebottom+RACCOON_HEIGHT;
+//
+//	if((ebottom<=(bottom) && ebottom>=(top))|| (etop>=bottom && etop<=bottom))
+//	{
+//		if(eleft<=left && eright>=left)
+//			collides = true;
+//	}
+//
+//	return collides;
+//}
