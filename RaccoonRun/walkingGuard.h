@@ -20,7 +20,7 @@ public:
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM);
 
     // inherited member functions
-    void update(float frameTime);
+    void update(float frameTime, bool left, bool right);
 	bool collidesWithRaccoon(float frameTime, Entity object);
 };
 #endif

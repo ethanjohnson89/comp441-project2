@@ -314,7 +314,7 @@ void RaccoonRun::update()
 			}
 			background[level-1].update(frameTime, moveScreenLeft, moveScreenRight);
 
-			cs.update(frameTime);
+			cs.update(frameTime, moveScreenLeft, moveScreenRight);
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			if(cs.collidesWithRaccoon(frameTime, jpo))
 			{
