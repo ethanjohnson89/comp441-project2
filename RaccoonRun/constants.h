@@ -96,7 +96,7 @@ const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
 const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 	
 //platform images
-const char PLATFORM_TEXTURE[]="pictures\\platform1.png";
+const char PLATFORM_TEXTURE[]="pictures\\platform2.png";
 //background images
 const char BACKGROUND1A_TEXTURE[]="pictures\\background1a.png";
 const char BACKGROUND1B_TEXTURE[]="pictures\\background1b.png";
