@@ -340,6 +340,7 @@ void RaccoonRun::ai()
 void RaccoonRun::collisions()
 {
 
+
 	for(int i=0; i<15 && onLand!=true; i++)
 	{
 		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
@@ -354,8 +355,26 @@ void RaccoonRun::collisions()
 	{
 		if(jpo.collidesWith(frameTime,cpsoup[i])&&cpsoup[i].getActive())
 		{
-			cpsoup[i].setActive(false);
+     		cpsoup[i].setActive(false);
 			cpsoup[i].setVisible(false);
+		}
+	}
+	for(int i=0; i<3; ++i)
+	{
+		if(jpo.collidesWith(frameTime,cheeseburger[i])&&cheeseburger[i].getActive())
+		{
+     		cheeseburger[i].setActive(false);
+			cheeseburger[i].setVisible(false);
+			paused = true;
+		}
+	}
+	for(int i=0; i<3; ++i)
+	{
+		if(jpo.collidesWith(frameTime,pizza[i])&&pizza[i].getActive())
+		{
+     		pizza[i].setActive(false);
+			pizza[i].setVisible(false);
+			paused = true;
 		}
 	}
 }

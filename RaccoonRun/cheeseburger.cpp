@@ -33,8 +33,8 @@ Cheeseburger::Cheeseburger() : Still()
 	
 	mass = 10.0f; // will probably need to change this!
 	collisionType = entityNS::BOX;
-	magicNumberX=50;
-	magicNumberY=10;
+	magicNumberX=-18;
+	magicNumberY=-20;
 }
 
 bool Cheeseburger::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
