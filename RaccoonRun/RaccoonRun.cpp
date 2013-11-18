@@ -111,12 +111,21 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if(!cpsoupTexture.initialize(graphics, CPSOUP_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup texture"));
+	for(int i = 0; i < 3; i++)
+		if (!cpsoup[i].initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
 
 	if (!cheeseburgerTexture.initialize(graphics,CHEESEBURGER_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger texture"));
+	for(int i = 0; i < 3; i++)
+		if (!cheeseburger[i].initialize(this,CHEESEBURGER_WIDTH, CHEESEBURGER_HEIGHT, 0, &cheeseburgerTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger"));
 
 	if (!pizzaTexture.initialize(graphics,PIZZA_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza texture"));
+	for(int i = 0; i < 3; i++)
+		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
 
 	//setSoupData();
 
@@ -172,10 +181,7 @@ void RaccoonRun::setPlatformData(int level)
 	}
 	switch(level)
 	{
-		//audio->stopCue(LEVEL);
-		//audio->stopCue(LEVEL);
 	case 1:
-		//audio->playCue(LEVEL);
 		for(int i=0; i<9; i++)
 		{
 			
@@ -771,8 +777,6 @@ void RaccoonRun::setSoupData()
 {
 	for(int i=0; i<3; i++)
 	{
-		if (!cpsoup[i].initialize(this,CPSOUP_WIDTH, CPSOUP_HEIGHT, CPSOUP_COLS, &cpsoupTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger pizza soup"));
 		cpsoup[i].setScale(.5);
 		cpsoup[i].setActive(true);
 		cpsoup[i].setVisible(true);
@@ -801,8 +805,6 @@ void RaccoonRun::setCheeseburgerData()
 {
 	for(int i=0; i<3; i++)
 	{
-		if (!cheeseburger[i].initialize(this,CHEESEBURGER_WIDTH, CHEESEBURGER_HEIGHT, 0, &cheeseburgerTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing cheeseburger"));
 		cheeseburger[i].setScale(.5);
 		cheeseburger[i].setActive(true);
 		cheeseburger[i].setVisible(true);
@@ -831,8 +833,6 @@ void RaccoonRun::setPizzaData()
 {
 	for(int i=0; i<3; i++)
 	{
-		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
 		pizza[i].setScale(.5);
 		pizza[i].setActive(true);
 		pizza[i].setVisible(true);
