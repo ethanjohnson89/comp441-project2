@@ -234,6 +234,7 @@ void RaccoonRun::setPlatformData(int level)
 		platform[4].set(1486,265);
 		platform[5].set(1701,291);
 		platform[6].set(175,350);
+		break;
 	}
 
 	//audio->playCue(LEVEL);
@@ -790,7 +791,7 @@ void RaccoonRun::setStillData()
 		checkPoint.set(1930,76);
 		break;
 	case 2:
-		checkPoint.set(860,131);
+		checkPoint.set(920,71);
 		break;
 	case 3:
 		checkPoint.set(1821,240);
