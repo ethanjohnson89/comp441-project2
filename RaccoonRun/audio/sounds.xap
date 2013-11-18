@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 30335838;
-    Last Modified High = 2637210214;
+    Last Modified Low = 2637210214;
+    Last Modified High = 30335838;
 
     Category
     {
@@ -225,8 +225,10 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 145549269;
-    Bank Last Revised High = 30335966;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 38000818;
+    Bank Last Revised High = 30336003;
 
     Wave
     {

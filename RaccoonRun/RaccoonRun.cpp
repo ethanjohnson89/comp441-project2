@@ -415,6 +415,7 @@ void RaccoonRun::update()
 					jpo.incrementLivesBy(-1);
 					if(jpo.getLives()<3)
 						lives[jpo.getLives()].setVisible(false);
+//					Sleep(500);
 				}
 				jpo.setVisible(false);
 				
