@@ -294,21 +294,21 @@ void RaccoonRun::update()
 			if(input->isKeyDown(VK_SPACE))
 			{
 				gameState=2;
-				audio->stopCue(MENU);
-				audio->playCue(LEVEL);
 			}
 
 			break;
 		case 2:
 			if(input->isKeyDown(VK_ESCAPE))
+			{
+				audio->stopCue(MENU);
+				audio->playCue(LEVEL);
 				gameState = 5;
+			}
 			break;
 		case 3:
 		case 4:
 			break; 
 		case 5:
-			
-
 			if(input->isKeyDown(JPO_JUMP_KEY) && onLand && !fly)
 			{
 				// make JPo jump!
@@ -427,6 +427,7 @@ void RaccoonRun::update()
 			{
 				if(jpo.getVisible())
 				{
+					audio->stopCue(BOING);
 					audio->playCue(CAUGHT);
 					jpo.incrementLivesBy(-1);
 					if(jpo.getLives()<3)
