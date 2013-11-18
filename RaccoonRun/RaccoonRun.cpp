@@ -49,6 +49,24 @@ void RaccoonRun::initialize(HWND hwnd)
 	debugFont->setFontColor(graphicsNS::RED);
 
 	// Initialize textures and images
+	if(!backgroundTexture[0].initialize(graphics, BACKGROUND1A_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background[0].initialize(this,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[0]))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	if(!backgroundTexture[1].initialize(graphics, BACKGROUND1B_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background[1].initialize(this,BACKGROUND1B_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[1]))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	if(!backgroundTexture[2].initialize(graphics, BACKGROUND2_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!background[2].initialize(this,BACKGROUND2_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[2]))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
+	if(!checkpointTexture.initialize(graphics, CHECKPOINT_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
+	if (!checkPoint.initialize(this,CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT, 0, &checkpointTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint"));
+
 	if(!blackTexture.initialize(graphics, BLACK_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
 	if (!blackBar.initialize(graphics,0, 0, 0, &blackTexture))
@@ -116,6 +134,9 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform texture"));
+	for(int i = 0; i < 15; i++)
+		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
 
 	lastDirection = right;
 	keyDownLastFrame = false;
@@ -144,9 +165,7 @@ void RaccoonRun::setPlatformData(int level)
 	//will eventually be based on what level we are currently on.
 	for(int i=0; i<15; i++)
 	{
-		if (!platform[i].initialize(this,PLATFORM_WIDTH, PLATFORM_HEIGHT, 0, &platformTexture))
-				throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing platform"));
-			platform[i].setScale(.75);
+		platform[i].setScale(.75);
 		platform[i].setVisible(false);
 		platform[i].set(-500,-500); //gets unused platforms out of the way.
 		
@@ -457,6 +476,7 @@ void RaccoonRun::update()
 					gameOver=false;
 					jpo.setLives(3);
 					score=0;
+					level=1;
 					statusSet();
 				}
 			break;
@@ -469,6 +489,7 @@ void RaccoonRun::update()
 					gameOver=false;
 					jpo.setLives(3);
 					score=0;
+					level=1;
 					statusSet();
 				}
 			break;
@@ -731,12 +752,8 @@ void RaccoonRun::setStillData()
 	setSoupData();
 	setCheeseburgerData();
 	setPizzaData();
-	//checkpoint stuff
-	if(!checkpointTexture.initialize(graphics, CHECKPOINT_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
-	if (!checkPoint.initialize(this,CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT, 0, &checkpointTexture))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint"));
 	
+	//checkpoint stuff
 	switch(level)
 	{
 	case 1:
@@ -843,19 +860,6 @@ void RaccoonRun::setPizzaData()
 
 void RaccoonRun::setBgData()
 {
-	if(!backgroundTexture[0].initialize(graphics, BACKGROUND1A_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	if (!background[0].initialize(this,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[0]))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-	if(!backgroundTexture[1].initialize(graphics, BACKGROUND1B_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	if (!background[1].initialize(this,BACKGROUND1B_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[1]))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-	if(!backgroundTexture[2].initialize(graphics, BACKGROUND2_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	if (!background[2].initialize(this,BACKGROUND2_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[2]))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-
 	for(int i=0; i<3; i++)
 	{
 		background[i].set(-5,0);
