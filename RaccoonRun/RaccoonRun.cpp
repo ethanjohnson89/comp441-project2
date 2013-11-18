@@ -198,7 +198,7 @@ void RaccoonRun::setPlatformData(int level)
 			//platform[i].setY(350);
 		}
 		platform[0].set(29,176);
-		platform[1].set(350,135);
+		platform[1].set(375,135);
 		platform[2].set(506,315);
 		platform[3].set(686,164);
 		platform[4].set(964,222);
@@ -214,9 +214,10 @@ void RaccoonRun::setPlatformData(int level)
 			platform[i].setScale(.65);
 		}
 		platform[0].set(17,123);
-		platform[1].set(170,253);
+		//platform[1].set(170,253);
 		platform[2].set(331,172);
-		platform[3].set(325,354);
+		//platform[3].set(325,354);
+		platform[3].set(225,354);
 		platform[4].set(625,141);
 		platform[5].set(638,412);
 		platform[6].set(948,147);
