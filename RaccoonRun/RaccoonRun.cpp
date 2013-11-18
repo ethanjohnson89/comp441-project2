@@ -483,6 +483,8 @@ void RaccoonRun::update()
 					jpo.setLives(3);
 					score=0;
 					level=1;
+					levelSet();
+					setStillData();
 					statusSet();
 				}
 			break;
@@ -496,6 +498,10 @@ void RaccoonRun::update()
 					jpo.setLives(3);
 					score=0;
 					level=1;
+					// This was actually working fine without the calls to levelSet() and setStillData(), but "theoretically" they
+					// should be needed here, for the same reason as above in case 6.
+					levelSet();
+					setStillData();
 					statusSet();
 				}
 			break;
