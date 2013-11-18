@@ -738,8 +738,10 @@ void RaccoonRun::levelSet()
 		//audio->stopCue(LEVEL);
 		//audio->playCue(LEVEL);
 		
-		jpo.setX(30);
-		jpo.setY(175-RACCOON_HEIGHT);
+		//jpo.setX(30); // old start coordinates - save for future if we want to put him back in the tree
+		//jpo.setY(175-RACCOON_HEIGHT);
+		jpo.setX(400);
+		jpo.setY(GAME_HEIGHT-(10+RACCOON_HEIGHT));
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 		jpo.setVisible(true);
 
@@ -813,7 +815,7 @@ void RaccoonRun::setSoupData()
 	case 1:
 		cpsoup[0].set(377,400);
 		cpsoup[1].set(785,400);
-		cpsoup[2].set(1064,110);
+		cpsoup[2].set(1064,180);
 		break;
 	case 2:
 		cpsoup[0].set(249,423);
@@ -839,9 +841,9 @@ void RaccoonRun::setCheeseburgerData()
 	switch(level)
 	{
 	case 1:
-		cheeseburger[0].set(377,400);
-		cheeseburger[1].set(585,280);
-		cheeseburger[2].set(864,110);
+		cheeseburger[0].set(177,430);
+		cheeseburger[1].set(585,380);
+		cheeseburger[2].set(850,130);
 		break;
 	case 2:
 		cheeseburger[0].set(49,423);
@@ -869,7 +871,7 @@ void RaccoonRun::setPizzaData()
 	case 1:
 		pizza[0].set(277,400);
 		pizza[1].set(685,400);
-		pizza[2].set(964,110);
+		pizza[2].set(30,110);
 		break;
 	case 2:
 		pizza[0].set(149,423);
