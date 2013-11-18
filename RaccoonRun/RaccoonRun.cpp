@@ -49,6 +49,19 @@ void RaccoonRun::initialize(HWND hwnd)
 	debugFont->setFontColor(graphicsNS::RED);
 
 	// Initialize textures and images
+	if(!blackTexture.initialize(graphics, BLACK_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	if (!blackBar.initialize(graphics,0, 0, 0, &blackTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black bar"));
+
+	if(!livesTexture.initialize(graphics, LIVES_TEXTURE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	for(int i=0; i<5; i++)	
+	{
+		if (!lives[i].initialize(graphics,256, 256, 0, &livesTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing lives image"));
+	}
+
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
 
@@ -442,7 +455,7 @@ void RaccoonRun::update()
 					audio->playCue(MENU);
 					gameState=0;
 					gameOver=false;
-					jpo.incrementLivesBy(3);
+					jpo.setLives(3);
 					score=0;
 					statusSet();
 				}
@@ -454,7 +467,7 @@ void RaccoonRun::update()
 					audio->playCue(MENU);
 					gameState=0;
 					gameOver=false;
-					jpo.incrementLivesBy(3);
+					jpo.setLives(3);
 					score=0;
 					statusSet();
 				}
@@ -857,20 +870,9 @@ void RaccoonRun::reset()
 }
 void RaccoonRun::statusSet()
 {
-	if(!blackTexture.initialize(graphics, BLACK_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	if (!blackBar.initialize(graphics,0, 0, 0, &blackTexture))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black bar"));
 	blackBar.setX(0);
 	blackBar.setY(-20);
 	
-	if(!livesTexture.initialize(graphics, LIVES_TEXTURE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
-	for(int i=0; i<5; i++)	
-	{
-		if (!lives[i].initialize(graphics,256, 256, 0, &livesTexture))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing lives image"));
-	}
 	int xOffset=65;
 	for(int i=0; i<5; i++)
 	{

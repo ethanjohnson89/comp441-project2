@@ -25,6 +25,7 @@ public:
     void update(float frameTime);
 	bool collidesWith(float frameTime, Entity object);
 	void incrementLivesBy(int x){lives+=x;}
+	void setLives(int x) { lives = x; }
 	int getLives(){return lives;}
 };
 #endif
