@@ -32,7 +32,7 @@ void Menu::initialize(Graphics *g, Input *i)
 	instruction.push_back("Eating cheeseburger pizza soup loses 10 points");
 	instruction.push_back("Escape to quit to menu");
 
-	cheatHeading = "These options are cheats";
+	cheatHeading = "These options are cheats, SPACE to select";
 	cheat.push_back("Spacebar for flight, but beware of the fate of Icarus");
 	cheat.push_back("Immortality, but you may start feeling like Sisyphus");
 	cheat.push_back("Level 1 skip, but you are sleeping in the bed of Procrustes");
@@ -152,10 +152,11 @@ void Menu::displayCheats()
 	{
 		cheats = false;
 	}
-	if(input->isKeyDown(VK_RETURN))
+	if(input->isKeyDown(VK_SPACE))
 	{
 		//cheatCodes[linePtr2] = true;
 		selectedItem2 = linePtr2;
+		cheats = false;
 	}
 	return;
 }

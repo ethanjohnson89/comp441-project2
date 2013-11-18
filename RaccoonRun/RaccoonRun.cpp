@@ -282,7 +282,7 @@ void RaccoonRun::update()
 					jpo.incrementLivesBy(1000000);
 					break;
 				case 2:
-					level = 2;
+					level = 3;
 					break;
 				}
 				//fly=1;
@@ -427,7 +427,6 @@ void RaccoonRun::update()
 			{
 				if(jpo.getVisible())
 				{
-					audio->stopCue(BOING);
 					audio->playCue(CAUGHT);
 					jpo.incrementLivesBy(-1);
 					if(jpo.getLives()<3)
