@@ -837,8 +837,8 @@ void RaccoonRun::setCheeseburgerData()
 	switch(level)
 	{
 	case 1:
-		cheeseburger[0].set(177,400);
-		cheeseburger[1].set(585,400);
+		cheeseburger[0].set(377,400);
+		cheeseburger[1].set(585,280);
 		cheeseburger[2].set(864,110);
 		break;
 	case 2:
