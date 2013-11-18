@@ -254,7 +254,7 @@ void RaccoonRun::update()
 			if(menu->getSelectedItem() == 0)
 			{
 				if(!gameOver)
-					gameState = 2;
+					gameState = 1;
 				menu2 = true;
 			}
 			else if(menu->getSelectedItem() == 1)
@@ -292,7 +292,7 @@ void RaccoonRun::update()
 		case 1:
 			if(input->isKeyDown(VK_SPACE))
 			{
-				gameState=5;
+				gameState=2;
 				audio->stopCue(MENU);
 				audio->playCue(LEVEL);
 			}
@@ -300,7 +300,7 @@ void RaccoonRun::update()
 			break;
 		case 2:
 			if(input->isKeyDown(VK_ESCAPE))
-				gameState = 1;
+				gameState = 5;
 			break;
 		case 3:
 		case 4:
