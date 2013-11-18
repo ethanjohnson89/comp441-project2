@@ -156,7 +156,8 @@ void Menu::displayCheats()
 	{
 		//cheatCodes[linePtr2] = true;
 		selectedItem2 = linePtr2;
-		cheats = false;
+		Sleep(500);
+	//	cheats = false;
 	}
 	return;
 }
