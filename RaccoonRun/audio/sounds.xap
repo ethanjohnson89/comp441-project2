@@ -1,7 +1,7 @@
 Signature = XACT3;
 Version = 18;
 Content Version = 46;
-Release = August 2009;
+Release = June 2010;
 
 Options
 {
@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 2637210214;
-    Last Modified High = 30335838;
+    Last Modified Low = 4285313246;
+    Last Modified High = 30336013;
 
     Category
     {
@@ -225,10 +225,12 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 38000818;
-    Bank Last Revised High = 30336003;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 4285433258;
+    PC Bank Last Modified High = 30336013;
+    Bank Last Revised Low = 4285413256;
+    Bank Last Revised High = 30336013;
 
     Wave
     {
@@ -248,8 +250,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 455608140;
-            Last Modified High = 30335738;
+            Last Modified Low = 1879832680;
+            Last Modified High = 30336013;
         }
     }
 
@@ -271,8 +273,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1984489738;
-            Last Modified High = 30335742;
+            Last Modified Low = 1329493176;
+            Last Modified High = 30335839;
         }
     }
 
@@ -294,8 +296,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2502292408;
-            Last Modified High = 30335836;
+            Last Modified Low = 1352315458;
+            Last Modified High = 30335839;
         }
     }
 
@@ -317,8 +319,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 459312446;
-            Last Modified High = 30335838;
+            Last Modified Low = 1833619193;
+            Last Modified High = 30335846;
         }
     }
 
@@ -340,8 +342,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3805409024;
-            Last Modified High = 30330706;
+            Last Modified Low = 1833709193;
+            Last Modified High = 30335846;
         }
     }
 
@@ -359,12 +361,12 @@ Wave Bank
             Sampling Rate = 44100;
             Bits Per Sample = 1;
             Play Region Offset = 44;
-            Play Region Length = 190464;
+            Play Region Length = 146976;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3232399360;
-            Last Modified High = 30335965;
+            Last Modified Low = 910444305;
+            Last Modified High = 30336004;
         }
     }
 }
@@ -376,6 +378,10 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Bank Last Modified Low = 4286263341;
+    Bank Last Modified High = 30336013;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
