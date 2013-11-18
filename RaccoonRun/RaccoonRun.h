@@ -61,6 +61,9 @@ private:
 	TextureManager menuBackgroundTexture;
 	Image menuBackground;
 
+	TextureManager menuBackgroundTexture2;
+	Image menuBackground2;
+
 	TextureManager splashTexture;
 	Image splash;
 
@@ -98,6 +101,7 @@ private:
 
 	int score;
 	int level;
+	bool menu2;
 
 public:
     RaccoonRun();

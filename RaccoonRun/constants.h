@@ -105,6 +105,7 @@ const char BACKGROUND1B_TEXTURE[]="pictures\\background1b.png";
 const char BACKGROUND2_TEXTURE[]="pictures\\background2.png";
 
 const char MENU_TEXTURE[]="pictures\\menuBackground.png";
+const char MENU_TEXTURE2[]="pictures\\menuBackground2.png";
 
 const char CHECKPOINT_TEXTURE[]="pictures\\checkPoint.png";
 

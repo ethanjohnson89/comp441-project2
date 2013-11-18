@@ -90,6 +90,13 @@ void RaccoonRun::initialize(HWND hwnd)
 	menuBackground.setX(0);
 	menuBackground.setY(0);
 
+	if (!menuBackgroundTexture2.initialize(graphics,MENU_TEXTURE2))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu texture"));
+	if(!menuBackground2.initialize(graphics, 800,512,0,&menuBackgroundTexture2))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu background"));
+	menuBackground2.setX(0);
+	menuBackground2.setY(0);
+
 	if (!splashTexture.initialize(graphics,SPLASH_TEXTURE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing splash texture"));
 	if(!splash.initialize(graphics, 800,512,0,&splashTexture))
@@ -154,6 +161,8 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	menu = new Menu();
 	menu->initialize(graphics, input);
+
+	menu2=false;
 
 	gameState = 0;
 	audioOn = true;
@@ -244,7 +253,8 @@ void RaccoonRun::update()
 			if(menu->getSelectedItem() == 0)
 			{
 				if(!gameOver)
-					gameState = 1;
+					gameState = 2;
+				menu2 = true;
 			}
 			else if(menu->getSelectedItem() == 1)
 			{
@@ -288,6 +298,9 @@ void RaccoonRun::update()
 
 			break;
 		case 2:
+			if(input->isKeyDown(VK_ESCAPE))
+				gameState = 1;
+			break;
 		case 3:
 		case 4:
 			break; 
@@ -609,6 +622,9 @@ void RaccoonRun::render()
 		break;
 	case 1:
 		splash.draw();
+		break;
+	case 2:
+		menuBackground2.draw();
 		break;
 	case 5:
 		background[level-1].draw();
