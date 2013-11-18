@@ -813,9 +813,9 @@ void RaccoonRun::setSoupData()
 	switch(level)
 	{
 	case 1:
-		cpsoup[0].set(377,400);
+		cpsoup[0].set(377,410);
 		cpsoup[1].set(785,400);
-		cpsoup[2].set(1064,180);
+		cpsoup[2].set(1064,175);
 		break;
 	case 2:
 		cpsoup[0].set(249,423);
