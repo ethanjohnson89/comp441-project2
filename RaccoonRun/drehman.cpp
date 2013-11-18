@@ -27,9 +27,6 @@ void Menu::initialize(Graphics *g, Input *i)
 	instruction.push_back("Space to have raccoon jump");
 	instruction.push_back("Left arrow to move raccon left");
 	instruction.push_back("Right arrow to move raccoon right");
-	instruction.push_back("Eating cheeseburgers gives 10 points");
-	instruction.push_back("Eating pizza gives 5 points");
-	instruction.push_back("Eating cheeseburger pizza soup loses 10 points");
 	instruction.push_back("Escape to quit to menu");
 
 	cheatHeading = "These options are cheats";
