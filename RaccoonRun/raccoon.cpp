@@ -59,9 +59,9 @@ void Raccoon::update(float frameTime)
     spriteData.y += frameTime * velocity.y;         // move along Y
 
     // Bounce off walls
-    if (spriteData.x > GAME_WIDTH - spriteData.width)  // if hit right screen edge
+    if (spriteData.x > GAME_WIDTH - (spriteData.width + 35))  // if hit right screen edge
     {
-        spriteData.x = GAME_WIDTH - spriteData.width;  // position at right screen edge
+        spriteData.x = GAME_WIDTH - (spriteData.width+35);  // position at right screen edge
         velocity.x = -velocity.x;                   // reverse X direction
     } else if (spriteData.x < 0)                    // else if hit left screen edge
     {
