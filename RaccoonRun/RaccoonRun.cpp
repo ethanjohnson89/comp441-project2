@@ -41,7 +41,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//set boolean for no easter egg.
 	fly=false;
 	//JPO starts on ground.
-	onLand=true;
+	jpo.setOnLand(true);
 	// Initialize fonts
 	debugFont = new TextDX();
     if(debugFont->initialize(graphics, 30, true, false, "Arial") == false)
@@ -309,13 +309,16 @@ void RaccoonRun::update()
 		case 4:
 			break; 
 		case 5:
-			if(input->isKeyDown(JPO_JUMP_KEY) && onLand && !fly)
+			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
 				// make JPo jump!
 				if(!jumpedLastFrame)
 						newVelocity = VECTOR2(newVelocity.x, -750);
 				jumpedLastFrame = true;
 				audio->playCue(BOING);
+				//added 11/23
+				//onLand=false;
+				jpo.setOnLand(false);
 			}
 			else if(fly && input->isKeyDown(JPO_JUMP_KEY))
 			{
@@ -360,7 +363,18 @@ void RaccoonRun::update()
 			{
 				if(keyDownLastFrame)
 				{
-					newVelocity = VECTOR2(0, newVelocity.y);
+					//PostQuitMessage(0);
+					
+					if(!jpo.getOnLand())
+					{
+						
+						newVelocity = VECTOR2(0, newVelocity.y);
+					}
+					else
+					{
+						//paused=true;
+						newVelocity = VECTOR2(0,0);
+					}
 					if(lastDirection == right)
 					{
 						jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
@@ -406,13 +420,14 @@ void RaccoonRun::update()
 				moveScreenLeft=false;
 			}
 			//checks if JPO is on a surface
-			if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT)
+			if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT || jpo.getOnLand())//added onLand- if he's on land, he's safe.
 			{
-				onLand=true;
+				jpo.setOnLand(true);
 			}
 			else
 			{
-				onLand=false;
+				jpo.setOnLand(false);
+				//onLand=false;
 			}
 
 			for(int i=0; i<15; i++)
@@ -547,24 +562,46 @@ void RaccoonRun::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for(int i=0; i<15 && onLand!=true; i++)
+	if(jpo.getX()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
+		jpo.setOnLand(false);
+
+	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
-		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		//if(jpo.collideBox(platform[i],collisionVector));
+		if(jpo.collidesWith(platform[i],collisionVector))
+		{
+			jpo.setOnLand(true);
+			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()));
+			jpo.setVelocity(D3DXVECTOR2(0,0));
+			break;
+			//paused=true;
+		}		
+		
+		
+		
+		/*if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
 		{
 			onLand=true;
 			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
-		}
+		}*/
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(cpsoup[i].collidesWith(jpo, collisionVector) && cpsoup[i].getActive())
+		if(jpo.collidesWith(cpsoup[i],collisionVector))
+		{
+			cpsoup[i].setActive(false);
+			cpsoup[i].setVisible(false);
+			//paused=true;
+			score-=5;
+		}
+		/*if(cpsoup[i].collidesWith(jpo, collisionVector) && cpsoup[i].getActive())
 		{
      		cpsoup[i].setActive(false);
 			cpsoup[i].setVisible(false);
 			score-=5;
-		}
+		}*/
 	}
 	for(int i=0; i<3; ++i)
 	{
