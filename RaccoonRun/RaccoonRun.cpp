@@ -571,13 +571,11 @@ void RaccoonRun::collisions()
 		if(jpo.collidesWith(platform[i],collisionVector))
 		{
 			jpo.setOnLand(true);
-			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()));
+			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale())-1);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
 			//paused=true;
-		}		
-		
-		
+		}			
 		
 		/*if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
 		{
