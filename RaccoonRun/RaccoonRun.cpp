@@ -45,9 +45,9 @@ void RaccoonRun::initialize(HWND hwnd)
 	onLand=true;
 	// Initialize fonts
 	debugFont = new TextDX();
-    if(debugFont->initialize(graphics, 30, true, false, "Arial") == false)
+    if(debugFont->initialize(graphics, 30, true, false, "Times New Roman") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
-	debugFont->setFontColor(graphicsNS::RED);
+	debugFont->setFontColor(graphicsNS::WHITE);
 
 	// Initialize textures and images
 	if(!backgroundTexture[0].initialize(graphics, BACKGROUND1A_TEXTURE))
@@ -660,6 +660,7 @@ void RaccoonRun::render()
 		}
 		else
 		{
+			debugFont->setFontColor(graphicsNS::BLACK);
 			debugFont->print("Game OVER.",0,0);
 			if(input->isKeyDown(VK_ESCAPE))
 				gameState=0;
@@ -680,6 +681,8 @@ void RaccoonRun::render()
 		winScreen.draw();
 		//you won. Increased score.
 		//score+=150;
+		debugFont->setFontColor(graphicsNS::BLACK);
+
 		message="Score: ";
 		stuff<<score;
 		stuff>>message;
