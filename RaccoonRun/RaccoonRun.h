@@ -99,6 +99,7 @@ private:
 	int gameState;
 	bool audioOn;
 
+	int oldScore;
 	int score;
 	int level;
 	bool menu2;

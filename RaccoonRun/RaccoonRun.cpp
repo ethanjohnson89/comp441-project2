@@ -33,6 +33,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	//score init
 	score=0;
+	oldScore=0;
 	//level init
 	level=1;
 
@@ -454,6 +455,8 @@ void RaccoonRun::update()
 			if(checkPoint.collidesWith(frameTime, jpo))
 			{
 				audio->playCue(YAY);
+				score+=level*50;
+				oldScore=score;
 				//paused=true;
 				if(level!=3)
 					reset();
@@ -675,7 +678,8 @@ void RaccoonRun::render()
 		break;
 	case 6:
 		winScreen.draw();
-		
+		//you won. Increased score.
+		//score+=150;
 		message="Score: ";
 		stuff<<score;
 		stuff>>message;
@@ -739,6 +743,11 @@ void RaccoonRun::levelSet()
 		
 		//jpo.setX(30); // old start coordinates - save for future if we want to put him back in the tree
 		//jpo.setY(175-RACCOON_HEIGHT);
+		
+		//no cumulative scoring for level 1.
+		score=0;
+		oldScore=0;
+
 		jpo.setX(400);
 		jpo.setY(GAME_HEIGHT-(10+RACCOON_HEIGHT));
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
@@ -752,6 +761,10 @@ void RaccoonRun::levelSet()
 
 		break;
 	case 2:
+		score=oldScore;
+		//yay level 2!
+		//score+=50;
+
 		jpo.setX(17);
 		jpo.setY(163-RACCOON_HEIGHT);
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
@@ -765,6 +778,10 @@ void RaccoonRun::levelSet()
 
 		break;
 	case 3:
+		//yay level 3!
+		score=oldScore;
+		//score+=100;
+
 		jpo.setX(17);
 		jpo.setY(67-RACCOON_HEIGHT);
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
