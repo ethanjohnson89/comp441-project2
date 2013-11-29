@@ -562,16 +562,16 @@ void RaccoonRun::collisions()
 {
 	VECTOR2 collisionVector;
 
-	if(jpo.getX()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
+	if(jpo.getY()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
 		jpo.setOnLand(false);
-
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
 		//if(jpo.collideBox(platform[i],collisionVector));
-		if(jpo.collidesWith(platform[i],collisionVector))
+		if(jpo.collidesWith(platform[i],collisionVector) && jpo.getVelocity().y>=0)
 		{
 			jpo.setOnLand(true);
-			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale())-1);
+			jpo.setY((platform[i].getY()-platform[i].getHeight()*platform[i].getScale())
+				-(jpo.getHeight()*jpo.getScale())+85);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
 			//paused=true;
