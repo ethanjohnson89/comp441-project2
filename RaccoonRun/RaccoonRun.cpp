@@ -136,7 +136,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	//setSoupData();
 
-    if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
+    if (!jpo.initialize(this,RACCOON_WIDTH, RACCOON_HEIGHT, RACCOON_COLS, &raccoonTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon"));
 
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
@@ -566,7 +566,7 @@ void RaccoonRun::collisions()
 		jpo.setOnLand(false);
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
-		//if(jpo.collideBox(platform[i],collisionVector));
+		//if(jpo.collideBox(platform[i],collisionVector));s
 		if(jpo.collidesWith(platform[i],collisionVector) && jpo.getVelocity().y>=0)
 		{
 			jpo.setOnLand(true);
