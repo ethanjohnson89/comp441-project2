@@ -141,6 +141,9 @@ const int JPO_WALKING_RIGHT_END = 11;
 const int JPO_WALKING_LEFT_START = 12;
 const int JPO_WALKING_LEFT_END = 15;
 
+//raccoon box stuff //added 11/30 by Christy
+const RECT COLLISION_BOX_RACCOON = {-43,-25,43,25};
+
 //raccoon cel
 const int RACCOON_COLS = 4;
 const int RACCOON_WIDTH = 128;
