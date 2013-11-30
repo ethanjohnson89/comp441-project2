@@ -145,6 +145,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	levelSet();
 
 	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
+	jpo.setEdge(COLLISION_BOX_RACCOON); //Added by Christy 11/30
 	cs.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 
 
