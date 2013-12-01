@@ -218,9 +218,9 @@ void RaccoonRun::setPlatformData(int level)
 		//platform[1].set(170,253);
 		platform[2].set(331,172);
 		//platform[3].set(325,354);
-		platform[3].set(225,354);
+		platform[3].set(225,324);
 		platform[4].set(625,141);
-		platform[5].set(638,412);
+		platform[5].set(638,372);
 		platform[6].set(948,147);
 		break;
 	case 3:
