@@ -568,7 +568,8 @@ void RaccoonRun::collisions()
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
 		//if(jpo.collideBox(platform[i],collisionVector));s
-		if(jpo.collidesWith(platform[i],collisionVector) && jpo.getVelocity().y>=0)
+		if(jpo.collidesWith(platform[i],collisionVector) && jpo.getVelocity().y>=0) 
+			//checking velocity sets him on platform when he comes down.
 		{
 			jpo.setOnLand(true);
 			jpo.setY((platform[i].getY()-platform[i].getHeight()*platform[i].getScale())
