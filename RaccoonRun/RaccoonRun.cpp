@@ -31,6 +31,29 @@ void RaccoonRun::initialize(HWND hwnd)
 	gameOver=false;
 	win=false;
 
+	//figure out high scores.
+	fin.open("highScores.txt");
+	fout.open("AdjustedHS.txt");
+	int s;
+	for(int i=0; i<MAX_SCORES; i++)
+	{
+		fin>>s;
+		if(fin.fail() || fin.eof())
+		{
+			for(i; i<MAX_SCORES; i++)
+			{highScores[i]=0;}
+			break;
+		}
+		highScores[i]=s;
+		
+	}
+	fin.close();
+	for(int i=0; i<MAX_SCORES; i++)
+	{
+		fout<<highScores[i]<<endl;
+	}
+	fout.close();
+
 	//score init
 	score=0;
 	oldScore=0;
@@ -443,6 +466,7 @@ void RaccoonRun::update()
 				else
 				{
 					gameOver=true;
+					writeHighScores();
 					gameState=7;
 
 				}
@@ -662,6 +686,7 @@ void RaccoonRun::render()
 		{
 			debugFont->setFontColor(graphicsNS::BLACK);
 			debugFont->print("Game OVER.",0,0);
+			
 			if(input->isKeyDown(VK_ESCAPE))
 				gameState=0;
 		}
@@ -937,4 +962,30 @@ void RaccoonRun::statusSet()
 	{
 		lives[i].setVisible(true);
 	}
+}
+
+void RaccoonRun::writeHighScores()
+{
+	//fin.open(SCORES);
+	fout.open(SCORES);
+	int j=0;
+	for(int i=0; i<MAX_SCORES; i++)
+	{
+		if(highScores[j]>score)
+		{
+			fout<<highScores[j]<<endl;
+			j++;
+		}
+		else
+		{
+			fout<<score<<endl;
+			for(i; i<10; i++)
+			{
+				fout<<highScores[j]<<endl;
+				j++;
+			}
+		}
+	}
+	fout.close();
+	//PostQuitMessage(0);
 }

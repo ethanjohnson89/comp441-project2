@@ -81,6 +81,10 @@ const bool FULLSCREEN = false;          // windowed or fullscreen
 const UINT GAME_WIDTH = 800;			// width of game in pixels
 const UINT GAME_HEIGHT = 512;			// height of game in pixels
 
+//score filename
+const char SCORES[] = "highScores.txt";
+const int MAX_SCORES = 10;
+
 // game
 const double PI = 3.14159265;
 const float FRAME_RATE = 200.0;         // the target frame rate (frames/sec)

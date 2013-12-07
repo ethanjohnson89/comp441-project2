@@ -19,14 +19,23 @@
 #include "cheeseburger.h"
 #include "pizza.h";
 #include <sstream>
+#include <fstream>
 
 using std::string;
 using std::endl;
 using std::stringstream;
+using std::ifstream;
+using std::ofstream;
 
 class RaccoonRun : public Game
 {
 private:
+	//high scores
+	ifstream fin;
+	ofstream fout; //sorry, just my default name for them.
+	//blame Dr. Adams, if you wish...
+	int highScores[MAX_SCORES];
+
 	// game variables
 	TextureManager blackTexture;
 	Image blackBar;
@@ -124,6 +133,7 @@ public:
 	void levelSet();
 	void statusSet();
 	void reinit();
+	void writeHighScores();
 };
 
 #endif
