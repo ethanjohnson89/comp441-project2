@@ -254,6 +254,7 @@ void RaccoonRun::update()
 {
 	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
 	VECTOR2 newVelocity = jpo.getVelocity();
+	VECTOR2 collisionVector;
 	switch(gameState)
 	{
 		case 0:
@@ -444,7 +445,9 @@ void RaccoonRun::update()
 
 			cs.update(frameTime, moveScreenLeft, moveScreenRight);
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
-			if(cs.collidesWithRaccoon(frameTime, jpo))
+			//
+//			VECTOR2 collisionVector;
+			if(cs.collidesWithRaccoon(frameTime, jpo) || laser.collidesWith(jpo,collisionVector))
 			{
 				if(jpo.getVisible())
 				{
