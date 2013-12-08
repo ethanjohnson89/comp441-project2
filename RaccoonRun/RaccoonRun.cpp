@@ -794,10 +794,10 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
-		laser.setX(500);
-		laser.setY(250);
-//		laser.setVelocity(D3DXVECTOR2(-JPO_SPEED,0));
-		laser.setVisible(true);
+		laser.setX(-100);
+		laser.setY(-100);
+		laser.setActive(false);
+		laser.setVisible(false);
 
 		setStillData();
 
@@ -812,6 +812,11 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
+		laser.setX(500);
+		laser.setY(250);
+		laser.setActive(true);
+		laser.setVisible(true);
+
 		setStillData();
 
 		break;
@@ -824,6 +829,11 @@ void RaccoonRun::levelSet()
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+
+		laser.setX(-100);
+		laser.setY(-100);
+		laser.setActive(false);
+		laser.setVisible(false);
 
 		setStillData();
 
