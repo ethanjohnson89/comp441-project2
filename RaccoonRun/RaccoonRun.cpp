@@ -472,6 +472,7 @@ void RaccoonRun::update()
 			{
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
+			laser.update(frameTime, moveScreenLeft, moveScreenRight);
 			if(checkPoint.collidesWith(frameTime, jpo))
 			{
 				audio->playCue(YAY);
@@ -790,6 +791,11 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
+		laser.setX(500);
+		laser.setY(250);
+//		laser.setVelocity(D3DXVECTOR2(-JPO_SPEED,0));
+		laser.setVisible(true);
+
 		setStillData();
 
 		break;
@@ -828,7 +834,7 @@ void RaccoonRun::setStillData()
 	setSoupData();
 	setCheeseburgerData();
 	setPizzaData();
-	setLaserData();
+//	setLaserData();
 	
 	//checkpoint stuff
 	switch(level)
@@ -938,7 +944,7 @@ void RaccoonRun::setBgData()
 }
 
 void RaccoonRun::setLaserData()
-{
+{/*
 	switch(level)
 	{
 		case 1:
@@ -950,7 +956,7 @@ void RaccoonRun::setLaserData()
 		case 3:
 			laser.set(500,250);
 			break;
-	}
+	}*/
 }
 
 void RaccoonRun::reset()

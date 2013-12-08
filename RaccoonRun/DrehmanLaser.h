@@ -2,8 +2,8 @@
 #define DrehmanLaser_h               // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
-//#include "entity.h"
-#include "Still.h"
+#include "entity.h"
+//#include "Still.h"
 #include "constants.h"
 
 namespace laserNS
@@ -13,7 +13,7 @@ namespace laserNS
 }
 
 // inherits from Entity class
-class Laser : public Still
+class Laser : public Entity//Still
 {
 
 public:

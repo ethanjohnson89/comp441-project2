@@ -3,7 +3,7 @@
 //=============================================================================
 // default constructor
 //=============================================================================
-Laser::Laser() : Still()
+Laser::Laser() : Entity()//Still()
 {
 	//still life should know where its world coordinates are. 
 	//maybe send it a bool in update telling it whether to move left / right?
@@ -41,6 +41,6 @@ bool Laser::initialize(Game *gamePtr, int width, int height, int ncols,TextureMa
 
 void Laser::update(float frameTime, bool left, bool right)
 {
-//	Entity::update(frameTime);
-	Still::update(frameTime, left, right);
+	Entity::update(frameTime);
+//	Still::update(frameTime, left, right);
 }
