@@ -86,6 +86,21 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!background[2].initialize(this,BACKGROUND2_WIDTH, BACKGROUND_HEIGHT, 0, &backgroundTexture[2]))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
+
+	//level transition textures
+	if(!l1EndTexture.initialize(graphics, LEVEL1_END))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing l1end texture"));
+	if (!l1End.initialize(graphics,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &l1EndTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error l1end"));
+	if(!l2EndTexture.initialize(graphics, LEVEL2_END))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing l2end texture"));
+	if (!l2End.initialize(graphics,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &l1EndTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error l2end"));
+	l1End.setX(0);
+	l2End.setX(0);
+	l1End.setY(0);
+	l2End.setY(0);
+
 	if(!checkpointTexture.initialize(graphics, CHECKPOINT_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
 	if (!checkPoint.initialize(this,CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT, 0, &checkpointTexture))

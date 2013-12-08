@@ -43,6 +43,7 @@ private:
 	TextureManager livesTexture;
 	Image lives[5];
 
+	TextureManager raccoonTexture;
     TextureManager jpoTexture;
 	Raccoon jpo;
 	
@@ -61,7 +62,11 @@ private:
 	TextureManager platformTexture;
 	Platform platform[15];
 
-	TextureManager raccoonTexture;
+	TextureManager l1EndTexture;
+	Image l1End;
+
+	TextureManager l2EndTexture;
+	Image l2End;
 
 		//background textures
 	TextureManager backgroundTexture[3];

@@ -118,6 +118,10 @@ const char SPLASH_TEXTURE[]="pictures\\splashScreen.png";
 const char WIN_TEXTURE[]="pictures\\youWon.png";
 const char LOSE_TEXTURE[]="pictures\\youLost.png";
 
+//between levels images
+const char LEVEL1_END[]="pictures\\level1endscreen.png";
+const char LEVEL2_END[]="pictures\\level2endscreen.png";
+
 
 //status images
 const char BLACK_TEXTURE[]="pictures\\blackBar.png";
