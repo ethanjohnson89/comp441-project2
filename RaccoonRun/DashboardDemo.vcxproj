@@ -94,6 +94,7 @@
     <ClCompile Include="console.cpp" />
     <ClCompile Include="cpsoup.cpp" />
     <ClCompile Include="dashboardDemo.cpp" />
+    <ClCompile Include="DrehmanLaser.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="dashboard.cpp" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h" />
+    <ClInclude Include="DrehmanLaser.h" />
     <ClInclude Include="Johnson.h" />
     <ClInclude Include="cheeseburger.h" />
     <ClInclude Include="console.h" />

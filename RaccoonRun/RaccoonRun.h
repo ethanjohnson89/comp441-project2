@@ -18,6 +18,7 @@
 #include "phillips.h"
 #include "cheeseburger.h"
 #include "pizza.h";
+#include "DrehmanLaser.h"
 #include <sstream>
 
 using std::string;
@@ -48,6 +49,9 @@ private:
 
 	TextureManager pizzaTexture;
 	Pizza pizza[3];
+
+	TextureManager laserTexture;
+	Laser laser;
 
 	TextureManager platformTexture;
 	Platform platform[15];
@@ -120,6 +124,7 @@ public:
 	void setCheeseburgerData();
 	void setPizzaData();
 	void setBgData();
+	void setLaserData();
 	void levelSet();
 	void statusSet();
 	void reinit();

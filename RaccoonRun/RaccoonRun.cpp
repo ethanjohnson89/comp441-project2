@@ -134,6 +134,11 @@ void RaccoonRun::initialize(HWND hwnd)
 		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
 
+	if(!laserTexture.initialize(graphics, LASER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser texture"));
+	if (!laser.initialize(this,LASER_WIDTH, LASER_HEIGHT, 1, &laserTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser"));
+
 	//setSoupData();
 
     if (!jpo.initialize(this,RACCOON_WIDTH, RACCOON_HEIGHT, RACCOON_COLS, &raccoonTexture))
@@ -690,7 +695,7 @@ void RaccoonRun::render()
 			checkPoint.draw();
 			jpo.draw();
 			cs.draw();
-			
+			laser.draw();
 		}
 		else
 		{
@@ -823,6 +828,7 @@ void RaccoonRun::setStillData()
 	setSoupData();
 	setCheeseburgerData();
 	setPizzaData();
+	setLaserData();
 	
 	//checkpoint stuff
 	switch(level)
@@ -930,6 +936,23 @@ void RaccoonRun::setBgData()
 		background[i].set(-5,0);
 	}
 }
+
+void RaccoonRun::setLaserData()
+{
+	switch(level)
+	{
+		case 1:
+			laser.set(500,250);
+			break;
+		case 2:
+			laser.set(500,250);
+			break;
+		case 3:
+			laser.set(500,250);
+			break;
+	}
+}
+
 void RaccoonRun::reset()
 {
 	if(level<3)

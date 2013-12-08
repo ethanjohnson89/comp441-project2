@@ -96,6 +96,7 @@ const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
 const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 const char CHEESEBURGER_IMAGE[] = "pictures\\cheeseburger.png";
 const char PIZZA_IMAGE[] = "pictures\\pizza.png";
+const char LASER_IMAGE[] = "pictures\\laser1.png";
 
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform2.png";
@@ -189,6 +190,12 @@ const int PIZZA_WIDTH = 64;
 const int PIZZA_HEIGHT = 64;
 const int PIZZA_HALF_WIDTH = 10;
 const int PIZZA_HALF_HEIGHT = 10;
+
+//laser constants
+const int LASER_WIDTH = 128;
+const int LASER_HEIGHT = 10;
+const int LASER_HALF_WIDTH = 64;
+const int LASER_HALF_HEIGHT = 32;
 
 const float JPO_SPEED = 90.5f;
 const float JPO_PROXIMITY_SPEED = 150.0f;
