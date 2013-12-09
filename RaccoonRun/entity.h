@@ -100,7 +100,7 @@ public:
 	// Returns: true if the entities collide, false if they don't (in which case times and reflectVector remain unmodified)
 	virtual bool collideSphere(Entity &ent, CollisionTimes &times, bool useT2, VECTOR2 &reflectVector, float frameTime);
 	// Similar to collideSphere, except that instead of another Entity it takes a normal vector representing a plane
-	virtual bool collideSpherePlan(VECTOR2 normal, VECTOR2 &reflectVector, CollisionTimes &times, float frameTime);
+	//virtual bool collideSpherePlane(VECTOR2 normal, VECTOR2 &reflectVector, CollisionTimes &times, float frameTime);
 
   public:
     // Constructor
