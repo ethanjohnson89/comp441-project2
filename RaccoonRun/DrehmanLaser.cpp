@@ -32,6 +32,7 @@ Laser::Laser() : Entity()//Still()
 	magicNumberY=-20;
 
 	right = false;
+	counter = 0;
 }
 
 bool Laser::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
@@ -43,4 +44,15 @@ void Laser::update(float frameTime, bool left, bool right)
 {
 	Entity::update(frameTime);
 //	Still::update(frameTime, left, right);
+}
+
+bool Laser::incrementCounter()
+{
+	++counter;
+	if(counter==COUNTER_MAX)
+	{
+		counter = 0;
+		return true;
+	}
+	return false;
 }

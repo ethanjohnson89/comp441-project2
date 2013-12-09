@@ -248,4 +248,7 @@ const UCHAR JPO_UP_KEY      = VK_UP;       // up arrow
 const UCHAR JPO_DOWN_KEY    = VK_DOWN;     // down arrow
 const UCHAR JPO_JUMP_KEY	= VK_SPACE;	   // spacebar
 
+//timing
+const int COUNTER_MAX = 100;
+
 #endif

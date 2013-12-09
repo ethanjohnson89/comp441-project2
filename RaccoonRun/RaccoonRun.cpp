@@ -447,6 +447,12 @@ void RaccoonRun::update()
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			//
 //			VECTOR2 collisionVector;
+			laser.setRight(jpo.getCenterX()>laser.getCenterX());		// sets velocity right if Raccoon's center is right of sniper.
+			if(laser.incrementCounter())
+			{
+
+			}
+
 			if(cs.collidesWithRaccoon(frameTime, jpo) || laser.collidesWith(jpo,collisionVector))
 			{
 				if(jpo.getVisible())

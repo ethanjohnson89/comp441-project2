@@ -24,13 +24,18 @@ public:
 
     // inherited member functions
     void update(float frameTime, bool left, bool right);
+	void setRight(bool Right){right = Right;}
+	bool getRight(){return right;}
 
 	//bool collidesWith(float frameTime, Entity object);
 	float getX(){return spriteData.x;}
 	float getY(){return spriteData.y;}
+	bool incrementCounter();
 private:
 	bool right;
 	bool firing;
+	int counter;
+//	const int COUNTER_MAX = 100;
 };
 
 #endif
