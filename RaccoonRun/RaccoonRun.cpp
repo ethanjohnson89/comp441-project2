@@ -33,7 +33,6 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	//figure out high scores.
 	fin.open("highScores.txt");
-	fout.open("AdjustedHS.txt");
 	int s;
 	for(int i=0; i<MAX_SCORES; i++)
 	{
@@ -48,11 +47,7 @@ void RaccoonRun::initialize(HWND hwnd)
 		
 	}
 	fin.close();
-	for(int i=0; i<MAX_SCORES; i++)
-	{
-		fout<<highScores[i]<<endl;
-	}
-	fout.close();
+
 
 	//score init
 	score=0;
