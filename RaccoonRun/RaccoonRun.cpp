@@ -225,13 +225,14 @@ void RaccoonRun::setPlatformData(int level)
 	switch(level)
 	{
 	case 1:
-		for(int i=0; i<9; i++)
+		for(int i=0; i<10; i++)
 		{
 			
 			platform[i].setVisible(true);
+			platform[i].set(0,0);
 			//platform[i].setY(350);
 		}
-		platform[0].set(29,176);
+		/*platform[0].set(29,176);
 		platform[1].set(375,135);
 		platform[2].set(506,315);
 		platform[3].set(686,164);
@@ -239,7 +240,16 @@ void RaccoonRun::setPlatformData(int level)
 		platform[5].set(1225,130);
 		platform[6].set(1494,222);
 		platform[7].set(1805,130);
-		platform[8].set(1300,320);
+		platform[8].set(1300,320);*/
+		//platform[0].set(650,147);
+		platform[0].set(570,352);
+		platform[1].set(300,241);
+		platform[2].set(31,325);
+		platform[3].set(-275,172);
+		platform[7].set(-675,320);
+		platform[8].set(-1050,200);
+		platform[9].set(-1350,350);
+
 		break;
 	case 2:
 		for(int i=0; i<7; i++)
@@ -950,7 +960,7 @@ void RaccoonRun::setPizzaData()
 
 void RaccoonRun::setBgData()
 {
-	background[0].set(-2200,0);
+	background[0].set(LVL1_BKGRND_START_PRE,0);
 	//background[0].getWidth();
 	for(int i=1; i<3; i++)
 	{
