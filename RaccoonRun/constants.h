@@ -104,7 +104,8 @@ const char PIZZA_IMAGE[] = "pictures\\pizza.png";
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform2.png";
 //background images
-const char BACKGROUND1A_TEXTURE[]="pictures\\background1a.png";
+//const char BACKGROUND1A_TEXTURE[]="pictures\\background1a.png";
+const char BACKGROUND1A_TEXTURE[]="pictures\\level1background.png";
 const char BACKGROUND1B_TEXTURE[]="pictures\\background1b.png";
 const char BACKGROUND2_TEXTURE[]="pictures\\background2.png";
 
@@ -210,13 +211,23 @@ const int PLATFORM_HALF_WIDTH = 128;
 const int PLATFORM_HALF_HEIGHT = 32;
 
 //background constants
-const int BACKGROUND1A_WIDTH=2048;
+//const int BACKGROUND1A_WIDTH=2048;
+const int BACKGROUND1A_WIDTH=3160;
 const int BACKGROUND1B_WIDTH=1024;
 const int BACKGROUND2_WIDTH=2048;
 const int BACKGROUND_HEIGHT=512;
 
+//reset Raccoon Position constants
+const int RACCOON_START_POSX = GAME_WIDTH-128;
+const int RACCOON_START_POSY = GAME_HEIGHT-(10+RACCOON_HEIGHT);
 
-
+//reset Background Position constants
+const int LVL1_BKGRND_START_PRE=BACKGROUND1A_WIDTH-GAME_WIDTH;
+const int LVL1_BKGRND_START_POST;
+const int LVL2_BKGRND_START_PRE;
+const int LVL2_BKGRND_START_POST;
+const int LVL3_BKGRND_START_PRE;
+const int LVL3_BKGRND_START_POST;
 
 // audio files
 const char WAVE_BANK[]  = "audio\\Win\\Wave Bank.xwb";

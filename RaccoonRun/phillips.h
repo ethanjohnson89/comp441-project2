@@ -7,6 +7,7 @@
 #include "constants.h"
 #include "image.h"
 
+
 namespace checkpointNS
 {
     //const float MASS = 1.0f;

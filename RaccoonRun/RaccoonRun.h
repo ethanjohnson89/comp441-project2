@@ -118,6 +118,13 @@ private:
 	int level;
 	bool menu2;
 
+	int pastCheckpoint;
+
+	//Raccoon Starting Positions; includes checkpoints.
+	COORD raccoonStart[3][2]; //3 levels, 2 states: precheckpoint & postcheckpoint.
+	//raccoonStart[2][1] will be empty.
+	COORD backgroundSet[3][2];//this is for the purpose of setting background image position.
+
 public:
     RaccoonRun();
     virtual ~RaccoonRun();
@@ -137,8 +144,15 @@ public:
 	void setBgData();
 	void levelSet();
 	void statusSet();
-	void reinit();
+	//void reinit();
 	void writeHighScores();
+	void chkPtReset(int cpIndex, int pIndex, int cIndex);
+	void setCheckpoint(bool set){
+		if(set==false)
+			pastCheckpoint=0;
+		else
+			pastCheckpoint=1;
+	}
 };
 
 #endif

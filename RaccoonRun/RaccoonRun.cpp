@@ -19,10 +19,10 @@ RaccoonRun::~RaccoonRun()
 // Initializes the game
 // Throws GameError on error
 //=============================================================================
-void RaccoonRun::reinit()
-{
-
-}
+//void RaccoonRun::reinit()
+//{
+//
+//}
 void RaccoonRun::initialize(HWND hwnd)
 {
 
@@ -770,6 +770,12 @@ void RaccoonRun::resetAll()
 
     Game::resetAll();
     return;
+}
+void RaccoonRun::chkPtReset(int cpIndex, int pIndex, int cIndex)
+{
+	/*jpo.setX();*/
+	jpo.setX(raccoonStart[level][pastCheckpoint].X);
+	jpo.setY(raccoonStart[level][pastCheckpoint].Y);
 }
 void RaccoonRun::levelSet()
 {
