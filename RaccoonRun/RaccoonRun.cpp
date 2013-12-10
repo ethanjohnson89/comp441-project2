@@ -431,7 +431,8 @@ void RaccoonRun::update()
 			}
 			if(jpoX==jpo.getX() && input->isKeyDown(JPO_LEFT_KEY))
 			{
-				if(platform[0].getX()<5)//arbitrarily cannot move if more than 5px away.
+				//if(platform[0].getX()<5)//arbitrarily cannot move if more than 5px away.
+				if(background[0].getX()<0)
 					moveScreenLeft=true;
 				else
 					moveScreenLeft=false;
@@ -949,7 +950,9 @@ void RaccoonRun::setPizzaData()
 
 void RaccoonRun::setBgData()
 {
-	for(int i=0; i<3; i++)
+	background[0].set(-2200,0);
+	//background[0].getWidth();
+	for(int i=1; i<3; i++)
 	{
 		background[i].set(-5,0);
 	}

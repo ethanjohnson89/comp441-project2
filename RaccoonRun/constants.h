@@ -221,8 +221,8 @@ const int BACKGROUND_HEIGHT=512;
 const int RACCOON_START_POSX = GAME_WIDTH-128;
 const int RACCOON_START_POSY = GAME_HEIGHT-(10+RACCOON_HEIGHT);
 
-//reset Background Position constants
-const int LVL1_BKGRND_START_PRE=BACKGROUND1A_WIDTH-GAME_WIDTH;
+//reset Background Position constants (X coords; y=0 always.)
+const int LVL1_BKGRND_START_PRE=-BACKGROUND1A_WIDTH+GAME_WIDTH;
 const int LVL1_BKGRND_START_POST=0;
 const int LVL2_BKGRND_START_PRE=0;
 const int LVL2_BKGRND_START_POST=0;
