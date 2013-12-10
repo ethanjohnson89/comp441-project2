@@ -223,11 +223,11 @@ const int RACCOON_START_POSY = GAME_HEIGHT-(10+RACCOON_HEIGHT);
 
 //reset Background Position constants
 const int LVL1_BKGRND_START_PRE=BACKGROUND1A_WIDTH-GAME_WIDTH;
-const int LVL1_BKGRND_START_POST;
-const int LVL2_BKGRND_START_PRE;
-const int LVL2_BKGRND_START_POST;
-const int LVL3_BKGRND_START_PRE;
-const int LVL3_BKGRND_START_POST;
+const int LVL1_BKGRND_START_POST=0;
+const int LVL2_BKGRND_START_PRE=0;
+const int LVL2_BKGRND_START_POST=0;
+const int LVL3_BKGRND_START_PRE=0;
+const int LVL3_BKGRND_START_POST=0;
 
 // audio files
 const char WAVE_BANK[]  = "audio\\Win\\Wave Bank.xwb";
