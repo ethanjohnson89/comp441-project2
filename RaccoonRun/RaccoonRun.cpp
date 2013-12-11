@@ -522,8 +522,13 @@ void RaccoonRun::update()
 			}
 			laser.update(frameTime);
 
-			if(cs.collidesWithRaccoon(frameTime, jpo) || laser.collidesWith(jpo,collisionVector))
+			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
 			{
+				Sleep(10000);
+				if(laser.collidesWith(jpo,collisionVector))
+				{
+					laser.setVisible(false);
+				}
 				if(jpo.getVisible())
 				{
 					audio->playCue(CAUGHT);
