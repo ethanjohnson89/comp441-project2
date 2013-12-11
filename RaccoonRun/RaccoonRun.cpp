@@ -457,6 +457,7 @@ void RaccoonRun::update()
 				tracking_x = jpo.getCenterX() - laser.getCenterX();
 				tracking_y = jpo.getCenterY() - laser.getCenterY();
 				absolute = sqrt(tracking_x*tracking_x + tracking_y*tracking_y);
+				laser.setRadians(atan(tracking_y/tracking_x));
 				laser.setVelocity(D3DXVECTOR2(LASER_SPEED*tracking_x/absolute,LASER_SPEED*tracking_y/absolute));
 			}
 			if(laser.getVisible()&&(laser.getX()<0||laser.getX()>GAME_WIDTH||laser.getY()<0||laser.getY()>GAME_HEIGHT))
