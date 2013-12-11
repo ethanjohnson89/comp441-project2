@@ -90,6 +90,12 @@
     <ClCompile Include="Johnson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DrehmanLaser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrehmanSniper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -168,6 +174,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="drehman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrehmanLaser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrehmanSniper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

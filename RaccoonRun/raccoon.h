@@ -15,6 +15,7 @@ class Raccoon : public Character
 {
 private:
 	int lives;
+	bool onLand;
 public:
     // constructor
 	Raccoon();
@@ -23,9 +24,11 @@ public:
 
     // inherited member functions
     void update(float frameTime);
-	bool collidesWith(float frameTime, Entity object);
+	//bool collidesWith(float frameTime, Entity object);
 	void incrementLivesBy(int x){lives+=x;}
 	void setLives(int x) { lives = x; }
 	int getLives(){return lives;}
+	void setOnLand(bool on){onLand=on;}
+	bool getOnLand(){return onLand;}
 };
 #endif

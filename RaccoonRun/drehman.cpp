@@ -83,7 +83,7 @@ void Menu::update()
 		else
 			linePtr++;
 	}
-	if(linePtr > menu.size()-1) linePtr = 0;
+	if(linePtr == menu.size()) linePtr = 0;
 	if(linePtr < 0) linePtr = menu.size()-1;
 	if (input->isKeyDown(VK_RETURN))
 		selectedItem = linePtr;

@@ -61,7 +61,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//set boolean for no easter egg.
 	fly=false;
 	//JPO starts on ground.
-	onLand=true;
+	jpo.setOnLand(true);
 	// Initialize fonts
 	debugFont = new TextDX();
     if(debugFont->initialize(graphics, 30, true, false, "Times New Roman") == false)
@@ -173,9 +173,14 @@ void RaccoonRun::initialize(HWND hwnd)
 		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
 
+	if(!laserTexture.initialize(graphics, LASER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser texture"));
+	if (!laser.initialize(this,LASER_WIDTH, LASER_HEIGHT, 1, &laserTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser"));
+
 	//setSoupData();
 
-    if (!jpo.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &raccoonTexture))
+    if (!jpo.initialize(this,RACCOON_WIDTH, RACCOON_HEIGHT, RACCOON_COLS, &raccoonTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing raccoon"));
 
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
@@ -184,6 +189,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	levelSet();
 
 	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
+	jpo.setEdge(COLLISION_BOX_RACCOON); //Added by Christy 11/30
 	cs.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 
 
@@ -269,9 +275,9 @@ void RaccoonRun::setPlatformData(int level)
 		//platform[1].set(170,253);
 		platform[2].set(331,172);
 		//platform[3].set(325,354);
-		platform[3].set(225,354);
+		platform[3].set(225,324);
 		platform[4].set(625,141);
-		platform[5].set(638,412);
+		platform[5].set(638,372);
 		platform[6].set(948,147);
 		break;
 	case 3:
@@ -300,6 +306,8 @@ void RaccoonRun::update()
 {
 	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
 	VECTOR2 newVelocity = jpo.getVelocity();
+	VECTOR2 collisionVector;
+	float tracking_x,tracking_y,absolute;
 	switch(gameState)
 	{
 		case 0:
@@ -361,13 +369,16 @@ void RaccoonRun::update()
 		case 4:
 			break; 
 		case 5:
-			if(input->isKeyDown(JPO_JUMP_KEY) && onLand && !fly)
+			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
 				// make JPo jump!
 				if(!jumpedLastFrame)
 						newVelocity = VECTOR2(newVelocity.x, -750);
 				jumpedLastFrame = true;
 				audio->playCue(BOING);
+				//added 11/23
+				//onLand=false;
+				jpo.setOnLand(false);
 			}
 			else if(fly && input->isKeyDown(JPO_JUMP_KEY))
 			{
@@ -412,7 +423,18 @@ void RaccoonRun::update()
 			{
 				if(keyDownLastFrame)
 				{
-					newVelocity = VECTOR2(0, newVelocity.y);
+					//PostQuitMessage(0);
+					
+					if(!jpo.getOnLand())
+					{
+						
+						newVelocity = VECTOR2(0, newVelocity.y);
+					}
+					else
+					{
+						//paused=true;
+						newVelocity = VECTOR2(0,0);
+					}
 					if(lastDirection == right)
 					{
 						jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
@@ -459,13 +481,14 @@ void RaccoonRun::update()
 				moveScreenLeft=false;
 			}
 			//checks if JPO is on a surface
-			if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT)
+			if(jpo.getY()>=GAME_HEIGHT-JPO_HEIGHT || jpo.getOnLand())//added onLand- if he's on land, he's safe.
 			{
-				onLand=true;
+				jpo.setOnLand(true);
 			}
 			else
 			{
-				onLand=false;
+				jpo.setOnLand(false);
+				//onLand=false;
 			}
 
 			for(int i=0; i<15; i++)
@@ -476,7 +499,30 @@ void RaccoonRun::update()
 
 			cs.update(frameTime, moveScreenLeft, moveScreenRight);
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
-			if(cs.collidesWithRaccoon(frameTime, jpo))
+			//
+//			VECTOR2 collisionVector;
+			laser.setRight(jpo.getCenterX()>laser.getCenterX());		// sets velocity right if Raccoon's center is right of sniper.
+			if(laser.getActive()&&laser.incrementCounter())
+			{
+				laser.setVisible(true);
+				laser.setX(LASER_X_INIT);
+				laser.setY(LASER_Y_INIT);
+				tracking_x = jpo.getCenterX() - laser.getCenterX();
+				tracking_y = jpo.getCenterY() - laser.getCenterY();
+				absolute = sqrt(tracking_x*tracking_x + tracking_y*tracking_y);
+				laser.setRadians(atan(tracking_y/tracking_x));
+				laser.setVelocity(D3DXVECTOR2(LASER_SPEED*tracking_x/absolute,LASER_SPEED*tracking_y/absolute));
+			}
+			if(laser.getVisible()&&(laser.getX()<0||laser.getX()>GAME_WIDTH||laser.getY()<0||laser.getY()>GAME_HEIGHT))
+			{
+				laser.setVisible(false);
+				laser.setX(-LASER_X_INIT);
+				laser.setY(-LASER_Y_INIT);
+				laser.setVelocity(D3DXVECTOR2(0,0));
+			}
+			laser.update(frameTime);
+
+			if(cs.collidesWithRaccoon(frameTime, jpo) || laser.collidesWith(jpo,collisionVector))
 			{
 				if(jpo.getVisible())
 				{
@@ -509,8 +555,8 @@ void RaccoonRun::update()
 			{
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
-			//if(checkPoint.collidesWith(frameTime, jpo))
-			if(jpo.collidesWith(frameTime, checkPoint))
+//			laser.update(frameTime, moveScreenLeft, moveScreenRight);
+			if(checkPoint.collidesWith(frameTime, jpo))
 			{
 				audio->playCue(YAY);
 				score+=level*50;
@@ -628,24 +674,45 @@ void RaccoonRun::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for(int i=0; i<15 && onLand!=true; i++)
+	if(jpo.getY()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
+		jpo.setOnLand(false);
+	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
-		if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
+		//if(jpo.collideBox(platform[i],collisionVector));s
+		if(jpo.collidesWith(platform[i],collisionVector) && jpo.getVelocity().y>=0) 
+			//checking velocity sets him on platform when he comes down.
+		{
+			jpo.setOnLand(true);
+			jpo.setY((platform[i].getY()-platform[i].getHeight()*platform[i].getScale())
+				-(jpo.getHeight()*jpo.getScale())+85);
+			jpo.setVelocity(D3DXVECTOR2(0,0));
+			break;
+			//paused=true;
+		}			
+		
+		/*if(jpo.collidesWith(frameTime,platform[i]) && jpo.getVelocity().y>=0)
 		{
 			onLand=true;
 			jpo.setY(platform[i].getY()-(jpo.getHeight()*jpo.getScale()-10)-1);
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
-		}
+		}*/
 	}
 	for(int i=0; i<3; ++i)
 	{
-		if(cpsoup[i].collidesWith(jpo, collisionVector) && cpsoup[i].getActive())
+		if(jpo.collidesWith(cpsoup[i],collisionVector))
+		{
+			cpsoup[i].setActive(false);
+			cpsoup[i].setVisible(false);
+			//paused=true;
+			score-=5;
+		}
+		/*if(cpsoup[i].collidesWith(jpo, collisionVector) && cpsoup[i].getActive())
 		{
      		cpsoup[i].setActive(false);
 			cpsoup[i].setVisible(false);
 			score-=5;
-		}
+		}*/
 	}
 	for(int i=0; i<3; ++i)
 	{
@@ -734,7 +801,7 @@ void RaccoonRun::render()
 			checkPoint.draw();
 			jpo.draw();
 			cs.draw();
-			
+			laser.draw();
 		}
 		else
 		{
@@ -862,6 +929,11 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
+		laser.setX(-100);
+		laser.setY(-100);
+		laser.setActive(false);
+		laser.setVisible(false);
+
 		setStillData();
 
 		break;
@@ -878,6 +950,11 @@ void RaccoonRun::levelSet()
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
+
+		laser.setX(500);
+		laser.setY(250);
+		laser.setActive(true);
+		laser.setVisible(true);
 
 		setStillData();
 
@@ -896,6 +973,11 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(90.0f,0));
 
+		laser.setX(-100);
+		laser.setY(-100);
+		laser.setActive(false);
+		laser.setVisible(false);
+
 		setStillData();
 
 		break;
@@ -908,6 +990,7 @@ void RaccoonRun::setStillData()
 	setSoupData();
 	setCheeseburgerData();
 	setPizzaData();
+//	setLaserData();
 	
 	//checkpoint stuff
 	switch(level)
@@ -1018,6 +1101,23 @@ void RaccoonRun::setBgData()
 		background[i].set(-5,0);
 	}
 }
+
+void RaccoonRun::setLaserData()
+{/*
+	switch(level)
+	{
+		case 1:
+			laser.set(500,250);
+			break;
+		case 2:
+			laser.set(500,250);
+			break;
+		case 3:
+			laser.set(500,250);
+			break;
+	}*/
+}
+
 void RaccoonRun::reset()
 {/*
 	if(level<3)

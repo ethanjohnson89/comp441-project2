@@ -100,6 +100,8 @@ const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
 const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 const char CHEESEBURGER_IMAGE[] = "pictures\\cheeseburger.png";
 const char PIZZA_IMAGE[] = "pictures\\pizza.png";
+const char LASER_IMAGE[] = "pictures\\laser1.png";
+const char SNIPER_IMAGE[] = "pictures\\sniper.png";
 
 //platform images
 const char PLATFORM_TEXTURE[]="pictures\\platform2.png";
@@ -150,10 +152,13 @@ const int JPO_WALKING_RIGHT_END = 11;
 const int JPO_WALKING_LEFT_START = 12;
 const int JPO_WALKING_LEFT_END = 15;
 
+//raccoon box stuff //added 11/30 by Christy
+const RECT COLLISION_BOX_RACCOON = {-43,-25,43,25};
+
 //raccoon cel
 const int RACCOON_COLS = 4;
 const int RACCOON_WIDTH = 128;
-const int RACCOON_HEIGHT = 115;
+const int RACCOON_HEIGHT = 64;
 const int RACCOON_HALF_WIDTH = 43;
 const int RACCOON_HALF_HEIGHT = 25;
 //const int RACCOON_START_Y = 
@@ -195,6 +200,19 @@ const int PIZZA_WIDTH = 64;
 const int PIZZA_HEIGHT = 64;
 const int PIZZA_HALF_WIDTH = 10;
 const int PIZZA_HALF_HEIGHT = 10;
+
+//laser constants
+const int LASER_WIDTH = 128;
+const int LASER_HEIGHT = 10;
+const int LASER_HALF_WIDTH = 64;
+const int LASER_HALF_HEIGHT = 32;
+
+//sniper Cel
+const int  SNIPER_COLS = 4;
+const int  SNIPER_WIDTH = 128;
+const int  SNIPER_HEIGHT = 130;
+const int  SNIPER_HALF_WIDTH = 22;
+const int  SNIPER_HALF_HEIGHT = 16;
 
 const float JPO_SPEED = 90.5f;
 const float JPO_PROXIMITY_SPEED = 150.0f;
@@ -256,5 +274,11 @@ const UCHAR JPO_RIGHT_KEY   = VK_RIGHT;    // right arrow
 const UCHAR JPO_UP_KEY      = VK_UP;       // up arrow
 const UCHAR JPO_DOWN_KEY    = VK_DOWN;     // down arrow
 const UCHAR JPO_JUMP_KEY	= VK_SPACE;	   // spacebar
+
+//timing and laser
+const int COUNTER_MAX = 500;
+const int LASER_X_INIT = 500;
+const int LASER_Y_INIT = 250;
+const int LASER_SPEED = 200;
 
 #endif

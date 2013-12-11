@@ -78,25 +78,26 @@ void Raccoon::update(float frameTime)
         //velocity.y = -velocity.y;                   // reverse Y direction
     }
 
-    velocity.y += frameTime * GRAVITY;              // gravity
+	if(!getOnLand())
+		velocity.y += frameTime * GRAVITY;              // gravity
 }
-bool Raccoon::collidesWith(float frameTime, Entity object)
-{
-	bool collides=false;
-	int myLowY=(getHeight()*getScale()+spriteData.y)+10;;
-	int left=getCenterX()-RACCOON_HALF_WIDTH*getScale();
-	int right=left+getWidth()*getScale();
-	//int top=getCenterY()-RACCOON_HALF_HEIGHT*getScale();
-	//just checking baseCollision
-	if((left>=(object.getX()+object.getMagicNumberX()) && left<=object.getX()+object.getWidth()*object.getScale())||
-		(right>=(object.getX()+object.getMagicNumberX()) && right<=object.getX()+object.getWidth()*object.getScale()))
-		//checks left edge within collision width, then checks right edge.
-	{
-		if(myLowY>=object.getY()-object.getMagicNumberY() && myLowY<=(object.getY()+object.getHeight()*getScale()+object.getMagicNumberY()))
-		{
-			collides=true;
-		}
-	}
-	return collides;
-	return false;
-}
+//bool Raccoon::collidesWith(float frameTime, Entity object)
+//{
+//	bool collides=false;
+//	int myLowY=(getHeight()*getScale()+spriteData.y)+10;;
+//	int left=getCenterX()-RACCOON_HALF_WIDTH*getScale();
+//	int right=left+getWidth()*getScale();
+//	//int top=getCenterY()-RACCOON_HALF_HEIGHT*getScale();
+//	//just checking baseCollision
+//	if((left>=(object.getX()+object.getMagicNumberX()) && left<=object.getX()+object.getWidth()*object.getScale())||
+//		(right>=(object.getX()+object.getMagicNumberX()) && right<=object.getX()+object.getWidth()*object.getScale()))
+//		//checks left edge within collision width, then checks right edge.
+//	{
+//		if(myLowY>=object.getY()-object.getMagicNumberY() && myLowY<=(object.getY()+object.getHeight()*getScale()+object.getMagicNumberY()))
+//		{
+//			collides=true;
+//		}
+//	}
+//	return collides;
+//	return false;
+//}

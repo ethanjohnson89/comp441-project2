@@ -18,6 +18,8 @@
 #include "phillips.h"
 #include "cheeseburger.h"
 #include "pizza.h";
+#include "DrehmanLaser.h"
+#include "DrehmanSniper.h"
 #include <sstream>
 #include <fstream>
 
@@ -58,6 +60,12 @@ private:
 
 	TextureManager pizzaTexture;
 	Pizza pizza[3];
+
+	TextureManager laserTexture;
+	Laser laser;
+
+	TextureManager sniperTexture;
+	Sniper sniper;
 
 	TextureManager platformTexture;
 	Platform platform[15];
@@ -144,6 +152,7 @@ public:
 	void setCheeseburgerData();
 	void setPizzaData();
 	void setBgData();
+	void setLaserData();
 	void levelSet();
 	void statusSet();
 	//void reinit();
