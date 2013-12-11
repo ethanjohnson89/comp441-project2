@@ -556,7 +556,8 @@ void RaccoonRun::update()
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
 //			laser.update(frameTime, moveScreenLeft, moveScreenRight);
-			if(checkPoint.collidesWith(frameTime, jpo))
+			//if(checkPoint.collidesWith(frameTime, jpo))
+			if(jpo.collidesWith(checkPoint,collisionVector))
 			{
 				audio->playCue(YAY);
 				score+=level*50;
