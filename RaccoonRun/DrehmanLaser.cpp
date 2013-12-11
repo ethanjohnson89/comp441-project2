@@ -40,11 +40,16 @@ bool Laser::initialize(Game *gamePtr, int width, int height, int ncols,TextureMa
     return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-void Laser::update(float frameTime)
+void Laser::update(float frameTime, bool left, bool right)
 {
 	Entity::update(frameTime);
     spriteData.x += frameTime * velocity.x;         // move along X 
     spriteData.y += frameTime * velocity.y;         // move along Y
+
+	if(left)
+		spriteData.x += frameTime*STILL_SPEED;
+	else if(right)
+		spriteData.x -= frameTime*STILL_SPEED;
 //	Still::update(frameTime, left, right);
 }
 

@@ -520,7 +520,7 @@ void RaccoonRun::update()
 				laser.setY(-LASER_Y_INIT);
 				laser.setVelocity(D3DXVECTOR2(0,0));
 			}
-			laser.update(frameTime);
+			laser.update(frameTime,moveScreenLeft,moveScreenRight);
 
 			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
 			{
@@ -957,8 +957,8 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
-		laser.setX(500);
-		laser.setY(250);
+//		laser.setX(500);
+//		laser.setY(250);
 		laser.setActive(true);
 		laser.setVisible(true);
 
