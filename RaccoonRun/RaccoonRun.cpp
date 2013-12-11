@@ -249,7 +249,10 @@ void RaccoonRun::setPlatformData(int level)
 		platform[7].set(-675,320);
 		platform[8].set(-1050,200);
 		platform[9].set(-1350,350);
-
+		platform[10].set(-1550,162);
+		platform[11].set(-1880,330);
+		platform[12].set(-2180,220);
+		platform[13].set(-2400,100);
 		break;
 	case 2:
 		for(int i=0; i<7; i++)
@@ -869,7 +872,7 @@ void RaccoonRun::setStillData()
 	{
 	case 1:
 		//checkPoint.set(1930,76);
-		checkPoint.set(-2300,375);
+		checkPoint.set(-2300,175);
 		break;
 	case 2:
 		checkPoint.set(920,71);
