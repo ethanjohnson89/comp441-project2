@@ -219,17 +219,17 @@ void RaccoonRun::setPlatformData(int level)
 	{
 		platform[i].setScale(.75);
 		platform[i].setVisible(false);
-		platform[i].set(-500,-500); //gets unused platforms out of the way.
+		platform[i].set(-2000,-500); //gets unused platforms out of the way.
 		
 	}
 	switch(level)
 	{
 	case 1:
-		for(int i=0; i<10; i++)
+		for(int i=0; i<14; i++)
 		{
 			
 			platform[i].setVisible(true);
-			platform[i].set(0,0);
+			//platform[i].set(2000,0);
 			//platform[i].setY(350);
 		}
 		/*platform[0].set(29,176);
@@ -442,7 +442,7 @@ void RaccoonRun::update()
 			if(jpoX==jpo.getX() && input->isKeyDown(JPO_LEFT_KEY))
 			{
 				//if(platform[0].getX()<5)//arbitrarily cannot move if more than 5px away.
-				if(background[0].getX()<0)
+				if(background[level-1].getX()<0)
 					moveScreenLeft=true;
 				else
 					moveScreenLeft=false;
@@ -483,7 +483,11 @@ void RaccoonRun::update()
 				/*gameOver=true;*/
 				//paused = true;
 				if(jpo.getLives()>0)
-					levelSet();
+				{
+					jpo.setY(-10);
+					jpo.setVisible(true);
+					//levelSet();
+				}
 				else
 				{
 					gameOver=true;
@@ -497,7 +501,8 @@ void RaccoonRun::update()
 			{
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
-			if(checkPoint.collidesWith(frameTime, jpo))
+			//if(checkPoint.collidesWith(frameTime, jpo))
+			if(jpo.collidesWith(frameTime, checkPoint))
 			{
 				audio->playCue(YAY);
 				score+=level*50;
@@ -863,7 +868,8 @@ void RaccoonRun::setStillData()
 	switch(level)
 	{
 	case 1:
-		checkPoint.set(1930,76);
+		//checkPoint.set(1930,76);
+		checkPoint.set(-2300,375);
 		break;
 	case 2:
 		checkPoint.set(920,71);
