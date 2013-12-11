@@ -68,6 +68,8 @@ private:
 	TextureManager l2EndTexture;
 	Image l2End;
 
+	Image between[2];
+
 		//background textures
 	TextureManager backgroundTexture[3];
 	Still background[3];

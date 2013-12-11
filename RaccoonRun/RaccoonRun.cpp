@@ -48,6 +48,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	}
 	fin.close();
 
+	//between screens
 
 	//score init
 	score=0;
@@ -89,12 +90,16 @@ void RaccoonRun::initialize(HWND hwnd)
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error l1end"));
 	if(!l2EndTexture.initialize(graphics, LEVEL2_END))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing l2end texture"));
-	if (!l2End.initialize(graphics,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &l1EndTexture))
+	if (!l2End.initialize(graphics,BACKGROUND1A_WIDTH, BACKGROUND_HEIGHT, 0, &l2EndTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error l2end"));
 	l1End.setX(0);
 	l2End.setX(0);
 	l1End.setY(0);
 	l2End.setY(0);
+
+	//between screen stuff
+	between[0]=l1End;
+	between[1]=l2End;
 
 	if(!checkpointTexture.initialize(graphics, CHECKPOINT_TEXTURE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing checkpoint texture"));
@@ -510,9 +515,13 @@ void RaccoonRun::update()
 				audio->playCue(YAY);
 				score+=level*50;
 				oldScore=score;
+				//jpo.setLives(jpo.getLives()+1);
+				jpo.incrementLivesBy(1);
+				
 				//paused=true;
-				if(level!=3)
-					reset();
+				if(level<3)
+					gameState=8;
+					/*reset();*/
 				else
 				{
 					gameOver=true;
@@ -577,6 +586,22 @@ void RaccoonRun::update()
 					setStillData();
 					statusSet();
 				}
+			break;
+		case 8:
+			if(level<3)
+			{
+ 				between[level-1].setVisible(true);
+				if(input->wasKeyPressed(VK_SPACE))
+				{
+				
+					//resetLevel();
+					gameState=5;
+					between[level-1].setVisible(false);
+					if(level<3)
+						level++;
+					reset();
+				}
+			}
 			break;
 
 		/*	default:
@@ -745,7 +770,24 @@ void RaccoonRun::render()
 	case 7:
 		lose.draw();
 		break;
+	case 8: //between state.
+		if(level<3)
+			between[level-1].draw();
+		//if(level==1)
+		//{
+		//	between[0].setVisible(true);
+		//	between[0].draw();
+		//}
+		//else if(level==2)
+		//{
+		//	/*between[1].setVisible(true);
+		//	between[1].draw();*/
+		//	l2End.setVisible(true);
+		//	l2End.draw();
+		//}
+		break;
 		}
+
     graphics->spriteEnd();                  // end drawing sprites
 }
 
@@ -977,11 +1019,12 @@ void RaccoonRun::setBgData()
 	}
 }
 void RaccoonRun::reset()
-{
+{/*
 	if(level<3)
-		level++;
+		level++;*/
 	levelSet();
 	setStillData();
+	statusSet();
 }
 void RaccoonRun::statusSet()
 {
