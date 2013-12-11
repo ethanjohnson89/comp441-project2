@@ -19,6 +19,7 @@
 #include "cheeseburger.h"
 #include "pizza.h";
 #include "DrehmanLaser.h"
+#include "DrehmanSniper.h"
 #include <sstream>
 
 using std::string;
@@ -52,6 +53,9 @@ private:
 
 	TextureManager laserTexture;
 	Laser laser;
+
+	TextureManager sniperTexture;
+	Sniper sniper;
 
 	TextureManager platformTexture;
 	Platform platform[15];
