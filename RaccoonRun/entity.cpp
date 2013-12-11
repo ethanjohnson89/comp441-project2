@@ -487,6 +487,65 @@ bool Entity::collidePixelPerfect(Entity &ent, VECTOR2 &collisionVector)
     return false;
 }
 
+// Advanced sphere-sphere collision detection (in 2D, so these are actually circles) - added by Ethan
+// Called by game class's collisions()
+// Pre: &ent = Other entity
+// Post: &times contains t1 (time when collision begins) and t2 (time when collision ends)
+//		 (t1 and t2 are reals in the range [0,1), representing fractions of the frame time)
+//       and &reflectVector contains new direction vector for this object as it reflects off the other one.
+//		 If useT2 is true, the entity reflects at the end of the collision (as it finishes passing through the other entity);
+//		 otherwise, the entity reflects at the beginning of the collision. The latter is more typical, but both options are
+//		 included since sometimes the former effect is desired.
+// Returns: true if the entities collide, false if they don't (in which case times and reflectVector remain unmodified)
+bool Entity::collideSphere(Entity &ent, CollisionTimes &times, bool useT2, VECTOR2 &reflectVector, float frameTime)
+{
+	// Since this is being called from collisions(), the (derived) update() has already been called, i.e. the sprite's position
+	// has been adjusted based on velocity for its motion in this frame. Thus, P2 (entity's position at end of frame) will be
+	// the current sprite position + center (relative offset from top-left corner).
+	VECTOR2 P2(spriteData.x + center.x, spriteData.y + center.y);
+	// To calculate P1 (entity's position at beginning of frame), we'll apply the velocity in reverse.
+	VECTOR2 P1(P2.x - frameTime*velocity.x, P2.y - frameTime*velocity.y);
+	// Now we'll do the same for Q (that is, the other entity referred to by &ent):
+	VECTOR2 Q2(ent.spriteData.x + ent.center.x, ent.spriteData.y + ent.center.y);
+	VECTOR2 Q1(Q2.x - frameTime*ent.velocity.x, Q2.y - frameTime*ent.velocity.y);
+
+	// Compute velocity vectors from start and end positions (Entity::velocity won't do since we want px/frame, not px/sec)
+	VECTOR2 Vp = P2 - P1; // Note that we could use Vp = frameTime*velocity as well; but this is a bit cheaper (add vs. multiply)
+	VECTOR2 Vq = Q2 - Q1;
+
+	// To see if the entity is colliding at all, we'll run a pre-computation (see COMP 441, 12/2/13, slide 6, Eqn. 3):
+	float dSquared = radius + ent.radius; dSquared *= dSquared; // squared distance between centers at exact time of collision
+	VECTOR2 A = P1 - Q1;
+	VECTOR2 B = Vp - Vq;
+	float ASquared = Graphics::Vector2Dot(&A, &A);
+	float BSquared = Graphics::Vector2Dot(&B, &B);
+	float AdotB = Graphics::Vector2Dot(&A, &B);
+	float AdotBSquared = AdotB * AdotB;
+	float minDistSquared = ASquared - AdotBSquared/BSquared; // closest approach distance between the spheres
+	if(dSquared < minDistSquared) // the spheres don't come close enough to collide
+		return false;
+
+	// If we haven't returned above, the entities are colliding, so we'll compute the times and reflection vector.
+	times.t1 = (-AdotB - sqrt(AdotBSquared - BSquared*(ASquared - dSquared)))/BSquared; // Eqn. 1, solved with quadratic formula for t
+	times.t2 = (-AdotB + sqrt(AdotBSquared - BSquared*(ASquared - dSquared)))/BSquared;
+
+	VECTOR2 Pt1 = P1 + times.t1*Vp;
+	VECTOR2 Pt2 = P1 + times.t2*Vp;
+	VECTOR2 Qt1 = Q1 + times.t1*Vq;
+	VECTOR2 Qt2 = Q1 + times.t2*Vq;
+	VECTOR2 N; // normal vector approximating Q as a plane at the point where P contacts it (see slide 11)
+	if(useT2)
+		N = Qt2 - Pt2;
+	else
+		N = Qt1 - Pt1;
+	Graphics::Vector2Normalize(&N);
+	VECTOR2 L = -Vp;
+	float NdotL = Graphics::Vector2Dot(&N, &L);
+	reflectVector = 2*(NdotL*N) - L;
+
+	return true;
+}
+
 //=============================================================================
 // Is this Entity outside the specified rectangle
 // Post: returns true if outside rect, false otherwise

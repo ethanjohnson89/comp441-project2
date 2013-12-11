@@ -13,6 +13,8 @@ class Entity;
 #include "image.h"
 #include "input.h"
 #include "game.h"
+#include "graphics.h" // for Vector2Dot
+#include <cmath> // for sqrt()
 
 namespace entityNS
 {
@@ -84,6 +86,21 @@ class Entity : public Image
     // Pre: &ent = Other entity
     // Post: &collisionVector contains collision vector
     virtual bool collidePixelPerfect(Entity &ent, VECTOR2 &collisionVector);
+public:
+	struct CollisionTimes { float t1; float t2; };
+	// Advanced sphere-sphere collision detection (in 2D, so these are actually circles) - added by Ethan
+	// Called by game class's collisions()
+	// Pre: &ent = Other entity
+	// Post: &times contains t1 (time when collision begins) and t2 (time when collision ends)
+	//		 (t1 and t2 are reals in the range [0,1), representing fractions of the frame time)
+	//       and &reflectVector contains new direction vector for this object as it reflects off the other one.
+	//		 If useT2 is true, the entity reflects at the end of the collision (as it finishes passing through the other entity);
+	//		 otherwise, the entity reflects at the beginning of the collision. The latter is more typical, but both options are
+	//		 included since sometimes the former effect is desired.
+	// Returns: true if the entities collide, false if they don't (in which case times and reflectVector remain unmodified)
+	virtual bool collideSphere(Entity &ent, CollisionTimes &times, bool useT2, VECTOR2 &reflectVector, float frameTime);
+	// Similar to collideSphere, except that instead of another Entity it takes a normal vector representing a plane
+	//virtual bool collideSpherePlane(VECTOR2 normal, VECTOR2 &reflectVector, CollisionTimes &times, float frameTime);
 
   public:
     // Constructor
