@@ -248,7 +248,10 @@ const UCHAR JPO_UP_KEY      = VK_UP;       // up arrow
 const UCHAR JPO_DOWN_KEY    = VK_DOWN;     // down arrow
 const UCHAR JPO_JUMP_KEY	= VK_SPACE;	   // spacebar
 
-//timing
-const int COUNTER_MAX = 100;
+//timing and laser
+const int COUNTER_MAX = 500;
+const int LASER_X_INIT = 500;
+const int LASER_Y_INIT = 250;
+const int LASER_SPEED = 200;
 
 #endif

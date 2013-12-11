@@ -255,6 +255,7 @@ void RaccoonRun::update()
 	int jpoX=jpo.getX(); //to create a test for updating platform screen coords.
 	VECTOR2 newVelocity = jpo.getVelocity();
 	VECTOR2 collisionVector;
+	float tracking_x,tracking_y,absolute;
 	switch(gameState)
 	{
 		case 0:
@@ -448,10 +449,24 @@ void RaccoonRun::update()
 			//
 //			VECTOR2 collisionVector;
 			laser.setRight(jpo.getCenterX()>laser.getCenterX());		// sets velocity right if Raccoon's center is right of sniper.
-			if(laser.incrementCounter())
+			if(laser.getActive()&&laser.incrementCounter())
 			{
-
+				laser.setVisible(true);
+				laser.setX(LASER_X_INIT);
+				laser.setY(LASER_Y_INIT);
+				tracking_x = jpo.getCenterX() - laser.getCenterX();
+				tracking_y = jpo.getCenterY() - laser.getCenterY();
+				absolute = sqrt(tracking_x*tracking_x + tracking_y*tracking_y);
+				laser.setVelocity(D3DXVECTOR2(LASER_SPEED*tracking_x/absolute,LASER_SPEED*tracking_y/absolute));
 			}
+			if(laser.getVisible()&&(laser.getX()<0||laser.getX()>GAME_WIDTH||laser.getY()<0||laser.getY()>GAME_HEIGHT))
+			{
+				laser.setVisible(false);
+				laser.setX(-LASER_X_INIT);
+				laser.setY(-LASER_Y_INIT);
+				laser.setVelocity(D3DXVECTOR2(0,0));
+			}
+			laser.update(frameTime);
 
 			if(cs.collidesWithRaccoon(frameTime, jpo) || laser.collidesWith(jpo,collisionVector))
 			{
@@ -481,7 +496,7 @@ void RaccoonRun::update()
 			{
 				cpsoup[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
-			laser.update(frameTime, moveScreenLeft, moveScreenRight);
+//			laser.update(frameTime, moveScreenLeft, moveScreenRight);
 			if(checkPoint.collidesWith(frameTime, jpo))
 			{
 				audio->playCue(YAY);

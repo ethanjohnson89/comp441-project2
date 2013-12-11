@@ -23,7 +23,7 @@ public:
     virtual bool initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM);
 
     // inherited member functions
-    void update(float frameTime, bool left, bool right);
+	void update(float frameTime);
 	void setRight(bool Right){right = Right;}
 	bool getRight(){return right;}
 
