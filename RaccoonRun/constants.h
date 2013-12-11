@@ -159,7 +159,7 @@ const RECT COLLISION_BOX_RACCOON = {-43,-25,43,25};
 const int RACCOON_COLS = 4;
 const int RACCOON_WIDTH = 128;
 const int RACCOON_HEIGHT = 64;
-const int RACCOON_HALF_WIDTH = 43;
+const int RACCOON_HALF_WIDTH = 20;		//// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const int RACCOON_HALF_HEIGHT = 25;
 //const int RACCOON_START_Y = 
 

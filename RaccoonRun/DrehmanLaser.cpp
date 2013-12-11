@@ -27,7 +27,7 @@ Laser::Laser() : Entity()//Still()
     edge.right = LASER_HALF_WIDTH;
 	
 	mass = 10.0f; // will probably need to change this!
-	collisionType = entityNS::BOX;
+	collisionType = entityNS::ROTATED_BOX;
 	magicNumberX=-18;
 	magicNumberY=-20;
 
