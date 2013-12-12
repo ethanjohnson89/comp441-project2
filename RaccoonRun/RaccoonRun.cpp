@@ -54,7 +54,9 @@ void RaccoonRun::initialize(HWND hwnd)
 	score=0;
 	oldScore=0;
 	//level init
-	level=1;
+	level=2;
+
+	
 
 	statusSet();
 
@@ -189,8 +191,9 @@ void RaccoonRun::initialize(HWND hwnd)
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser"));
 	//change laser size.
 	laser.setScale(.75);
-
-
+	//laser data
+	laser.xInit=1000;
+	laser.yInit=LASER_Y_INIT;
 	//setSoupData();
 
     if (!jpo.initialize(this,RACCOON_WIDTH, RACCOON_HEIGHT, RACCOON_COLS, &raccoonTexture))
@@ -388,6 +391,8 @@ void RaccoonRun::update()
 				frisbee.setVisible(true);
 				frisbee.setVelocity(D3DXVECTOR2(2.5,frisbee.getVelocity().y));
 				frisbee.update(frameTime);
+				//laser.setVisible(true);
+				laser.update(frameTime,moveScreenLeft, moveScreenRight);
 			}
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
@@ -526,7 +531,8 @@ void RaccoonRun::update()
 			{
 				laser.setVisible(true);
 				
-				laser.setX(LASER_X_INIT);
+				//laser.setX(LASER_X_INIT);
+				laser.setX(laser.xInit);
 				laser.setY(LASER_Y_INIT);
 				tracking_x = jpo.getCenterX() - laser.getCenterX();
 				tracking_y = jpo.getCenterY() - laser.getCenterY();
@@ -536,12 +542,12 @@ void RaccoonRun::update()
 			}
 			if(laser.getVisible()&&(laser.getX()<0||laser.getX()>GAME_WIDTH||laser.getY()<0||laser.getY()>GAME_HEIGHT))
 			{
-				laser.setVisible(false);
-				laser.setX(-LASER_X_INIT);
-				laser.setY(-LASER_Y_INIT);
-				laser.setVelocity(D3DXVECTOR2(0,0));
+				//laser.setVisible(false);
+				//laser.setX(-LASER_X_INIT);
+				//laser.setY(-LASER_Y_INIT);
+				//laser.setVelocity(D3DXVECTOR2(0,0));
 			}
-			laser.update(frameTime,moveScreenLeft,moveScreenRight);
+			//laser.update(frameTime,moveScreenLeft,moveScreenRight);
 
 			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
 			{
@@ -981,8 +987,8 @@ void RaccoonRun::levelSet()
 		//make him bigger...
 		cs.setScale(1.25);
 
-		laser.setX(-100);
-		laser.setY(-100);
+		//laser.setX(-100);
+		//laser.setY(-100);
 		laser.setActive(false);
 		laser.setVisible(false);
 
@@ -1005,8 +1011,8 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
-//		laser.setX(500);
-//		laser.setY(250);
+		laser.setX(500);
+		laser.setY(250);
 		laser.setActive(true);
 		laser.setVisible(true);
 
