@@ -53,7 +53,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	score=0;
 	oldScore=0;
 	//level init
-	level=1;
+	level=2;
 
 	statusSet();
 
@@ -196,6 +196,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//laser data
 	laser.xInit=1000;
 	laser.yInit=LASER_Y_INIT;
+	laser.setX(1000);
 	//setSoupData();
 
     if (!jpo.initialize(this,RACCOON_WIDTH, RACCOON_HEIGHT, RACCOON_COLS, &raccoonTexture))
@@ -510,7 +511,7 @@ void RaccoonRun::update()
 			jpo.update(frameTime);
 
 			//Platform Updates. Checks to see if they need to move.
-			if(jpoX==jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
+			if(jpoX>=jpo.getX() && input->isKeyDown(JPO_RIGHT_KEY))
 			{
 				//if(platform[14].getX()>GAME_WIDTH-platform[14].getWidth()*platform[14].getScale())
 				int maxX=background[level-1].getWidth()-GAME_WIDTH;
@@ -530,6 +531,15 @@ void RaccoonRun::update()
 					moveScreenLeft=true;
 				else
 					moveScreenLeft=false;
+				//jpo.setX(jpo.getX()-1);
+			}
+			else if(jpo.collidesWith(frisbee,collisionVector) && jpo.getX()>=30+jpo.getWidth()*jpo.getScale())
+			{
+				int maxX=background[level-1].getWidth()-GAME_WIDTH;
+				if(background[level-1].getX()>-(maxX))
+					moveScreenRight=true;
+				else
+					moveScreenRight=false;
 			}
 			else{
 				moveScreenLeft=false;
@@ -741,6 +751,7 @@ void RaccoonRun::collisions()
 
 	if(jpo.getY()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
 		jpo.setOnLand(false);
+
 	
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
@@ -763,6 +774,24 @@ void RaccoonRun::collisions()
 			jpo.setVelocity(D3DXVECTOR2(0,0));
 			break;
 		}*/
+	}
+		if(frisbee.getVisible())
+	{
+		
+		if(jpo.collidesWith(frisbee, collisionVector))
+		{
+			//paused=true;
+			jpo.setX(frisbee.getX());
+			jpo.setY(frisbee.getY()-jpo.getHeight()*jpo.getScale()+20);//some magic number.
+			//but it works.
+			//paused=true;
+			if(jpo.getX()+jpo.getWidth()*jpo.getScale()>=GAME_WIDTH)
+				moveScreenRight=true;
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,1));
+			onLand=true;
+		}
+		else
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,0));
 	}
 	for(int i=0; i<3; ++i)
 	{
@@ -813,23 +842,7 @@ void RaccoonRun::collisions()
 		//	//paused = true;
 		//}
 	}
-	if(frisbee.getVisible())
-	{
-		
-		if(jpo.collidesWith(frisbee, collisionVector))
-		{
-			//paused=true;
-			jpo.setX(frisbee.getX());
-			jpo.setY(frisbee.getY()-jpo.getHeight()*jpo.getScale()+20);//some magic number.
-			//but it works.
-			//paused=true;
 
-			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,1));
-			onLand=true;
-		}
-		else
-			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,0));
-	}
 }
 
 //=============================================================================
@@ -1031,9 +1044,13 @@ void RaccoonRun::levelSet()
 		//score+=50;
 
 		frisbee.setVisible(true);
+		frisbee.setX(10);
+		frisbee.setY(130);
 
-		jpo.setX(17);
-		jpo.setY(163-RACCOON_HEIGHT);
+		//jpo.setX(17);
+		//jpo.setY(163-RACCOON_HEIGHT);
+		jpo.setX(frisbee.getX());
+		jpo.setY(frisbee.getY()-jpo.getHeight()*jpo.getScale()+20);
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
 		jpo.setVisible(true);
 
@@ -1062,8 +1079,8 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(90.0f,0));
 
-		laser.setX(-100);
-		laser.setY(-100);
+		//laser.setX(-100);
+		//laser.setY(-100);
 		laser.setActive(false);
 		laser.setVisible(false);
 
