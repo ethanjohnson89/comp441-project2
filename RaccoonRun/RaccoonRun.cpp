@@ -53,7 +53,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	score=0;
 	oldScore=0;
 	//level init
-	level=2;
+	level=1;
 
 	statusSet();
 
@@ -226,6 +226,8 @@ void RaccoonRun::initialize(HWND hwnd)
 	audioOn = true;
 	//audio->playCue(LEVEL);
 
+	debouncer = false;
+
 	audio->playCue(MENU);
 
     return;
@@ -328,6 +330,11 @@ void RaccoonRun::update()
 			menu->update();
 			if(menu->getSelectedItem() == 0)
 			{
+				debouncer = true;
+				if(debouncer && !input->isKeyDown(VK_RETURN))
+				{
+					debouncer = false;
+				}
 				if(!gameOver)
 					gameState = 1;
 				menu2 = true;
@@ -366,15 +373,25 @@ void RaccoonRun::update()
 			}
 			break;
 		case 1:
-			if(input->isKeyDown(VK_SPACE))
+			if(debouncer && !input->isKeyDown(VK_RETURN))
 			{
+				debouncer = false;
+			}
+			if(!debouncer && input->isKeyDown(VK_RETURN))	// formerly SPACE
+			{
+				debouncer = true;
 				gameState=2;
 			}
 
 			break;
 		case 2:
-			if(input->isKeyDown(VK_ESCAPE))
+			if(debouncer && !input->isKeyDown(VK_RETURN))
 			{
+				debouncer = false;
+			}
+			if(!debouncer && input->isKeyDown(VK_RETURN))	// formerly ESCAPE
+			{
+				debouncer = true;
 				audio->stopCue(MENU);
 				audio->playCue(LEVEL);
 				gameState = 5;
@@ -1016,8 +1033,6 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
-		laser.setX(500);
-		laser.setY(250);
 		laser.setActive(true);
 		laser.setVisible(true);
 
@@ -1056,7 +1071,6 @@ void RaccoonRun::setStillData()
 	setSoupData();
 	setCheeseburgerData();
 	setPizzaData();
-//	setLaserData();
 	
 	//checkpoint stuff
 	switch(level)
@@ -1166,22 +1180,6 @@ void RaccoonRun::setBgData()
 	{
 		background[i].set(-5,0);
 	}
-}
-
-void RaccoonRun::setLaserData()
-{/*
-	switch(level)
-	{
-		case 1:
-			laser.set(500,250);
-			break;
-		case 2:
-			laser.set(500,250);
-			break;
-		case 3:
-			laser.set(500,250);
-			break;
-	}*/
 }
 
 void RaccoonRun::reset()
