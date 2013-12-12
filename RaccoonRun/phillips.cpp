@@ -98,3 +98,28 @@ bool Checkpoint::collidesWith(float frameTime, Entity object)
 
 	return collides;
 }
+
+/****************************************************
+****frisbee stuff************************************
+*****************************************************/
+void Frisbee::update(float frameTime)
+{
+	if(spriteData.x<=GAME_WIDTH)
+	{
+		//setVisible(true);
+		spriteData.x+=velocity.x;
+		//velocity.y=1;
+		if(spriteData.x>=0-FRISBEE_WIDTH*getScale())
+			spriteData.y+=velocity.y;
+	}
+	else
+	{
+		reset();
+	}
+}
+void Frisbee::reset()
+{
+	spriteData.x=-3000;
+	spriteData.y=300;
+	setVisible(false);
+}

@@ -60,6 +60,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	//set boolean for no easter egg.
 	fly=false;
+	immortal=false; 
 	//JPO starts on ground.
 	jpo.setOnLand(true);
 	// Initialize fonts
@@ -136,6 +137,15 @@ void RaccoonRun::initialize(HWND hwnd)
 	menuBackground2.setX(0);
 	menuBackground2.setY(0);
 
+	//Frisbee initialization
+	if(!frisbeeTexture.initialize(graphics, FRISBEE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing frisbee texture"));
+	if (!frisbee.initialize(this,FRISBEE_WIDTH, FRISBEE_HEIGHT, 0, &frisbeeTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing frisbee"));
+	frisbee.setX(-25);
+	frisbee.setY(-250);
+	frisbee.setScale(.75);
+
 	if (!splashTexture.initialize(graphics,SPLASH_TEXTURE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing splash texture"));
 	if(!splash.initialize(graphics, 800,512,0,&splashTexture))
@@ -177,6 +187,9 @@ void RaccoonRun::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser texture"));
 	if (!laser.initialize(this,LASER_WIDTH, LASER_HEIGHT, 1, &laserTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser"));
+	//change laser size.
+	laser.setScale(.75);
+
 
 	//setSoupData();
 
@@ -339,7 +352,8 @@ void RaccoonRun::update()
 					fly = true;
 					break;
 				case 1:
-					jpo.incrementLivesBy(1000000);
+					//jpo.incrementLivesBy(1000000);
+					immortal=true;
 					break;
 				case 2:
 					level = 3;
@@ -369,6 +383,12 @@ void RaccoonRun::update()
 		case 4:
 			break; 
 		case 5:
+			if(level==2)
+			{
+				frisbee.setVisible(true);
+				frisbee.setVelocity(D3DXVECTOR2(2.5,frisbee.getVelocity().y));
+				frisbee.update(frameTime);
+			}
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
 				// make JPo jump!
@@ -532,8 +552,9 @@ void RaccoonRun::update()
 				if(jpo.getVisible())
 				{
 					audio->playCue(CAUGHT);
-					jpo.incrementLivesBy(-1);
-					if(jpo.getLives()<3)
+					if(!immortal)
+						jpo.incrementLivesBy(-1);
+					else if(jpo.getLives()<3)
 						lives[jpo.getLives()].setVisible(false);
 //					Sleep(500);
 				}
@@ -555,6 +576,8 @@ void RaccoonRun::update()
 
 				}
 			}
+			//check frisbee collision
+
 
 			for(int i=0; i<3; i++)
 			{
@@ -568,7 +591,8 @@ void RaccoonRun::update()
 				score+=level*50;
 				oldScore=score;
 				//jpo.setLives(jpo.getLives()+1);
-				jpo.incrementLivesBy(1);
+				if(!immortal)
+					jpo.incrementLivesBy(1);
 				
 				//paused=true;
 				if(level<3)
@@ -682,6 +706,7 @@ void RaccoonRun::collisions()
 
 	if(jpo.getY()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
 		jpo.setOnLand(false);
+	
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
 		//if(jpo.collideBox(platform[i],collisionVector));s
@@ -753,6 +778,23 @@ void RaccoonRun::collisions()
 		//	//paused = true;
 		//}
 	}
+	if(frisbee.getVisible())
+	{
+		
+		if(jpo.collidesWith(frisbee, collisionVector))
+		{
+			//paused=true;
+			jpo.setX(frisbee.getX());
+			jpo.setY(frisbee.getY()-jpo.getHeight()*jpo.getScale()+20);//some magic number.
+			//but it works.
+			//paused=true;
+
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,1));
+			onLand=true;
+		}
+		else
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,0));
+	}
 }
 
 //=============================================================================
@@ -805,6 +847,7 @@ void RaccoonRun::render()
 				pizza[i].draw();
 			}
 			checkPoint.draw();
+			frisbee.draw();
 			jpo.draw();
 			cs.draw();
 			laser.draw();
@@ -934,6 +977,8 @@ void RaccoonRun::levelSet()
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
+		//make him bigger...
+		cs.setScale(1.25);
 
 		laser.setX(-100);
 		laser.setY(-100);
@@ -947,6 +992,8 @@ void RaccoonRun::levelSet()
 		score=oldScore;
 		//yay level 2!
 		//score+=50;
+
+		frisbee.setVisible(true);
 
 		jpo.setX(17);
 		jpo.setY(163-RACCOON_HEIGHT);
@@ -966,6 +1013,7 @@ void RaccoonRun::levelSet()
 
 		break;
 	case 3:
+		frisbee.setVisible(false);
 		//yay level 3!
 		score=oldScore;
 		//score+=100;

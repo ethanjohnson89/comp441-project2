@@ -116,6 +116,8 @@ const char MENU_TEXTURE2[]="pictures\\menuBackground2.png";
 
 const char CHECKPOINT_TEXTURE[]="pictures\\checkPoint.png";
 
+const char FRISBEE[]="pictures\\frisbee.png";
+
 //different screen textures
 const char SPLASH_TEXTURE[]="pictures\\splashScreen.png";
 const char WIN_TEXTURE[]="pictures\\youWon.png";
@@ -227,6 +229,10 @@ const int PLATFORM_WIDTH = 256;
 const int PLATFORM_HEIGHT = 64;
 const int PLATFORM_HALF_WIDTH = 128;
 const int PLATFORM_HALF_HEIGHT = 32;
+
+	//frisbee constants
+const int FRISBEE_WIDTH = 126;
+const int FRISBEE_HEIGHT = 36;
 
 //background constants
 //const int BACKGROUND1A_WIDTH=2048;

@@ -29,4 +29,17 @@ public:
     //void update(float frameTime, bool left, bool right);
 };
 
+//namespace frisbeeNS
+//{
+//
+//}
+class Frisbee : public Entity
+{
+private:
+public:
+	//Frisbee();
+	void update(float frameTime);
+	void reset();
+};
+
 #endif

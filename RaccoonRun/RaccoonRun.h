@@ -107,6 +107,9 @@ private:
 	bool moveScreenRight;
 	bool moveScreenLeft;
 
+	TextureManager frisbeeTexture;
+	Frisbee frisbee;	
+
 	//game over?
 	bool gameOver;
 	bool win;
@@ -116,6 +119,7 @@ private:
 
 	//preemptive Easter Egg Bool
 	bool fly;
+	bool immortal;
 
 	TextDX *debugFont; // for debugging
 
