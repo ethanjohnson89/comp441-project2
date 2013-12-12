@@ -60,6 +60,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	//set boolean for no easter egg.
 	fly=false;
+	immortal=false; 
 	//JPO starts on ground.
 	jpo.setOnLand(true);
 	// Initialize fonts
@@ -351,7 +352,8 @@ void RaccoonRun::update()
 					fly = true;
 					break;
 				case 1:
-					jpo.incrementLivesBy(1000000);
+					//jpo.incrementLivesBy(1000000);
+					immortal=true;
 					break;
 				case 2:
 					level = 3;
@@ -550,8 +552,9 @@ void RaccoonRun::update()
 				if(jpo.getVisible())
 				{
 					audio->playCue(CAUGHT);
-					jpo.incrementLivesBy(-1);
-					if(jpo.getLives()<3)
+					if(!immortal)
+						jpo.incrementLivesBy(-1);
+					else if(jpo.getLives()<3)
 						lives[jpo.getLives()].setVisible(false);
 //					Sleep(500);
 				}
@@ -588,7 +591,8 @@ void RaccoonRun::update()
 				score+=level*50;
 				oldScore=score;
 				//jpo.setLives(jpo.getLives()+1);
-				jpo.incrementLivesBy(1);
+				if(!immortal)
+					jpo.incrementLivesBy(1);
 				
 				//paused=true;
 				if(level<3)
@@ -989,6 +993,8 @@ void RaccoonRun::levelSet()
 		//yay level 2!
 		//score+=50;
 
+		frisbee.setVisible(true);
+
 		jpo.setX(17);
 		jpo.setY(163-RACCOON_HEIGHT);
 		jpo.setFrames(RACCOON_LOOKING_RIGHT_START, RACCOON_LOOKING_RIGHT_END);   // animation frames
@@ -1007,6 +1013,7 @@ void RaccoonRun::levelSet()
 
 		break;
 	case 3:
+		frisbee.setVisible(false);
 		//yay level 3!
 		score=oldScore;
 		//score+=100;

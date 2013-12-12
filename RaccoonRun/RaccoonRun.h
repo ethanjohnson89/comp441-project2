@@ -119,6 +119,7 @@ private:
 
 	//preemptive Easter Egg Bool
 	bool fly;
+	bool immortal;
 
 	TextDX *debugFont; // for debugging
 
