@@ -131,6 +131,7 @@ private:
 	int score;
 	int level;
 	bool menu2;
+	bool debouncer;
 
 	int pastCheckpoint;
 
@@ -156,7 +157,6 @@ public:
 	void setCheeseburgerData();
 	void setPizzaData();
 	void setBgData();
-	void setLaserData();
 	void levelSet();
 	void statusSet();
 	//void reinit();
