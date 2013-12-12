@@ -298,7 +298,7 @@ void RaccoonRun::setPlatformData(int level)
 		platform[3].set(275,324);
 		//platform[4].set(625,141);
 		platform[5].set(690,372);
-		platform[6].set(948,147);
+//		platform[6].set(948,147);
 		platform[7].set(1205,357);
 		break;
 	case 3:
@@ -406,6 +406,11 @@ void RaccoonRun::update()
 		case 4:
 			break; 
 		case 5:
+			if(debouncer)
+			{
+				debouncer = input->isKeyDown(VK_SPACE);
+				jumpedLastFrame = debouncer;
+			}
 			if(level==2)
 			{
 				frisbee.setVisible(true);
@@ -539,10 +544,6 @@ void RaccoonRun::update()
 				jpo.setOnLand(false);
 				//onLand=false;
 			}
-			if(level==2)
-			{
-				sniper.update(frameTime, moveScreenLeft, moveScreenRight);
-			}
 			for(int i=0; i<15; i++)
 			{
 				platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
@@ -567,15 +568,7 @@ void RaccoonRun::update()
 				laser.setRadians(atan(tracking_y/tracking_x));
 				laser.setVelocity(D3DXVECTOR2(LASER_SPEED*tracking_x/absolute,LASER_SPEED*tracking_y/absolute));
 			}
-			if(laser.getVisible()&&(laser.getX()<0||laser.getX()>GAME_WIDTH||laser.getY()<0||laser.getY()>GAME_HEIGHT))
-			{
-				//laser.setVisible(false);
-				//laser.setX(-LASER_X_INIT);
-				//laser.setY(-LASER_Y_INIT);
-				//laser.setVelocity(D3DXVECTOR2(0,0));
-			}
-			//laser.update(frameTime,moveScreenLeft,moveScreenRight);
-
+			
 			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
 			{
 				//Sleep(1000);
@@ -615,6 +608,10 @@ void RaccoonRun::update()
 			}
 			//check frisbee collision
 
+			if(level==2)
+			{
+				sniper.update(frameTime, moveScreenLeft, moveScreenRight);
+			}
 
 			for(int i=0; i<3; i++)
 			{
@@ -684,7 +681,7 @@ void RaccoonRun::update()
 				}
 			break;
 		case 7:
-			if(input->wasKeyPressed(VK_ESCAPE))
+			if(input->wasKeyPressed(VK_SPACE))		// formerly ESCAPE
 				{
 					audio->stopCue(LEVEL);
 					audio->playCue(MENU);
@@ -713,6 +710,7 @@ void RaccoonRun::update()
 					if(level<3)
 						level++;
 					reset();
+					debouncer = true;
 				}
 			}
 			break;
@@ -1081,9 +1079,9 @@ void RaccoonRun::setStillData()
 	setSoupData();
 	setCheeseburgerData();
 	setPizzaData();
-	
-	sniper.setX(LASER_X_INIT);
-	sniper.setY(LASER_Y_INIT);
+	if(level==2)
+		//sniper.set(700,100);
+		sniper.set(LASER_X_INIT,LASER_Y_INIT);
 
 	//checkpoint stuff
 	switch(level)
