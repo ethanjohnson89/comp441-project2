@@ -52,14 +52,14 @@ bool Sniper::initialize(Game *gamePtr, int width, int height, int ncols,TextureM
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-void Sniper::update(float frameTime, bool left, bool right)
+/*void Sniper::update(float frameTime, bool left, bool right)
 {
     Entity::update(frameTime);
     spriteData.x += frameTime * velocity.x;         // move along X 
     spriteData.y += frameTime * velocity.y;         // move along Y
 
 	
-}
+}*/
 
 void Sniper::ai(Entity *player)
 {
