@@ -36,7 +36,8 @@ void RaccoonRun::initialize(HWND hwnd)
 	int s;
 	for(int i=0; i<MAX_SCORES; i++)
 	{
-		fin>>s;
+		if(!fin.fail())
+			fin>>s;
 		if(fin.fail() || fin.eof())
 		{
 			for(i; i<MAX_SCORES; i++)
@@ -48,13 +49,11 @@ void RaccoonRun::initialize(HWND hwnd)
 	}
 	fin.close();
 
-	//between screens
-
 	//score init
 	score=0;
 	oldScore=0;
 	//level init
-	level=1;
+	level=2;
 
 	statusSet();
 
@@ -568,6 +567,7 @@ void RaccoonRun::update()
 				{
 					jpo.setY(-10);
 					jpo.setVisible(true);
+					jpo.setVelocity(D3DXVECTOR2(0,0));
 					//levelSet();
 				}
 				else
