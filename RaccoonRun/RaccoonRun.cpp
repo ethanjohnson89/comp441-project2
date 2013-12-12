@@ -378,7 +378,7 @@ void RaccoonRun::update()
 		case 4:
 			break; 
 		case 5:
-			if(level==1)
+			if(level==2)
 			{
 				frisbee.setVisible(true);
 				frisbee.setVelocity(D3DXVECTOR2(2.5,0));
@@ -570,6 +570,8 @@ void RaccoonRun::update()
 
 				}
 			}
+			//check frisbee collision
+
 
 			for(int i=0; i<3; i++)
 			{
@@ -697,6 +699,7 @@ void RaccoonRun::collisions()
 
 	if(jpo.getY()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
 		jpo.setOnLand(false);
+	
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
 		//if(jpo.collideBox(platform[i],collisionVector));s
@@ -767,6 +770,16 @@ void RaccoonRun::collisions()
 		//	pizza[i].setVisible(false);
 		//	//paused = true;
 		//}
+	}
+	if(frisbee.getVisible())
+	{
+		if(jpo.collidesWith(frisbee, collisionVector))
+		{
+			jpo.setX(frisbee.getX());
+			jpo.setY(frisbee.getY());
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,2));
+			onLand=true;
+		}
 	}
 }
 
