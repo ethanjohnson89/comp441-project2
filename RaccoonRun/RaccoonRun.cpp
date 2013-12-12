@@ -136,6 +136,15 @@ void RaccoonRun::initialize(HWND hwnd)
 	menuBackground2.setX(0);
 	menuBackground2.setY(0);
 
+	//Frisbee initialization
+	if(!frisbeeTexture.initialize(graphics, FRISBEE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing frisbee texture"));
+	if (!frisbee.initialize(this,FRISBEE_WIDTH, FRISBEE_HEIGHT, 0, &frisbeeTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing frisbee"));
+	frisbee.setX(-25);
+	frisbee.setY(-300);
+	frisbee.setScale(.75);
+
 	if (!splashTexture.initialize(graphics,SPLASH_TEXTURE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing splash texture"));
 	if(!splash.initialize(graphics, 800,512,0,&splashTexture))
@@ -369,6 +378,12 @@ void RaccoonRun::update()
 		case 4:
 			break; 
 		case 5:
+			if(level==1)
+			{
+				frisbee.setVisible(true);
+				frisbee.setVelocity(D3DXVECTOR2(2.5,0));
+				frisbee.update(frameTime);
+			}
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
 				// make JPo jump!
@@ -805,6 +820,7 @@ void RaccoonRun::render()
 				pizza[i].draw();
 			}
 			checkPoint.draw();
+			frisbee.draw();
 			jpo.draw();
 			cs.draw();
 			laser.draw();
@@ -934,6 +950,8 @@ void RaccoonRun::levelSet()
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
+		//make him bigger...
+		cs.setScale(1.25);
 
 		laser.setX(-100);
 		laser.setY(-100);

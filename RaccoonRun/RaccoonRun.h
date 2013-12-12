@@ -107,6 +107,9 @@ private:
 	bool moveScreenRight;
 	bool moveScreenLeft;
 
+	TextureManager frisbeeTexture;
+	Frisbee frisbee;	
+
 	//game over?
 	bool gameOver;
 	bool win;
