@@ -116,6 +116,9 @@ void Frisbee::update(float frameTime)
 	{
 		reset();
 	}
+	if(spriteData.y>=GAME_HEIGHT-getHeight())
+		reset();
+	
 }
 void Frisbee::reset()
 {

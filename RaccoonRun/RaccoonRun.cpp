@@ -281,15 +281,15 @@ void RaccoonRun::setPlatformData(int level)
 		for(int i=0; i<7; i++)
 		{
 			platform[i].setVisible(true);
-			platform[i].setScale(.65);
+			platform[i].setScale(.75);
 		}
-		platform[0].set(17,123);
+		//platform[0].set(17,123);
 		//platform[1].set(170,253);
-		platform[2].set(331,172);
+		//platform[2].set(380,172);
 		//platform[3].set(325,354);
-		platform[3].set(225,324);
-		platform[4].set(625,141);
-		platform[5].set(638,372);
+		platform[3].set(275,324);
+		//platform[4].set(625,141);
+		platform[5].set(690,372);
 		platform[6].set(948,147);
 		break;
 	case 3:
@@ -1056,7 +1056,7 @@ void RaccoonRun::setStillData()
 		checkPoint.set(-2300,175);
 		break;
 	case 2:
-		checkPoint.set(920,71);
+		checkPoint.set(1920,71);
 		break;
 	case 3:
 		checkPoint.set(1821,240);
