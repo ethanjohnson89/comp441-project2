@@ -15,7 +15,6 @@ namespace laserNS
 // inherits from Entity class
 class Laser : public Entity//Still
 {
-
 public:
     // constructor
 	Laser();

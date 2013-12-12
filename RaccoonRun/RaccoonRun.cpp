@@ -521,10 +521,11 @@ void RaccoonRun::update()
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			//
 //			VECTOR2 collisionVector;
-			laser.setRight(jpo.getCenterX()>laser.getCenterX());		// sets velocity right if Raccoon's center is right of sniper.
+//			laser.setRight(jpo.getCenterX()>laser.getCenterX());		// sets velocity right if Raccoon's center is right of sniper.
 			if(laser.getActive()&&laser.incrementCounter())
 			{
 				laser.setVisible(true);
+				
 				laser.setX(LASER_X_INIT);
 				laser.setY(LASER_Y_INIT);
 				tracking_x = jpo.getCenterX() - laser.getCenterX();
