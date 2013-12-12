@@ -142,7 +142,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!frisbee.initialize(this,FRISBEE_WIDTH, FRISBEE_HEIGHT, 0, &frisbeeTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing frisbee"));
 	frisbee.setX(-25);
-	frisbee.setY(-300);
+	frisbee.setY(-250);
 	frisbee.setScale(.75);
 
 	if (!splashTexture.initialize(graphics,SPLASH_TEXTURE))
@@ -186,6 +186,9 @@ void RaccoonRun::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser texture"));
 	if (!laser.initialize(this,LASER_WIDTH, LASER_HEIGHT, 1, &laserTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser"));
+	//change laser size.
+	laser.setScale(.75);
+
 
 	//setSoupData();
 
@@ -381,7 +384,7 @@ void RaccoonRun::update()
 			if(level==2)
 			{
 				frisbee.setVisible(true);
-				frisbee.setVelocity(D3DXVECTOR2(2.5,0));
+				frisbee.setVelocity(D3DXVECTOR2(2.5,frisbee.getVelocity().y));
 				frisbee.update(frameTime);
 			}
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
@@ -773,13 +776,20 @@ void RaccoonRun::collisions()
 	}
 	if(frisbee.getVisible())
 	{
+		
 		if(jpo.collidesWith(frisbee, collisionVector))
 		{
+			//paused=true;
 			jpo.setX(frisbee.getX());
-			jpo.setY(frisbee.getY());
-			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,2));
+			jpo.setY(frisbee.getY()-jpo.getHeight()*jpo.getScale()+20);//some magic number.
+			//but it works.
+			//paused=true;
+
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,1));
 			onLand=true;
 		}
+		else
+			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,0));
 	}
 }
 
