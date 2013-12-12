@@ -2,7 +2,7 @@
 #define DrehmanSniper_h               // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
-#include "Johnson.h"
+#include "Still.h"
 #include "constants.h"
 
 namespace sniperNS
@@ -11,7 +11,7 @@ namespace sniperNS
 }
 
 // inherits from Entity class
-class Sniper : public Character
+class Sniper : public Still
 {
 public:
     // constructor

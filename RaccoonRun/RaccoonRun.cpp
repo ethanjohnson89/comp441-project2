@@ -182,6 +182,11 @@ void RaccoonRun::initialize(HWND hwnd)
 		if (!pizza[i].initialize(this,PIZZA_WIDTH, PIZZA_HEIGHT, 0, &pizzaTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing pizza"));
 
+	if(!sniperTexture.initialize(graphics, SNIPER_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sniper texture"));
+	if (!sniper.initialize(this,SNIPER_WIDTH, SNIPER_HEIGHT, SNIPER_COLS, &sniperTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sniper"));
+
 	if(!laserTexture.initialize(graphics, LASER_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing laser texture"));
 	if (!laser.initialize(this,LASER_WIDTH, LASER_HEIGHT, 1, &laserTexture))
@@ -376,7 +381,7 @@ void RaccoonRun::update()
 			{
 				debouncer = false;
 			}
-			if(!debouncer && input->isKeyDown(VK_RETURN))	// formerly SPACE
+			if(!debouncer && input->isKeyDown(VK_SPACE))	// formerly SPACE
 			{
 				debouncer = true;
 				gameState=2;
@@ -384,11 +389,11 @@ void RaccoonRun::update()
 
 			break;
 		case 2:
-			if(debouncer && !input->isKeyDown(VK_RETURN))
+			if(debouncer && !input->isKeyDown(VK_SPACE))
 			{
 				debouncer = false;
 			}
-			if(!debouncer && input->isKeyDown(VK_RETURN))	// formerly ESCAPE
+			if(!debouncer && input->isKeyDown(VK_SPACE))	// formerly ESCAPE
 			{
 				debouncer = true;
 				audio->stopCue(MENU);
@@ -531,7 +536,10 @@ void RaccoonRun::update()
 				jpo.setOnLand(false);
 				//onLand=false;
 			}
-
+			if(level==2)
+			{
+				sniper.update(frameTime, moveScreenLeft, moveScreenRight);
+			}
 			for(int i=0; i<15; i++)
 			{
 				platform[i].update(frameTime, moveScreenLeft, moveScreenRight);
@@ -875,6 +883,8 @@ void RaccoonRun::render()
 			jpo.draw();
 			cs.draw();
 			laser.draw();
+			if(level == 2)
+				sniper.draw();
 		}
 		else
 		{
@@ -1067,6 +1077,9 @@ void RaccoonRun::setStillData()
 	setCheeseburgerData();
 	setPizzaData();
 	
+	sniper.setX(LASER_X_INIT);
+	sniper.setY(LASER_Y_INIT);
+
 	//checkpoint stuff
 	switch(level)
 	{

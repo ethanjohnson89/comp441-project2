@@ -8,7 +8,7 @@
 //=============================================================================
 // default constructor
 //=============================================================================
-Sniper::Sniper() : Character()
+Sniper::Sniper() : Still()
 {
 	// Right now these are hardcoded for JPo - later we'll be deriving classes from this for specific characters
 	spriteData.width = JPO_WIDTH;
@@ -44,7 +44,7 @@ Sniper::Sniper() : Character()
 
 bool Sniper::initialize(Game *gamePtr, int width, int height, int ncols,TextureManager *textureM)
 {
-    return(Character::initialize(gamePtr, width, height, ncols, textureM));
+    return(Still::initialize(gamePtr, width, height, ncols, textureM));
 }
 
 //=============================================================================
