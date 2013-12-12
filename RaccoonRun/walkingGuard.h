@@ -4,6 +4,7 @@
 
 #include "Johnson.h"
 #include "constants.h"
+#include "raccoon.h"
 
 namespace walkingGuardNS
 {
@@ -22,7 +23,7 @@ public:
     // inherited member functions
     void update(float frameTime, bool left, bool right);
 	bool collidesWithRaccoon(float frameTime, Entity object);
-	void ai(Entity *player);
+	void ai(Raccoon *player);
 	
 	//enum PatternStep { PATROL, PURSUE };
 	//bool setCurrentStep(PatternStep step); // returns true if the step was actually changed, false if it was already set as desired

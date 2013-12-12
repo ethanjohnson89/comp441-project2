@@ -218,7 +218,7 @@ const int  SNIPER_HALF_HEIGHT = 16;
 
 const float JPO_SPEED = 90.5f;
 const float JPO_PROXIMITY_SPEED = 150.0f;
-const float JPO_PROXIMITY_DISTANCE = 400.0f;
+const float JPO_PROXIMITY_DISTANCE = 100.0f;
 const float RACCOON_SPEED = 270.0f;
 
 //still constants.

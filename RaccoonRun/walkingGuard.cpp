@@ -157,14 +157,38 @@ bool WalkingGuard::collidesWithRaccoon(float frameTime, Entity object)
 	return collides;
 }
 
-void WalkingGuard::ai(Entity *player)
+void WalkingGuard::ai(Raccoon *player)
 {
-	if(spriteData.x < player->getX() && velocity.x < 0)
-		turnRight = true;
-	else if(spriteData.x > player->getX() && velocity.x > 0)
-		turnLeft = true;
+	// If the raccoon is within reach of the guard (>= 400 px from the top of the screen), the guard will run directly toward him.
+	// Otherwise, the guard will pace back and forth, waiting for the racoon to come down from the trees.
+	// He will run at full speed when the racoon is on the ground, and pace more slowly while he's in the trees.
+	if(player->getY() >= 400)
+	{
+		if(spriteData.x < player->getX() && velocity.x < 0)
+			turnRight = true;
+		else if(spriteData.x > player->getX() && velocity.x > 0)
+			turnLeft = true;
 
-	if(abs(spriteData.x - player->getX()) > JPO_PROXIMITY_DISTANCE)
+		if(velocity.x >= 0)
+			velocity.x = JPO_PROXIMITY_SPEED;
+		else
+			velocity.x = -JPO_PROXIMITY_SPEED;
+	}
+	else
+	{
+		if(abs(spriteData.x - player->getX()) > JPO_PROXIMITY_DISTANCE)
+			if(spriteData.x < player->getX() && velocity.x < 0)
+				turnRight = true;
+			else if(spriteData.x > player->getX() && velocity.x > 0)
+				turnLeft = true;
+
+		if(velocity.x >= 0)
+			velocity.x = JPO_SPEED;
+		else
+			velocity.x = -JPO_SPEED;
+	}
+
+	/*if(abs(spriteData.x - player->getX()) > JPO_PROXIMITY_DISTANCE)
 	{
 		if(velocity.x >= 0)
 			velocity.x = JPO_PROXIMITY_SPEED;
@@ -177,7 +201,7 @@ void WalkingGuard::ai(Entity *player)
 			velocity.x = JPO_SPEED;
 		else
 			velocity.x = -JPO_SPEED;
-	}
+	}*/
 }
 
 //bool WalkingGuard::setCurrentStep(PatternStep step)
