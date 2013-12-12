@@ -47,9 +47,15 @@ void Laser::update(float frameTime, bool left, bool right)
     spriteData.y += frameTime * velocity.y;         // move along Y
 
 	if(left)
+	{
+		xInit+=frameTime*STILL_SPEED;
 		spriteData.x += frameTime*STILL_SPEED;
+	}
 	else if(right)
+	{
+		xInit-=frameTime*STILL_SPEED;
 		spriteData.x -= frameTime*STILL_SPEED;
+	}
 //	Still::update(frameTime, left, right);
 }
 

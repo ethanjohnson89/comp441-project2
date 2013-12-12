@@ -15,7 +15,6 @@ namespace laserNS
 // inherits from Entity class
 class Laser : public Entity//Still
 {
-
 public:
     // constructor
 	Laser();
@@ -31,6 +30,10 @@ public:
 	float getX(){return spriteData.x;}
 	float getY(){return spriteData.y;}
 	bool incrementCounter();
+
+	float xInit;
+	float yInit;
+
 private:
 	bool right;
 	bool firing;
