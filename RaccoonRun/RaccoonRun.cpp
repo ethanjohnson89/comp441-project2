@@ -278,7 +278,7 @@ void RaccoonRun::setPlatformData(int level)
 		platform[13].set(-2400,100);
 		break;
 	case 2:
-		for(int i=0; i<7; i++)
+		for(int i=0; i<8; i++)
 		{
 			platform[i].setVisible(true);
 			platform[i].setScale(.75);
@@ -291,6 +291,7 @@ void RaccoonRun::setPlatformData(int level)
 		//platform[4].set(625,141);
 		platform[5].set(690,372);
 		platform[6].set(948,147);
+		platform[7].set(1205,357);
 		break;
 	case 3:
 		for(int i=0; i<7; i++)
@@ -387,6 +388,10 @@ void RaccoonRun::update()
 				frisbee.setVisible(true);
 				frisbee.setVelocity(D3DXVECTOR2(1.5,frisbee.getVelocity().y));
 				frisbee.update(frameTime);
+			}
+			else
+			{
+				frisbee.setVisible(false);
 			}
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
