@@ -386,7 +386,7 @@ void RaccoonRun::update()
 			if(level==2)
 			{
 				frisbee.setVisible(true);
-				frisbee.setVelocity(D3DXVECTOR2(2.5,frisbee.getVelocity().y));
+				frisbee.setVelocity(D3DXVECTOR2(1.5,frisbee.getVelocity().y));
 				frisbee.update(frameTime);
 			}
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
@@ -553,9 +553,11 @@ void RaccoonRun::update()
 				{
 					audio->playCue(CAUGHT);
 					if(!immortal)
+					{
 						jpo.incrementLivesBy(-1);
-					else if(jpo.getLives()<3)
-						lives[jpo.getLives()].setVisible(false);
+						if(jpo.getLives()<3)
+							lives[jpo.getLives()].setVisible(false);
+					}
 //					Sleep(500);
 				}
 				jpo.setVisible(false);
