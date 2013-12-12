@@ -179,3 +179,11 @@ void WalkingGuard::ai(Entity *player)
 			velocity.x = -JPO_SPEED;
 	}
 }
+
+//bool WalkingGuard::setCurrentStep(PatternStep step)
+//{
+//	if(currentStep == step)
+//		return false;
+//	currentStep = step;
+//	return true;
+//}

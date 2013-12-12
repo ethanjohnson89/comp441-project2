@@ -23,7 +23,11 @@ public:
     void update(float frameTime, bool left, bool right);
 	bool collidesWithRaccoon(float frameTime, Entity object);
 	void ai(Entity *player);
+	
+	//enum PatternStep { PATROL, PURSUE };
+	//bool setCurrentStep(PatternStep step); // returns true if the step was actually changed, false if it was already set as desired
 private:
 	bool turnLeft, turnRight;
+	//PatternStep currentStep;
 };
 #endif
