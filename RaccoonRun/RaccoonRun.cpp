@@ -524,7 +524,7 @@ void RaccoonRun::update()
 
 			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
 			{
-				Sleep(1000);
+				//Sleep(1000);
 				if(laser.collidesWith(jpo,collisionVector))
 				{ 
 					laser.setVisible(false);
