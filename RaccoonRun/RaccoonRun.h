@@ -43,7 +43,7 @@ private:
 	Image blackBar;
 
 	TextureManager livesTexture;
-	Image lives[5];
+	Image lives[6];
 
 	TextureManager raccoonTexture;
     TextureManager jpoTexture;

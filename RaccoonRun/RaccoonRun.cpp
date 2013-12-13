@@ -651,7 +651,10 @@ void RaccoonRun::update()
 				
 				//paused=true;
 				if(level<3)
+				{
+					onLand=false;
 					gameState=8;
+				}
 					/*reset();*/
 				else
 				{
@@ -1229,6 +1232,7 @@ void RaccoonRun::reset()
 	levelSet();
 	setStillData();
 	statusSet();
+	onLand=false();
 }
 void RaccoonRun::statusSet()
 {
