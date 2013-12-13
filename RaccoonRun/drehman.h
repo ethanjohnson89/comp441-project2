@@ -13,6 +13,8 @@ class Menu;
 #include <sstream>
 #include <vector>
 #include "input.h"
+#include <fstream>
+#include <sstream>
 
 namespace menuNS
 { }
@@ -47,7 +49,10 @@ private:
    bool credits;
    bool instructions;
    bool cheats;
+   bool score;
    std::vector<bool> cheatCodes;
+   std::string scoreHeading;
+   std::vector<int> scores;
 
 public:
     // constructor
@@ -71,6 +76,10 @@ public:
 	void setCheats(bool Cheats){cheats=Cheats;}
 	int getSelectedItem2() {return selectedItem2;}
 	void setSelectedItem2(int number) {selectedItem2=number;}
+	void setHighScoresInfo(std::ifstream& fin1, std::string fileName);
+	void setHighScores(bool scoring){score=scoring;}
+	bool getHighScores(){return score;}
+	void displayHighScores();
 	std::vector<bool> getCheatCodes(){return cheatCodes;}
 };
 #endif

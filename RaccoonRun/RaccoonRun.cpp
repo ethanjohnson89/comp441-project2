@@ -383,6 +383,11 @@ void RaccoonRun::update()
 				//lives=10000000
 				//level=2;
 			}
+			else if(menu->getSelectedItem() == 5)
+			{
+				menu->setHighScores(true);
+				menu->setHighScoresInfo(fin,SCORES);
+			}
 			break;
 		case 1:
 			if(debouncer && !input->isKeyDown(VK_RETURN))
@@ -892,6 +897,8 @@ void RaccoonRun::render()
 			menu->displayInstructions();
 		else if(menu->getCheats())
 			menu->displayCheats();
+		else if(menu->getHighScores())
+			menu->displayHighScores();
 		else
 			menu->displayMenu();
 		break;

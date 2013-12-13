@@ -17,6 +17,7 @@ void Menu::initialize(Graphics *g, Input *i)
 	menu.push_back("Credits");
 	menu.push_back("Quit");
 	menu.push_back("Totally not cheating");
+	menu.push_back("High Scores");
 
 	creditHeading = "Thanks to:";
 	credit.push_back("Christy Phillips");
@@ -27,12 +28,14 @@ void Menu::initialize(Graphics *g, Input *i)
 	instruction.push_back("Space to have raccoon jump");
 	instruction.push_back("Left arrow to move raccon left");
 	instruction.push_back("Right arrow to move raccoon right");
-	instruction.push_back("Escape to quit to menu");
+	instruction.push_back("Escape to return to menu");
 
 	cheatHeading = "These options are cheats";
 	cheat.push_back("Spacebar for flight, but beware of the fate of Icarus");
 	cheat.push_back("Immortality, but you may start feeling like Sisyphus");
 //	cheat.push_back("Level 1 skip, but you are sleeping in the bed of Procrustes");
+
+	scoreHeading = "High Scores";
 
 	highlightColor = graphicsNS::RED;
 	normalColor = graphicsNS::WHITE;
@@ -60,7 +63,7 @@ void Menu::initialize(Graphics *g, Input *i)
 	credits = false;
 	instructions = false;
 	cheats = false;
-
+	score = false;
 	for(int i=0;i<cheat.size();++i)
 	{
 		cheatCodes.push_back(false);
@@ -99,11 +102,11 @@ void Menu::displayMenu()
 	{
 		if(linePtr==j)
 		{
-			menuItemFontHighlight->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+			menuItemFontHighlight->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.2);
 		}
 		else
 		{
-			menuItemFont->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+			menuItemFont->print(menu[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.2);
 		}
 	}
 }
@@ -113,7 +116,7 @@ void Menu::displayCredits()
 	menuHeadingFont->print(creditHeading, menuAnchor.x, menuAnchor.y);
 	for(int j=0;j<credit.size();++j)
 	{
-		menuItemFont->print(credit[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+		menuItemFont->print(credit[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.2);
 	}
 	if(input->isKeyDown(VK_ESCAPE))
 	{
@@ -126,7 +129,7 @@ void Menu::displayInstructions()
 	menuHeadingFont->print(instructionHeading, menuAnchor.x, menuAnchor.y);
 	for(int j=0;j<instruction.size();++j)
 	{
-		menuItemFont->print(instruction[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+		menuItemFont->print(instruction[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.2);
 	}
 	if(input->isKeyDown(VK_ESCAPE))
 	{
@@ -141,9 +144,9 @@ void Menu::displayCheats()
 	for(int j=0;j<cheat.size();++j)
 	{
 		if(linePtr2 == j)
-			menuItemFontHighlight->print(cheat[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+			menuItemFontHighlight->print(cheat[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.2);
 		else
-			menuItemFont->print(cheat[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset);
+			menuItemFont->print(cheat[j], menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.2);
 	}
 	if(input->isKeyDown(VK_ESCAPE))
 	{
@@ -153,6 +156,42 @@ void Menu::displayCheats()
 	{
 		//cheatCodes[linePtr2] = true;
 		selectedItem2 = linePtr2;
+	}
+	return;
+}
+void Menu::setHighScoresInfo(std::ifstream& fin1,std::string fileName)
+{
+	scores.clear();
+	fin1.open(fileName);
+	int score_number;
+	for(int i=1;i<10;++i)
+	{
+		if(!fin1.eof())
+		{
+			fin1 >> score_number;
+			scores.push_back(score_number);
+		}
+		else
+			scores.push_back(0);
+	}
+	fin1.close();
+}
+void Menu::displayHighScores()
+{
+	std::stringstream foo;
+	menuHeadingFont->print(scoreHeading, menuAnchor.x, menuAnchor.y);
+	for(int j=0;j<scores.size();++j)
+	{
+		foo << scores[j];
+		std::string stuff;
+		foo>>stuff;
+		menuItemFont->print(stuff, menuAnchor.x, menuAnchor.y + (j+1)*verticalOffset/1.7);
+		foo.clear();
+	}
+	
+	if(input->isKeyDown(VK_ESCAPE))
+	{
+		score = false;
 	}
 	return;
 }
