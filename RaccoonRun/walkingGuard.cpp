@@ -102,6 +102,8 @@ void WalkingGuard::update(float frameTime, bool left, bool right)
 }
 bool WalkingGuard::collidesWithRaccoon(float frameTime, Entity object)
 {
+	if(!active)
+		return false;
 	//ONLY USE THIS WITH RACCOON.
 	bool collides=false;
 

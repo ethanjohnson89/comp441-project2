@@ -51,7 +51,7 @@ private:
 	Raccoon jpo;
 	
 	WalkingGuard cs;
-	Image officerDown;
+	Still officerDown;
 
 	TextureManager cpsoupTexture;
 	CPSoup cpsoup[3];

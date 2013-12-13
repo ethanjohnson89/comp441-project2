@@ -121,7 +121,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
-	if (!jpoDownTexture.initialize(graphics, JPO_IMAGE))
+	if (!jpoDownTexture.initialize(graphics, JPO_DOWN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo-down texture"));
 
 	if (!menuBackgroundTexture.initialize(graphics,MENU_TEXTURE))
@@ -207,8 +207,9 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
-	if(!officerDown.initialize(graphics, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
+	if(!officerDown.initialize(this, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS-down"));
+	officerDown.setVisible(false);
 
 
 	levelSet();
@@ -616,7 +617,6 @@ void RaccoonRun::update()
 				}
 				if(jpo.getVisible())
 				{
-					//audio->playCue(CAUGHT);
 					if(!immortal)
 					{
 						jpo.incrementLivesBy(-1);
@@ -644,7 +644,16 @@ void RaccoonRun::update()
 
 				}
 			}
-			//check frisbee collision
+			//check frisbee collision (??? handled somewhere else?)
+
+			if(laser.collidesWith(cs, collisionVector) && laser.getVisible())
+			{
+				cs.setVisible(false);
+				cs.setActive(false);
+				officerDown.setX(cs.getX());
+				officerDown.setY(cs.getY() + (JPO_HEIGHT - JPO_DOWN_HEIGHT));
+				officerDown.setVisible(true);
+			}
 
 			if(level==2)
 			{
@@ -692,6 +701,8 @@ void RaccoonRun::update()
 			{
 				pizza[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
+
+			officerDown.update(frameTime, moveScreenLeft, moveScreenRight);
 
 			//if(level==3)
 			//{
@@ -932,6 +943,7 @@ void RaccoonRun::render()
 			frisbee.draw();
 			jpo.draw();
 			cs.draw();
+			officerDown.draw();
 			laser.draw();
 			if(level == 2)
 				sniper.draw();
@@ -1063,6 +1075,7 @@ void RaccoonRun::levelSet()
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 		//make him bigger...
 		cs.setScale(1.25);
+		officerDown.setScale(1.25);
 
 		laser.setX(-100);
 		laser.setY(-100);
