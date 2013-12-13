@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 1535458183;
-    Last Modified High = 30341047;
+    Last Modified Low = 2470784744;
+    Last Modified High = 30341061;
 
     Category
     {
@@ -227,10 +227,12 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1535698207;
-    PC Bank Last Modified High = 30341047;
-    Bank Last Revised Low = 1046659308;
-    Bank Last Revised High = 30341047;
+    PC Bank Last Modified Low = 403324744;
+    PC Bank Last Modified High = 30341061;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 239724744;
+    Bank Last Revised High = 30341061;
 
     Wave
     {
@@ -251,29 +253,6 @@ Wave Bank
             Loop Region Length = 0;
             File Type = 1;
             Last Modified Low = 3687010018;
-            Last Modified High = 30336158;
-        }
-    }
-
-    Wave
-    {
-        Name = raccoonLevel1;
-        File = raccoonLevel1.wav;
-        Build Settings Last Modified Low = 225777241;
-        Build Settings Last Modified High = 30335766;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 46;
-            Play Region Length = 5824512;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 3693500018;
             Last Modified High = 30336158;
         }
     }
@@ -392,6 +371,29 @@ Wave Bank
             Last Modified High = 30341046;
         }
     }
+
+    Wave
+    {
+        Name = snipeDeath;
+        File = snipeDeath.wav;
+        Build Settings Last Modified Low = 808393290;
+        Build Settings Last Modified High = 30341059;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 259300;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3581968380;
+            Last Modified High = 30341058;
+        }
+    }
 }
 
 Sound Bank
@@ -401,8 +403,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1536908328;
-    Bank Last Modified High = 30341047;
+    Bank Last Modified Low = 2470884744;
+    Bank Last Modified High = 30341061;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -425,6 +427,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -446,53 +449,6 @@ Sound Bank
                     Bank Index = 0;
                     Entry Name = RaccoonMenu1;
                     Entry Index = 0;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = raccoonLevel1;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = raccoonLevel1;
-                    Entry Index = 1;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -539,7 +495,7 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = boing;
-                    Entry Index = 2;
+                    Entry Index = 1;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -586,7 +542,7 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = triumph1;
-                    Entry Index = 4;
+                    Entry Index = 3;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -613,6 +569,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -633,7 +590,7 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = level;
-                    Entry Index = 3;
+                    Entry Index = 2;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -647,6 +604,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -667,7 +625,7 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = EvilLaugh;
-                    Entry Index = 5;
+                    Entry Index = 4;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -714,7 +672,7 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = EvilLaugh;
-                    Entry Index = 5;
+                    Entry Index = 4;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -761,7 +719,7 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = sniperAwake;
-                    Entry Index = 6;
+                    Entry Index = 5;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -769,23 +727,50 @@ Sound Bank
         }
     }
 
-    Cue
+    Sound
     {
-        Name = raccoonLevel1;
+        Name = snipeDeath;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
 
-        Variation
+        Category Entry
         {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
+            Name = Default;
         }
 
-        Sound Entry
+        Track
         {
-            Name = raccoonLevel1;
-            Index = 1;
-            Weight Min = 0;
-            Weight Max = 255;
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = snipeDeath;
+                    Entry Index = 6;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
         }
     }
 
@@ -823,7 +808,7 @@ Sound Bank
         Sound Entry
         {
             Name = boing;
-            Index = 2;
+            Index = 1;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -843,7 +828,7 @@ Sound Bank
         Sound Entry
         {
             Name = triumph1;
-            Index = 3;
+            Index = 2;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -863,7 +848,7 @@ Sound Bank
         Sound Entry
         {
             Name = level;
-            Index = 4;
+            Index = 3;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -883,7 +868,7 @@ Sound Bank
         Sound Entry
         {
             Name = EvilLaugh;
-            Index = 5;
+            Index = 4;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -903,6 +888,26 @@ Sound Bank
         Sound Entry
         {
             Name = sniperAwake;
+            Index = 5;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = snipeDeath;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = snipeDeath;
             Index = 6;
             Weight Min = 0;
             Weight Max = 255;
