@@ -16,8 +16,8 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 4285313246;
-    Last Modified High = 30336013;
+    Last Modified Low = 1535458183;
+    Last Modified High = 30341047;
 
     Category
     {
@@ -227,10 +227,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 4285433258;
-    PC Bank Last Modified High = 30336013;
-    Bank Last Revised Low = 4285413256;
-    Bank Last Revised High = 30336013;
+    PC Bank Last Modified Low = 1535698207;
+    PC Bank Last Modified High = 30341047;
+    Bank Last Revised Low = 1046659308;
+    Bank Last Revised High = 30341047;
 
     Wave
     {
@@ -250,8 +250,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1879832680;
-            Last Modified High = 30336013;
+            Last Modified Low = 3687010018;
+            Last Modified High = 30336158;
         }
     }
 
@@ -273,8 +273,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1329493176;
-            Last Modified High = 30335839;
+            Last Modified Low = 3693500018;
+            Last Modified High = 30336158;
         }
     }
 
@@ -296,8 +296,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1352315458;
-            Last Modified High = 30335839;
+            Last Modified Low = 1799102522;
+            Last Modified High = 30340983;
         }
     }
 
@@ -319,8 +319,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1833619193;
-            Last Modified High = 30335846;
+            Last Modified Low = 1801062522;
+            Last Modified High = 30340983;
         }
     }
 
@@ -342,8 +342,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1833709193;
-            Last Modified High = 30335846;
+            Last Modified Low = 1801292522;
+            Last Modified High = 30340983;
         }
     }
 
@@ -365,8 +365,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 910444305;
-            Last Modified High = 30336004;
+            Last Modified Low = 1796312522;
+            Last Modified High = 30340983;
+        }
+    }
+
+    Wave
+    {
+        Name = sniperAwake;
+        File = sniperAwake.wav;
+        Build Settings Last Modified Low = 993083951;
+        Build Settings Last Modified High = 30341047;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 6785164;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2818814348;
+            Last Modified High = 30341046;
         }
     }
 }
@@ -378,8 +401,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 4286263341;
-    Bank Last Modified High = 30336013;
+    Bank Last Modified Low = 1536908328;
+    Bank Last Modified High = 30341047;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -699,6 +722,53 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = sniperAwake;
+        Volume = -10;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = sniperAwake;
+                    Entry Index = 6;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = raccoonLevel1;
@@ -814,6 +884,26 @@ Sound Bank
         {
             Name = EvilLaugh;
             Index = 5;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = sniperAwake;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = sniperAwake;
+            Index = 6;
             Weight Min = 0;
             Weight Max = 255;
         }
