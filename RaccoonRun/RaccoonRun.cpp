@@ -427,13 +427,15 @@ void RaccoonRun::update()
 			if(input->isKeyDown(JPO_JUMP_KEY) && jpo.getOnLand() && !fly)
 			{
 				// make JPo jump!
-				if(!jumpedLastFrame)
-						newVelocity = VECTOR2(newVelocity.x, -750);
-				jumpedLastFrame = true;
-				audio->playCue(BOING);
-				//added 11/23
-				//onLand=false;
-				jpo.setOnLand(false);
+				if(!jumpedLastFrame && !debouncer)
+				{
+					newVelocity = VECTOR2(newVelocity.x, -750);
+					jumpedLastFrame = true;
+					audio->playCue(BOING);
+					//added 11/23
+					//onLand=false;
+					jpo.setOnLand(false);
+				}
 			}
 			else if(fly && input->isKeyDown(JPO_JUMP_KEY))
 			{

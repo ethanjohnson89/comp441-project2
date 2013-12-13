@@ -215,6 +215,7 @@ const int  SNIPER_WIDTH = 128;
 const int  SNIPER_HEIGHT = 130;
 const int  SNIPER_HALF_WIDTH = 22;
 const int  SNIPER_HALF_HEIGHT = 16;
+const float SNIPER_ANIMATION_DELAY = 0.5f;
 
 const float JPO_SPEED = 90.5f;
 const float JPO_PROXIMITY_SPEED = 150.0f;

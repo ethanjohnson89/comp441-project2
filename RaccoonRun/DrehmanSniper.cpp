@@ -19,12 +19,19 @@ Sniper::Sniper() : Still()
 	spriteData.rect.right = JPO_WIDTH;
 	velocity.x = 0;
 	velocity.y = 0;
+
+	frameDelay = SNIPER_ANIMATION_DELAY;
+	startFrame = 0;
+	endFrame = 3;
+	currentFrame = startFrame;
+	/*
 	frameDelay = JPO_ANIMATION_DELAY;
-	/*startFrame = JPO_LOOKING_RIGHT_START;
-	endFrame = JPO_LOOKING_RIGHT_END;*/
+	//startFrame = JPO_LOOKING_RIGHT_START;
+	//endFrame = JPO_LOOKING_RIGHT_END;
 	startFrame = JPO_LOOKING_RIGHT_START;
 	endFrame=JPO_LOOKING_RIGHT_START;
 	currentFrame = startFrame;
+	*/
 
 	// Collision box
 	edge.bottom = JPO_HALF_HEIGHT;
@@ -52,14 +59,11 @@ bool Sniper::initialize(Game *gamePtr, int width, int height, int ncols,TextureM
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-/*void Sniper::update(float frameTime, bool left, bool right)
+void Sniper::update(float frameTime, bool left, bool right)
 {
     Entity::update(frameTime);
-    spriteData.x += frameTime * velocity.x;         // move along X 
-    spriteData.y += frameTime * velocity.y;         // move along Y
-
-	
-}*/
+    Still::update(frameTime, left, right);	
+}
 
 void Sniper::ai(Entity *player)
 {
