@@ -208,9 +208,15 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
+	if(!shorty.initialize(this, JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing shorty"));
+
 	if(!officerDown.initialize(this, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS-down"));
 	officerDown.setVisible(false);
+	if(!shortyDown.initialize(this, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing shorty-down"));
+	shortyDown.setVisible(false);
 
 
 	levelSet();
@@ -218,6 +224,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	jpo.setFrames(JPO_LOOKING_LEFT_START, JPO_LOOKING_LEFT_END);
 	jpo.setEdge(COLLISION_BOX_RACCOON); //Added by Christy 11/30
 	cs.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
+	shorty.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 
 
 	if(!platformTexture.initialize(graphics, PLATFORM_TEXTURE))
@@ -579,6 +586,7 @@ void RaccoonRun::update()
 			background[level-1].update(frameTime, moveScreenLeft, moveScreenRight);
 
 			cs.update(frameTime, moveScreenLeft, moveScreenRight);
+			shorty.update(frameTime, moveScreenLeft, moveScreenRight);
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			//
 			if(level==2)
@@ -627,7 +635,7 @@ void RaccoonRun::update()
 				}
 			}
 			
-			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
+			if(cs.collidesWithRaccoon(frameTime, jpo) || shorty.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
 			{
 				//Sleep(1000);
 				if(laser.collidesWith(jpo,collisionVector))
@@ -675,8 +683,17 @@ void RaccoonRun::update()
 				cs.setVisible(false);
 				cs.setActive(false);
 				officerDown.setX(cs.getX());
-				officerDown.setY(cs.getY() + (JPO_HEIGHT - JPO_DOWN_HEIGHT));
+				officerDown.setY(cs.getY() + (JPO_HEIGHT*cs.getScale() - JPO_DOWN_HEIGHT*officerDown.getScale()));
 				officerDown.setVisible(true);
+			}
+
+			if(laser.collidesWith(shorty, collisionVector) && laser.getVisible())
+			{
+				shorty.setVisible(false);
+				shorty.setActive(false);
+				shortyDown.setX(shorty.getX());
+				shortyDown.setY(shorty.getY() + (JPO_HEIGHT*shorty.getScale() - JPO_DOWN_HEIGHT*shortyDown.getScale()));
+				shortyDown.setVisible(true);
 			}
 
 			if(level==2)
@@ -732,6 +749,7 @@ void RaccoonRun::update()
 			}
 
 			officerDown.update(frameTime, moveScreenLeft, moveScreenRight);
+			shortyDown.update(frameTime, moveScreenLeft, moveScreenRight);
 
 			//if(level==3)
 			//{
@@ -791,6 +809,14 @@ void RaccoonRun::update()
 					if(level<3)
 						level++;
 					jpo.setVelocity(VECTOR2(0,0));
+					cs.setActive(true);
+					cs.setVisible(true);
+					shorty.setActive(true);
+					shorty.setVisible(true);
+					officerDown.setActive(false);
+					officerDown.setVisible(false);
+					shortyDown.setActive(false);
+					shortyDown.setVisible(false);
 					reset();
 					debouncer = true;
 				}
@@ -813,7 +839,8 @@ void RaccoonRun::update()
 //=============================================================================
 void RaccoonRun::ai()
 {
-	cs.ai(&jpo);
+	cs.ai(&jpo, &shorty);
+	shorty.ai(&jpo, &cs);
 }
 
 //=============================================================================
@@ -973,7 +1000,9 @@ void RaccoonRun::render()
 			checkPoint.draw();
 			frisbee.draw();
 			jpo.draw();
+			shorty.draw();
 			cs.draw();
+			shortyDown.draw();
 			officerDown.draw();
 			laser.draw();
 			if(level == 2)
@@ -1043,6 +1072,8 @@ void RaccoonRun::releaseAll()
 	debugFont->onLostDevice();
 	
 	jpoTexture.onLostDevice();
+	jpoDownTexture.onLostDevice();
+	sniperTexture.onLostDevice();
 	platformTexture.onLostDevice();
 	cpsoupTexture.onLostDevice();
 	backgroundTexture[0].onLostDevice();
@@ -1064,6 +1095,8 @@ void RaccoonRun::resetAll()
 	debugFont->onLostDevice();
 
 	jpoTexture.onResetDevice();
+	jpoDownTexture.onResetDevice();
+	sniperTexture.onResetDevice();
 	platformTexture.onResetDevice();
 	cpsoupTexture.onResetDevice();
 	backgroundTexture[0].onResetDevice();
@@ -1108,6 +1141,13 @@ void RaccoonRun::levelSet()
 		cs.setScale(1.25);
 		officerDown.setScale(1.25);
 
+		shorty.setX(200);
+		shorty.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+		shorty.setVelocity(D3DXVECTOR2(-SHORTY_SPEED,0));
+		//make him smaller...
+		shorty.setScale(0.75);
+		shortyDown.setScale(0.75);
+
 		laser.setX(-100);
 		laser.setY(-100);
 		laser.setActive(false);
@@ -1136,6 +1176,10 @@ void RaccoonRun::levelSet()
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 
+		shorty.setX(100);
+		shorty.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+		shorty.setVelocity(D3DXVECTOR2(-SHORTY_SPEED,0));
+
 		laser.setActive(true);
 		laser.setVisible(true);
 
@@ -1155,7 +1199,11 @@ void RaccoonRun::levelSet()
 
 		cs.setX(25);
 		cs.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
-		cs.setVelocity(D3DXVECTOR2(90.0f,0));
+		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
+
+		shorty.setX(100);
+		shorty.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
+		shorty.setVelocity(D3DXVECTOR2(-SHORTY_SPEED,0));
 
 		//laser.setX(-100);
 		//laser.setY(-100);
