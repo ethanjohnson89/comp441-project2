@@ -32,7 +32,7 @@ void Menu::initialize(Graphics *g, Input *i)
 	cheatHeading = "These options are cheats";
 	cheat.push_back("Spacebar for flight, but beware of the fate of Icarus");
 	cheat.push_back("Immortality, but you may start feeling like Sisyphus");
-	cheat.push_back("Level 1 skip, but you are sleeping in the bed of Procrustes");
+//	cheat.push_back("Level 1 skip, but you are sleeping in the bed of Procrustes");
 
 	highlightColor = graphicsNS::RED;
 	normalColor = graphicsNS::WHITE;
@@ -88,7 +88,7 @@ void Menu::update()
 	if (input->isKeyDown(VK_RETURN))
 		selectedItem = linePtr;
 	else selectedItem = -1;
-	if(linePtr2 > cheat.size()-1) linePtr2 = 0;
+	if(linePtr2 == cheat.size()) linePtr2 = 0;
 	if(linePtr2 < 0) linePtr2 = cheat.size()-1;
 }
 

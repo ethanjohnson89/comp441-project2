@@ -374,11 +374,11 @@ void RaccoonRun::update()
 				case 1:
 					//jpo.incrementLivesBy(1000000);
 					immortal=true;
-					break;
+					break;		/*
 				case 2:
 					level = 3;
-					break;
-				}
+					break;		*/
+				}				
 				//fly=1;
 				//lives=10000000
 				//level=2;
