@@ -700,7 +700,10 @@ void RaccoonRun::update()
 					onLand=false;
 					gameState=8;
 					if(grassAudio)
+					{
 						audio->stopCue(GRASS);
+						audio->playCue(LEVEL);
+					}
 				}
 					/*reset();*/
 				else
