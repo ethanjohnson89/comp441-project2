@@ -16,7 +16,7 @@ Global Settings
     Header File = sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 2470784744;
+    Last Modified Low = 3520414744;
     Last Modified High = 30341061;
 
     Category
@@ -403,7 +403,7 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 2470884744;
+    Bank Last Modified Low = 3520514744;
     Bank Last Modified High = 30341061;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
@@ -604,7 +604,6 @@ Sound Bank
 
             Play Wave Event
             {
-                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
