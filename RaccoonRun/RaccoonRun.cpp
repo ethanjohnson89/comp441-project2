@@ -53,7 +53,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	score=0;
 	oldScore=0;
 	//level init
-	level=2;
+	level=1;
 
 	statusSet();
 
@@ -538,6 +538,8 @@ void RaccoonRun::update()
 			else if(jpo.collidesWith(frisbee,collisionVector) && jpo.getX()>=30+jpo.getWidth()*jpo.getScale())
 			{
 				int maxX=background[level-1].getWidth()-GAME_WIDTH;
+				//onLand=true;
+				jpo.setOnLand(true);
 				if(background[level-1].getX()>-(maxX))
 					moveScreenRight=true;
 				else
@@ -553,7 +555,8 @@ void RaccoonRun::update()
 			}
 			else
 			{
-				jpo.setOnLand(false);
+				if(!jpo.collidesWith(frisbee,collisionVector))
+					jpo.setOnLand(false);
 				//onLand=false;
 			}
 			for(int i=0; i<15; i++)
@@ -790,7 +793,8 @@ void RaccoonRun::collisions()
 			if(jpo.getX()+jpo.getWidth()*jpo.getScale()>=GAME_WIDTH)
 				moveScreenRight=true;
 			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,1));
-			onLand=true;
+			//onLand=true;
+			jpo.setOnLand(true);
 		}
 		else
 			frisbee.setVelocity(D3DXVECTOR2(frisbee.getVelocity().x,0));
@@ -1110,7 +1114,7 @@ void RaccoonRun::setStillData()
 		checkPoint.set(-2300,175);
 		break;
 	case 2:
-		checkPoint.set(1920,71);
+		checkPoint.set(1470,190);
 		break;
 	case 3:
 		checkPoint.set(1821,240);
@@ -1184,9 +1188,9 @@ void RaccoonRun::setPizzaData()
 	switch(level)
 	{
 	case 1:
-		pizza[0].set(277,400);
+		pizza[0].set(-277,400);
 		pizza[1].set(685,400);
-		pizza[2].set(30,110);
+		pizza[2].set(-2100,110);
 		break;
 	case 2:
 		pizza[0].set(149,423);
