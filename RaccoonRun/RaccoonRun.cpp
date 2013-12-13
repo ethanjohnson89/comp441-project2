@@ -745,9 +745,12 @@ void RaccoonRun::update()
 					between[level-1].setVisible(false);
 					if(level<3)
 						level++;
+					jpo.setVelocity(VECTOR2(0,0));
 					reset();
 					debouncer = true;
 				}
+				else
+					debouncer = false;
 			}
 			break;
 
