@@ -591,8 +591,16 @@ void RaccoonRun::update()
 			//
 			if(level==2)
 			{
+				laser.setVisible(true);
+				laser.setActive(true);
 				if(cs.getCenterX()>450 && cs.getCenterX()<1400)
 				{
+					if(!laser.getGrassMode())
+					{
+						laser.setX(laser.xInit);
+						laser.setY(laser.yInit);
+						laser.setVisible(true);
+					}
 					laser.setGrassMode(true);
 					if(!grassAudio)
 					{
@@ -601,6 +609,7 @@ void RaccoonRun::update()
 						//audio->playCue(COMBAT);
 						grassAudio=true;
 					}
+					
 				}
 				else if(jpo.getOnLand() && jpo.getCenterX()>450 && jpo.getCenterX()<1400)
 				{
@@ -1023,6 +1032,7 @@ void RaccoonRun::render()
 		}
 		/*std::string message;,
 		std::stringstream stuff;*/
+		debugFont->setFontColor(graphicsNS::WHITE);
 		message="Score: ";
 		stuff<<score;
 		stuff>>message;
@@ -1132,6 +1142,8 @@ void RaccoonRun::levelSet()
 		grassAudio=false;
 		gameOver=false;
 		win=false;
+		laser.setGrassMode(false);
+
 
 		jpo.setX(400);
 		jpo.setY(GAME_HEIGHT-(10+RACCOON_HEIGHT));
@@ -1152,6 +1164,7 @@ void RaccoonRun::levelSet()
 		shorty.setScale(0.75);
 		shortyDown.setScale(0.75);
 
+		laser.xInit=LASER_X_INIT;
 		laser.setX(LASER_X_INIT);
 		laser.setY(LASER_Y_INIT);
 		laser.setActive(false);
@@ -1183,10 +1196,12 @@ void RaccoonRun::levelSet()
 		shorty.setX(100);
 		shorty.setY(GAME_HEIGHT-(10+JPO_HEIGHT));
 		shorty.setVelocity(D3DXVECTOR2(-SHORTY_SPEED,0));
-
-		laser.setActive(true);
-		laser.setVisible(true);
-
+		
+		if(laser.getGrassMode())
+		{
+			laser.setActive(true);
+			laser.setVisible(true);
+		}
 		setStillData();
 
 		break;
@@ -1234,7 +1249,7 @@ void RaccoonRun::setStillData()
 	{
 	case 1:
 		//checkPoint.set(1930,76);
-		checkPoint.set(-2300,175);
+		checkPoint.set(-2250,210);
 		break;
 	case 2:
 		checkPoint.set(1470,200);
@@ -1289,8 +1304,8 @@ void RaccoonRun::setCheeseburgerData()
 		break;
 	case 2:
 		cheeseburger[0].set(49,423);
-		cheeseburger[1].set(600,310);
-		cheeseburger[2].set(1463,380);
+		cheeseburger[1].set(1200,275);
+		cheeseburger[2].set(1433,380);
 		break;
 	case 3:
 		cheeseburger[0].set(65,423);

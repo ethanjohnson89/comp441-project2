@@ -299,6 +299,6 @@ const UCHAR JPO_JUMP_KEY	= VK_SPACE;	   // spacebar
 const int COUNTER_MAX = 500;
 const int LASER_X_INIT = 960;
 const int LASER_Y_INIT = 158;
-const int LASER_SPEED = 200;
+const int LASER_SPEED = 300;
 
 #endif
