@@ -1128,6 +1128,10 @@ void RaccoonRun::levelSet()
 		//no cumulative scoring for level 1.
 		score=0;
 		oldScore=0;
+		//bools
+		grassAudio=false;
+		gameOver=false;
+		win=false;
 
 		jpo.setX(400);
 		jpo.setY(GAME_HEIGHT-(10+RACCOON_HEIGHT));
@@ -1148,8 +1152,8 @@ void RaccoonRun::levelSet()
 		shorty.setScale(0.75);
 		shortyDown.setScale(0.75);
 
-		laser.setX(-100);
-		laser.setY(-100);
+		laser.setX(LASER_X_INIT);
+		laser.setY(LASER_Y_INIT);
 		laser.setActive(false);
 		laser.setVisible(false);
 
