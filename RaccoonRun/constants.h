@@ -149,8 +149,8 @@ const int  JPO_HALF_HEIGHT = 48;
 const int  JPO_DOWN_COLS = 2;
 const int  JPO_DOWN_WIDTH = 96;
 const int  JPO_DOWN_HEIGHT = 40;
-const int  JPO_DOWN_LEFT = 0;
-const int  JPO_DOWN_RIGHT = 2;
+const int  JPO_DOWN_LEFT = 0; // animation frames (we're not actually going to animate him, that would be silly, just point him in
+const int  JPO_DOWN_RIGHT = 1; // the same direction he was walking)
 
 //JPO actions
 const int JPO_LOOKING_RIGHT_START = 0;			//1st row
@@ -273,6 +273,9 @@ const char BOING[] = "boing";
 const char YAY[] = "triumph1";
 const char MENU[] = "RaccoonMenu1";
 const char CAUGHT[] = "EvilLaugh";
+const char GRASS[] = "sniperAwake";
+const char SNIPE_DEATH[] = "snipeDeath";
+//const char COMBAT[] = "CombatMusic";
 
 // audio cues
 

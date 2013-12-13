@@ -51,7 +51,7 @@ private:
 	Raccoon jpo;
 	
 	WalkingGuard cs;
-	Image officerDown;
+	Still officerDown;
 
 	TextureManager cpsoupTexture;
 	CPSoup cpsoup[3];
@@ -117,6 +117,7 @@ private:
 
 	//should JPO be able to jump
 	bool onLand;
+	bool grassAudio;
 
 	//preemptive Easter Egg Bool
 	bool fly;

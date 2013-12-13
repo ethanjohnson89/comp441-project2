@@ -30,6 +30,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//game does not start finished
 	gameOver=false;
 	win=false;
+	grassAudio=false;
 
 	//figure out high scores.
 	fin.open("highScores.txt");
@@ -121,7 +122,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
-	if (!jpoDownTexture.initialize(graphics, JPO_IMAGE))
+	if (!jpoDownTexture.initialize(graphics, JPO_DOWN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo-down texture"));
 
 	if (!menuBackgroundTexture.initialize(graphics,MENU_TEXTURE))
@@ -207,8 +208,9 @@ void RaccoonRun::initialize(HWND hwnd)
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
 
-	if(!officerDown.initialize(graphics, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
+	if(!officerDown.initialize(this, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS-down"));
+	officerDown.setVisible(false);
 
 
 	levelSet();
@@ -582,9 +584,27 @@ void RaccoonRun::update()
 			if(level==2)
 			{
 				if(cs.getCenterX()>450 && cs.getCenterX()<1400)
+				{
 					laser.setGrassMode(true);
+					if(!grassAudio)
+					{
+						audio->stopCue(LEVEL);
+						audio->playCue(GRASS);
+						//audio->playCue(COMBAT);
+						grassAudio=true;
+					}
+				}
 				else if(jpo.getOnLand() && jpo.getCenterX()>450 && jpo.getCenterX()<1400)
+				{
 					laser.setGrassMode(true);
+					if(!grassAudio)
+					{
+						audio->stopCue(LEVEL);
+						audio->playCue(GRASS);
+						//audio->playCue(COMBAT);
+						grassAudio=true;
+					}
+				}
 				else
 					laser.setGrassMode(false);
 			}
@@ -612,17 +632,21 @@ void RaccoonRun::update()
 				//Sleep(1000);
 				if(laser.collidesWith(jpo,collisionVector))
 				{ 
+					audio->playCue(SNIPE_DEATH);
 					laser.setVisible(false);
+				}
+				else
+				{
+					audio->playCue(CAUGHT);
 				}
 				if(jpo.getVisible())
 				{
-					audio->playCue(CAUGHT);
-					/*if(!immortal)
+					if(!immortal)
 					{
 						jpo.incrementLivesBy(-1);
-						if(jpo.getLives()<3)
+						if(jpo.getLives()<5)
 							lives[jpo.getLives()].setVisible(false);
-					}*/
+					}
 //					Sleep(500);
 				}
 				jpo.setVisible(false);
@@ -644,7 +668,16 @@ void RaccoonRun::update()
 
 				}
 			}
-			//check frisbee collision
+			//check frisbee collision (??? handled somewhere else?)
+
+			if(laser.collidesWith(cs, collisionVector) && laser.getVisible())
+			{
+				cs.setVisible(false);
+				cs.setActive(false);
+				officerDown.setX(cs.getX());
+				officerDown.setY(cs.getY() + (JPO_HEIGHT - JPO_DOWN_HEIGHT));
+				officerDown.setVisible(true);
+			}
 
 			if(level==2)
 			{
@@ -671,6 +704,11 @@ void RaccoonRun::update()
 				{
 					onLand=false;
 					gameState=8;
+					if(grassAudio)
+					{
+						audio->stopCue(GRASS);
+						audio->playCue(LEVEL);
+					}
 				}
 					/*reset();*/
 				else
@@ -692,6 +730,8 @@ void RaccoonRun::update()
 			{
 				pizza[i].update(frameTime, moveScreenLeft, moveScreenRight);
 			}
+
+			officerDown.update(frameTime, moveScreenLeft, moveScreenRight);
 
 			//if(level==3)
 			//{
@@ -934,6 +974,7 @@ void RaccoonRun::render()
 			frisbee.draw();
 			jpo.draw();
 			cs.draw();
+			officerDown.draw();
 			laser.draw();
 			if(level == 2)
 				sniper.draw();
@@ -1065,6 +1106,7 @@ void RaccoonRun::levelSet()
 		cs.setVelocity(D3DXVECTOR2(JPO_SPEED,0));
 		//make him bigger...
 		cs.setScale(1.25);
+		officerDown.setScale(1.25);
 
 		laser.setX(-100);
 		laser.setY(-100);
@@ -1162,13 +1204,13 @@ void RaccoonRun::setSoupData()
 	{
 	case 1:
 		cpsoup[0].set(377,410);
-		cpsoup[1].set(785,400);
-		cpsoup[2].set(1064,175);
+		cpsoup[1].set(-585,400);
+		cpsoup[2].set(-1064,175);
 		break;
 	case 2:
 		cpsoup[0].set(249,423);
 		cpsoup[1].set(500,310);
-		cpsoup[2].set(963,400);
+		cpsoup[2].set(1263,200);
 		break;
 	case 3:
 		cpsoup[0].set(249,423);
@@ -1195,8 +1237,8 @@ void RaccoonRun::setCheeseburgerData()
 		break;
 	case 2:
 		cheeseburger[0].set(49,423);
-		cheeseburger[1].set(300,310);
-		cheeseburger[2].set(763,380);
+		cheeseburger[1].set(600,310);
+		cheeseburger[2].set(1463,380);
 		break;
 	case 3:
 		cheeseburger[0].set(65,423);
@@ -1223,8 +1265,8 @@ void RaccoonRun::setPizzaData()
 		break;
 	case 2:
 		pizza[0].set(149,423);
-		pizza[1].set(400,310);
-		pizza[2].set(863,400);
+		pizza[1].set(450,310);
+		pizza[2].set(963,400);
 		break;
 	case 3:
 		pizza[0].set(149,423);
