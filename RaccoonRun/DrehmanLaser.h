@@ -30,6 +30,9 @@ public:
 	float getX(){return spriteData.x;}
 	float getY(){return spriteData.y;}
 	bool incrementCounter();
+	
+	void setGrassMode(bool shoot){grassMode = shoot;}
+	bool getGrassMode(){return grassMode;}
 
 	float xInit;
 	float yInit;
@@ -38,6 +41,7 @@ private:
 	bool right;
 	bool firing;
 	int counter;
+	bool grassMode;
 //	const int COUNTER_MAX = 100;
 };
 

@@ -574,20 +574,32 @@ void RaccoonRun::update()
 			cs.update(frameTime, moveScreenLeft, moveScreenRight);
 			checkPoint.update(frameTime, moveScreenLeft, moveScreenRight);
 			//
-//			VECTOR2 collisionVector;
-//			laser.setRight(jpo.getCenterX()>laser.getCenterX());		// sets velocity right if Raccoon's center is right of sniper.
-			if(laser.getActive()&&laser.incrementCounter())
+			if(level==2)
 			{
-				laser.setVisible(true);
-				
-				//laser.setX(LASER_X_INIT);
-				laser.setX(laser.xInit);
-				laser.setY(LASER_Y_INIT);
-				tracking_x = jpo.getCenterX() - laser.getCenterX();
-				tracking_y = jpo.getCenterY() - laser.getCenterY();
-				absolute = sqrt(tracking_x*tracking_x + tracking_y*tracking_y);
-				laser.setRadians(atan(tracking_y/tracking_x));
-				laser.setVelocity(D3DXVECTOR2(LASER_SPEED*tracking_x/absolute,LASER_SPEED*tracking_y/absolute));
+				if(cs.getCenterX()>450 && cs.getCenterX()<1400)
+					laser.setGrassMode(true);
+				else if(jpo.getOnLand() && jpo.getCenterX()>450 && jpo.getCenterX()<1400)
+					laser.setGrassMode(true);
+				else
+					laser.setGrassMode(false);
+			}
+			else
+				laser.setGrassMode(false);
+
+//			VECTOR2 collisionVector;
+			if(laser.getActive()&&laser.getGrassMode())
+			{
+				if(laser.incrementCounter())
+				{
+					laser.setVisible(true);
+					laser.setX(laser.xInit);
+					laser.setY(LASER_Y_INIT);
+					tracking_x = jpo.getCenterX() - laser.getCenterX();
+					tracking_y = jpo.getCenterY() - laser.getCenterY();
+					absolute = sqrt(tracking_x*tracking_x + tracking_y*tracking_y);
+					laser.setRadians(atan(tracking_y/tracking_x));
+					laser.setVelocity(D3DXVECTOR2(LASER_SPEED*tracking_x/absolute,LASER_SPEED*tracking_y/absolute));
+				}
 			}
 			
 			if(cs.collidesWithRaccoon(frameTime, jpo) || (laser.collidesWith(jpo,collisionVector)) && laser.getVisible())
@@ -766,7 +778,6 @@ void RaccoonRun::collisions()
 	if(jpo.getY()<GAME_HEIGHT-jpo.getHeight()*jpo.getScale())
 		jpo.setOnLand(false);
 
-	
 	for(int i=0; i<15 && jpo.getOnLand()!=true; i++)
 	{
 		//if(jpo.collideBox(platform[i],collisionVector));s
@@ -1045,8 +1056,8 @@ void RaccoonRun::levelSet()
 		//make him bigger...
 		cs.setScale(1.25);
 
-		//laser.setX(-100);
-		//laser.setY(-100);
+		laser.setX(-100);
+		laser.setY(-100);
 		laser.setActive(false);
 		laser.setVisible(false);
 
@@ -1112,7 +1123,6 @@ void RaccoonRun::setStillData()
 	setCheeseburgerData();
 	setPizzaData();
 	if(level==2)
-		//sniper.set(700,100);
 		sniper.set(LASER_X_INIT,LASER_Y_INIT);
 
 	//checkpoint stuff
