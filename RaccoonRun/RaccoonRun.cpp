@@ -607,11 +607,16 @@ void RaccoonRun::update()
 				//Sleep(1000);
 				if(laser.collidesWith(jpo,collisionVector))
 				{ 
+					audio->playCue(SNIPE_DEATH);
 					laser.setVisible(false);
+				}
+				else
+				{
+					audio->playCue(CAUGHT);
 				}
 				if(jpo.getVisible())
 				{
-					audio->playCue(CAUGHT);
+					//audio->playCue(CAUGHT);
 					if(!immortal)
 					{
 						jpo.incrementLivesBy(-1);
