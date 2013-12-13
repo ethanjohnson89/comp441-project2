@@ -687,7 +687,7 @@ void RaccoonRun::update()
 
 			break;
 		case 6:
-			if(input->wasKeyPressed(VK_SPACE))		// formerly ESCAPE
+			if(input->wasKeyPressed(VK_ESCAPE))		// formerly ESCAPE
 				{
 					audio->stopCue(LEVEL);
 					audio->playCue(MENU);
@@ -702,7 +702,7 @@ void RaccoonRun::update()
 				}
 			break;
 		case 7:
-			if(input->wasKeyPressed(VK_SPACE))		// formerly ESCAPE
+			if(input->wasKeyPressed(VK_ESCAPE))		// formerly ESCAPE
 				{
 					audio->stopCue(LEVEL);
 					audio->playCue(MENU);
