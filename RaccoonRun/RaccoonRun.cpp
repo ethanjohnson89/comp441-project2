@@ -681,7 +681,7 @@ void RaccoonRun::update()
 
 			break;
 		case 6:
-			if(input->wasKeyPressed(VK_ESCAPE))
+			if(input->wasKeyPressed(VK_SPACE))		// formerly ESCAPE
 				{
 					audio->stopCue(LEVEL);
 					audio->playCue(MENU);
