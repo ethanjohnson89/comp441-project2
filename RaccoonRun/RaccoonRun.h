@@ -117,6 +117,7 @@ private:
 
 	//should JPO be able to jump
 	bool onLand;
+	bool grassAudio;
 
 	//preemptive Easter Egg Bool
 	bool fly;

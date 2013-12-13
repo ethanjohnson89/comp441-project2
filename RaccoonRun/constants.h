@@ -273,8 +273,9 @@ const char BOING[] = "boing";
 const char YAY[] = "triumph1";
 const char MENU[] = "RaccoonMenu1";
 const char CAUGHT[] = "EvilLaugh";
-const char GRASS[] = "awakenedSniper";
+const char GRASS[] = "sniperAwake";
 const char SNIPE_DEATH[] = "snipeDeath";
+//const char COMBAT[] = "CombatMusic";
 
 // audio cues
 

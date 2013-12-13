@@ -30,6 +30,7 @@ void RaccoonRun::initialize(HWND hwnd)
 	//game does not start finished
 	gameOver=false;
 	win=false;
+	grassAudio=false;
 
 	//figure out high scores.
 	fin.open("highScores.txt");
@@ -578,9 +579,27 @@ void RaccoonRun::update()
 			if(level==2)
 			{
 				if(cs.getCenterX()>450 && cs.getCenterX()<1400)
+				{
 					laser.setGrassMode(true);
+					if(!grassAudio)
+					{
+						audio->stopCue(LEVEL);
+						audio->playCue(GRASS);
+						//audio->playCue(COMBAT);
+						grassAudio=true;
+					}
+				}
 				else if(jpo.getOnLand() && jpo.getCenterX()>450 && jpo.getCenterX()<1400)
+				{
 					laser.setGrassMode(true);
+					if(!grassAudio)
+					{
+						audio->stopCue(LEVEL);
+						audio->playCue(GRASS);
+						//audio->playCue(COMBAT);
+						grassAudio=true;
+					}
+				}
 				else
 					laser.setGrassMode(false);
 			}
@@ -680,6 +699,8 @@ void RaccoonRun::update()
 				{
 					onLand=false;
 					gameState=8;
+					if(grassAudio)
+						audio->stopCue(GRASS);
 				}
 					/*reset();*/
 				else
