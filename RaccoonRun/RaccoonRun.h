@@ -47,10 +47,11 @@ private:
 
 	TextureManager raccoonTexture;
     TextureManager jpoTexture;
+	TextureManager jpoDownTexture;
 	Raccoon jpo;
 	
-	TextureManager csTexture;
 	WalkingGuard cs;
+	Image officerDown;
 
 	TextureManager cpsoupTexture;
 	CPSoup cpsoup[3];
