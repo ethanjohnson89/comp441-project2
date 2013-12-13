@@ -96,6 +96,7 @@ const float GRAVITY = 2000.0f;                  // acceleration of gravity pixel
 // graphic images
 const char DASHBOARD_TEXTURES[] = "pictures\\dashboard.png";
 const char JPO_IMAGE[]   = "pictures\\JPo Officer.png";
+const char JPO_DOWN_IMAGE[] = "pictures\\officer_down.png";
 const char RACCOON_IMAGE[] = "pictures\\raccoonSheet1.png";
 const char CPSOUP_IMAGE[] = "pictures\\CheeseburgerPizzaSoup.png";
 const char CHEESEBURGER_IMAGE[] = "pictures\\cheeseburger.png";
@@ -143,6 +144,13 @@ const int  JPO_WIDTH = 128;
 const int  JPO_HEIGHT = 130;
 const int  JPO_HALF_WIDTH = 22;
 const int  JPO_HALF_HEIGHT = 48;
+
+// Officer Down
+const int  JPO_DOWN_COLS = 2;
+const int  JPO_DOWN_WIDTH = 96;
+const int  JPO_DOWN_HEIGHT = 40;
+const int  JPO_DOWN_LEFT = 0;
+const int  JPO_DOWN_RIGHT = 2;
 
 //JPO actions
 const int JPO_LOOKING_RIGHT_START = 0;			//1st row

@@ -121,6 +121,8 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if (!jpoTexture.initialize(graphics,JPO_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo texture"));
+	if (!jpoDownTexture.initialize(graphics, JPO_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing jpo-down texture"));
 
 	if (!menuBackgroundTexture.initialize(graphics,MENU_TEXTURE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing menu texture"));
@@ -204,6 +206,10 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	if (!cs.initialize(this,JPO_WIDTH, JPO_HEIGHT, JPO_COLS, &jpoTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS"));
+
+	if(!officerDown.initialize(graphics, JPO_DOWN_WIDTH, JPO_DOWN_HEIGHT, JPO_DOWN_COLS, &jpoDownTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing CS-down"));
+
 
 	levelSet();
 
