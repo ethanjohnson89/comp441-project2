@@ -612,12 +612,12 @@ void RaccoonRun::update()
 				if(jpo.getVisible())
 				{
 					audio->playCue(CAUGHT);
-					/*if(!immortal)
+					if(!immortal)
 					{
 						jpo.incrementLivesBy(-1);
-						if(jpo.getLives()<3)
+						if(jpo.getLives()<5)
 							lives[jpo.getLives()].setVisible(false);
-					}*/
+					}
 //					Sleep(500);
 				}
 				jpo.setVisible(false);
@@ -1155,13 +1155,13 @@ void RaccoonRun::setSoupData()
 	{
 	case 1:
 		cpsoup[0].set(377,410);
-		cpsoup[1].set(785,400);
-		cpsoup[2].set(1064,175);
+		cpsoup[1].set(-585,400);
+		cpsoup[2].set(-1064,175);
 		break;
 	case 2:
 		cpsoup[0].set(249,423);
 		cpsoup[1].set(500,310);
-		cpsoup[2].set(963,400);
+		cpsoup[2].set(1263,200);
 		break;
 	case 3:
 		cpsoup[0].set(249,423);
@@ -1188,8 +1188,8 @@ void RaccoonRun::setCheeseburgerData()
 		break;
 	case 2:
 		cheeseburger[0].set(49,423);
-		cheeseburger[1].set(300,310);
-		cheeseburger[2].set(763,380);
+		cheeseburger[1].set(600,310);
+		cheeseburger[2].set(1463,380);
 		break;
 	case 3:
 		cheeseburger[0].set(65,423);
@@ -1216,8 +1216,8 @@ void RaccoonRun::setPizzaData()
 		break;
 	case 2:
 		pizza[0].set(149,423);
-		pizza[1].set(400,310);
-		pizza[2].set(863,400);
+		pizza[1].set(450,310);
+		pizza[2].set(963,400);
 		break;
 	case 3:
 		pizza[0].set(149,423);
