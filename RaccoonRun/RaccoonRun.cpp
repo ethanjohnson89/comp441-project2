@@ -213,7 +213,7 @@ void RaccoonRun::initialize(HWND hwnd)
 
 	levelSet();
 
-	jpo.setFrames(JPO_LOOKING_RIGHT_START, JPO_LOOKING_RIGHT_END);
+	jpo.setFrames(JPO_LOOKING_LEFT_START, JPO_LOOKING_LEFT_END);
 	jpo.setEdge(COLLISION_BOX_RACCOON); //Added by Christy 11/30
 	cs.setFrames(JPO_WALKING_RIGHT_START, JPO_WALKING_RIGHT_END);
 
@@ -600,12 +600,12 @@ void RaccoonRun::update()
 				if(jpo.getVisible())
 				{
 					audio->playCue(CAUGHT);
-					if(!immortal)
+					/*if(!immortal)
 					{
 						jpo.incrementLivesBy(-1);
 						if(jpo.getLives()<3)
 							lives[jpo.getLives()].setVisible(false);
-					}
+					}*/
 //					Sleep(500);
 				}
 				jpo.setVisible(false);
@@ -646,7 +646,7 @@ void RaccoonRun::update()
 				score+=level*50;
 				oldScore=score;
 				//jpo.setLives(jpo.getLives()+1);
-				if(!immortal)
+				if(!immortal && jpo.getLives() < 5)
 					jpo.incrementLivesBy(1);
 				
 				//paused=true;
@@ -923,7 +923,7 @@ void RaccoonRun::render()
 				gameState=0;
 		}
 		
-		for(int i=0; lives[i].getVisible(); i++)
+		for(int i=0; lives[i].getVisible() && i<5; i++)
 		{
 			lives[i].draw();
 		}
@@ -1236,6 +1236,10 @@ void RaccoonRun::statusSet()
 	blackBar.setY(-20);
 	
 	int xOffset=65;
+	while(jpo.getLives()>5)
+	{
+		jpo.incrementLivesBy(-1);
+	}
 	for(int i=0; i<5; i++)
 	{
 		lives[i].setX(5+i*xOffset);
@@ -1243,7 +1247,7 @@ void RaccoonRun::statusSet()
 		lives[i].setVisible(false);
 		lives[i].setScale(.2);
 	}
-	for(int i=0; i<jpo.getLives(); i++)
+	for(int i=0; i<jpo.getLives() && i<5; i++)
 	{
 		lives[i].setVisible(true);
 	}
