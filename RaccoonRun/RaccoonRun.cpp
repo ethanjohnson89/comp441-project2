@@ -1120,7 +1120,7 @@ void RaccoonRun::setStillData()
 		checkPoint.set(-2300,175);
 		break;
 	case 2:
-		checkPoint.set(1470,190);
+		checkPoint.set(1470,200);
 		break;
 	case 3:
 		checkPoint.set(1821,240);
